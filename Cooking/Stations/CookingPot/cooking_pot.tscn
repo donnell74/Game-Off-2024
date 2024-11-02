@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvo2wsgg80c87"]
+
+[ext_resource type="Texture2D" uid="uid://bsyb6cikb4ini" path="res://Cooking/Assets/cooking_pot.png" id="1_p7g1w"]
+[ext_resource type="Script" path="res://Cooking/Stations/CookingPot/cooking_pot.gd" id="2_vrf1w"]
+
+[node name="CookingPot" type="Sprite2D"]
+position = Vector2(590, 225)
+scale = Vector2(3, 3)
+texture = ExtResource("1_p7g1w")
+script = ExtResource("2_vrf1w")
