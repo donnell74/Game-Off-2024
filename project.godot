@@ -11,5 +11,10 @@ config_version=5
 [application]
 
 config/name="2024 Game Off"
+run/main_scene="res://Campfire/campfire.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PartyController="*res://Party/party_controller.tscn"
