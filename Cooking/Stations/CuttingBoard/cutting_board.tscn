@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://d38nlxol5ysn2"]
+
+[ext_resource type="Script" path="res://Cooking/Stations/CuttingBoard/cutting_board.gd" id="1_uof7x"]
+[ext_resource type="Resource" uid="uid://bdh02w8vh74sk" path="res://Cooking/Stations/CuttingBoard/cutting_board_inventory.tres" id="2_4ujni"]
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="3_feydg"]
+
+[node name="CuttingBoard" type="Node2D"]
+script = ExtResource("1_uof7x")
+inventory = ExtResource("2_4ujni")
+inventory_item_resource = ExtResource("3_feydg")

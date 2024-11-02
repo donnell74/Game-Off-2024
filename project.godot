@@ -18,4 +18,4 @@ config/icon="res://icon.svg"
 [autoload]
 
 PartyController="*res://Party/party_controller.tscn"
-InventoryController="*res://Inventory/inventory_controller.tscn"
+PlayerInventoryController="*res://Inventory/player_inventory_controller.tscn"

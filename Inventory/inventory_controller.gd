@@ -1,4 +1,5 @@
 extends Node
+class_name InventoryController
 
 @export var inventory : Inventory = preload("res://Inventory/player_inventory.tres")
 @export var inventory_item_resource : Resource
@@ -24,3 +25,12 @@ func take_item(item_index: int, quantity_needed: int = 1) -> InventoryItem:
 		item.quantity = quantity_needed
 		item.texture = inventory.items[item_index].texture
 		return item
+
+
+func _to_string() -> String:
+	var inventory_string = "["
+	for each_item in inventory.items:
+		inventory_string += "%s, " % each_item.name
+	
+	inventory_string = inventory_string.substr(0, inventory_string.length() - 2) + "]"
+	return inventory_string
