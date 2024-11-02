@@ -8,3 +8,4 @@ position = Vector2(590, 225)
 scale = Vector2(3, 3)
 texture = ExtResource("1_p7g1w")
 script = ExtResource("2_vrf1w")
+current_items = null
