@@ -1,9 +1,14 @@
 extends Station
 
-func _ready() -> void:
-	var potato = InventoryController.take_item(0)
-	print("Potato: %s with quantity: %d" % [potato.name, potato.quantity])
-	var butter = InventoryController.take_item(0, 2)
-	print("Butter: %s with quantity: %d" % [butter.name, butter.quantity])
-	
-	perform(0, "cook", {PartyController.Stats.STRENGTH: 1.1})
+func add_item(item: InventoryItem) -> void:
+	print("Adding %s to cooking pot" % item.name)
+	super(item)
+	print("CookingPot.add_item => New inventory: %s" % to_string())
+
+func melt() -> void:
+	perform_single(0, "Melted", {PartyController.Stats.HEALTH: 1.1})
+	print("CookingPot.melt => New inventory: %s" % to_string())
+
+func cook() -> void:
+	perform_single(0, "Cooked", {PartyController.Stats.STRENGTH: 1.1})
+	print("CookingPot.chop => New inventory: %s" % to_string())

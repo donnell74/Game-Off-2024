@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://36tjrcun16m8"]
+[gd_scene load_steps=6 format=3 uid="uid://36tjrcun16m8"]
 
+[ext_resource type="Script" path="res://Cooking/cooking_ui.gd" id="1_s1hhb"]
 [ext_resource type="Texture2D" uid="uid://cbxg3xuocjoh0" path="res://Cooking/Assets/knife.png" id="2_gph8i"]
 [ext_resource type="PackedScene" uid="uid://c4lvb75fcwdoy" path="res://Cooking/Card/card.tscn" id="2_lyesf"]
 [ext_resource type="PackedScene" uid="uid://dvo2wsgg80c87" path="res://Cooking/Stations/CookingPot/cooking_pot.tscn" id="2_y8iop"]
+[ext_resource type="PackedScene" uid="uid://d38nlxol5ysn2" path="res://Cooking/Stations/CuttingBoard/cutting_board.tscn" id="5_m5731"]
 
 [node name="CookingUi" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_s1hhb")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -15,7 +18,8 @@ offset_top = -92.0
 offset_right = 1201.0
 offset_bottom = 808.0
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="CardContainer" type="GridContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -31,21 +35,25 @@ grow_vertical = 0
 theme_override_constants/h_separation = 20
 columns = 5
 
-[node name="Card1" parent="GridContainer" instance=ExtResource("2_lyesf")]
+[node name="Card1" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 image_texture = ExtResource("2_gph8i")
 description = "Chop"
 
-[node name="Card2" parent="GridContainer" instance=ExtResource("2_lyesf")]
+[node name="Card2" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 
-[node name="Card3" parent="GridContainer" instance=ExtResource("2_lyesf")]
+[node name="Card3" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 
-[node name="Card4" parent="GridContainer" instance=ExtResource("2_lyesf")]
+[node name="Card4" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 
-[node name="Card5" parent="GridContainer" instance=ExtResource("2_lyesf")]
+[node name="Card5" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 
 [node name="CookingPot" parent="." instance=ExtResource("2_y8iop")]
+unique_name_in_owner = true
+
+[node name="CuttingBoard" parent="." instance=ExtResource("5_m5731")]
+unique_name_in_owner = true
