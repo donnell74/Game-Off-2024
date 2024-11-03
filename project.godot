@@ -19,3 +19,5 @@ config/icon="res://icon.svg"
 
 PartyController="*res://Party/party_controller.tscn"
 PlayerInventoryController="*res://Inventory/player_inventory_controller.tscn"
+Actions="*res://Cooking/actions.gd"
+AllRecipeController="*res://Recipes/Books/all_recipe_controller.tscn"

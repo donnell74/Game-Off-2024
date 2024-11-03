@@ -2,12 +2,19 @@ extends Control
 
 func _ready() -> void:
 	var potato = PlayerInventoryController.take_item(0)
-	print("Potato: %s with quantity: %d" % [potato.name, potato.quantity])
-	var butter = PlayerInventoryController.take_item(0, 2)
-	print("Butter: %s with quantity: %d" % [butter.name, butter.quantity])
+	print("Potato: %s" % [potato.name])
+	var butter = PlayerInventoryController.take_item(0)
+	print("Butter: %s" % [butter.name])
 	
 	%CuttingBoard.add_item(potato)
-	%CuttingBoard.chop()
+	%CuttingBoard.dice()
+	var diced_potatoes = %CuttingBoard.take_item(0)
 	
 	%CookingPot.add_item(butter)
 	%CookingPot.melt()
+	var melted_butter = %CookingPot.take_item(0)
+	
+	%CookingPot.add_item(diced_potatoes)
+	%CookingPot.boil()
+	%CookingPot.add_item(melted_butter)
+	%CookingPot.mash()

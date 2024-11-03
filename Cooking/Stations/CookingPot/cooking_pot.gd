@@ -6,9 +6,13 @@ func add_item(item: InventoryItem) -> void:
 	print("CookingPot.add_item => New inventory: %s" % to_string())
 
 func melt() -> void:
-	perform_single(0, "Melted", {PartyController.Stats.HEALTH: 1.1})
+	perform_combination(Actions.Actions.MELT, {PartyController.Stats.HEALTH: 1.1})
 	print("CookingPot.melt => New inventory: %s" % to_string())
 
-func cook() -> void:
-	perform_single(0, "Cooked", {PartyController.Stats.STRENGTH: 1.1})
-	print("CookingPot.chop => New inventory: %s" % to_string())
+func boil() -> void:
+	perform_combination(Actions.Actions.BOIL, {PartyController.Stats.STRENGTH: 1.1})
+	print("CookingPot.boil => New inventory: %s" % to_string())
+
+func mash() -> void:
+	perform_combination(Actions.Actions.MASH, {PartyController.Stats.STAMINA: 1.1})
+	print("CookingPot.mash => New inventory: %s" % to_string())
