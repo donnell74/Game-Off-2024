@@ -1,5 +1,10 @@
 extends Station
 
+func _ready() -> void:
+	perform_method_map[Actions.Actions.MELT] = melt
+	perform_method_map[Actions.Actions.BOIL] = boil
+	perform_method_map[Actions.Actions.MASH] = mash
+
 func add_item(item: InventoryItem) -> void:
 	print("Adding %s to cooking pot" % item.name)
 	super(item)

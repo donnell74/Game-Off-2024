@@ -1,6 +1,18 @@
 extends InventoryController
 class_name Station
 
+@export var perform_method_map = {
+	Actions.Actions.WAIT: func wait():
+		print("Waiting...")
+}
+
+func get_perform_method(action: Actions.Actions) -> Callable:
+	if not action in perform_method_map:
+		print("%s not in perform_method_map" % Actions.Actions.keys()[action])
+		return perform_method_map[Actions.Actions.WAIT]
+	
+	return perform_method_map[action]
+
 # @param item_index Index of the item we are performing on
 # @param action Action is the enum value to perform on the item
 # @param modifiers Modifiers is the attributes being changed by this perform, should follow the 
