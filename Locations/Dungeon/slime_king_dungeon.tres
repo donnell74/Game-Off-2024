@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Location" load_steps=5 format=3 uid="uid://sde5dvd0tsdi"]
+
+[ext_resource type="Script" path="res://Locations/activity.gd" id="1_to2q0"]
+[ext_resource type="Script" path="res://Locations/location.gd" id="2_66sqr"]
+[ext_resource type="Resource" uid="uid://d006v8lwo3507" path="res://Locations/Activities/slime_king.tres" id="2_hovrn"]
+[ext_resource type="Resource" uid="uid://1a8nxff48qdq" path="res://Locations/Activities/slime.tres" id="3_a2htq"]
+
+[resource]
+script = ExtResource("2_66sqr")
+description = "Slime King's Dungeon"
+morningActivities = Array[ExtResource("1_to2q0")]([ExtResource("3_a2htq")])
+afternoonActivities = Array[ExtResource("1_to2q0")]([ExtResource("2_hovrn")])
+currentTimeOfDay = 0

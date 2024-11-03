@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cismypygs2cig"]
+
+[ext_resource type="Script" path="res://Locations/location_controller.gd" id="1_osbva"]
+[ext_resource type="Resource" uid="uid://sde5dvd0tsdi" path="res://Locations/Dungeon/slime_king_dungeon.tres" id="2_7llln"]
+
+[node name="Location" type="Node2D"]
+script = ExtResource("1_osbva")
+location = ExtResource("2_7llln")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1157.0
+offset_bottom = 649.0
