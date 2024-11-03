@@ -11,6 +11,7 @@ enum TimeOfDay {
 }
 
 @export var description : String = "<Unknown>"
+@export var background_texture : Texture2D
 @export var morningActivities : Array[Activity] = []
 @export var afternoonActivities : Array[Activity] = []
 @export var eveningActivities : Array[Activity] = []
