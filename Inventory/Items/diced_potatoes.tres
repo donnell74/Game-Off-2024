@@ -5,5 +5,3 @@
 [resource]
 script = ExtResource("1_wes0u")
 name = "Diced Potato"
-quantity = 1
-transistions = {}

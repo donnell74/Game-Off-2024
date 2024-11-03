@@ -2,7 +2,7 @@ extends Node
 
 # Always add to end otherwise saves will break
 enum Actions {
-	CHOP   = 0, # cutting board
+	WAIT   = 0, # No action, no station
 	DICE   = 1, # cutting board
 	PEEL   = 2, # cutting board
 	BOIL   = 3, # cooking pot
@@ -10,4 +10,5 @@ enum Actions {
 	SIMMER = 5, # cooking pot
 	MELT   = 6, # cooking pot
 	MASH   = 7, # cooking pot
+	CHOP   = 8, # cutting board
 }

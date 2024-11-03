@@ -1,20 +1,62 @@
 extends Control
 
+@export var active_station_index = 0
+
 func _ready() -> void:
-	var potato = PlayerInventoryController.take_item(0)
-	print("Potato: %s" % [potato.name])
-	var butter = PlayerInventoryController.take_item(0)
-	print("Butter: %s" % [butter.name])
+	PlayerInventoryController.inventory_updated.connect(_on_player_inventory_updated)
+	update_player_item_list()
+
+	var active_station = %Stations.get_child(active_station_index)
+	if active_station and active_station.has_signal("inventory_updated"):
+		update_station_item_list()
+		active_station.inventory_updated.connect(_on_station_inventory_updated)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Accept"):
+		if %PlayerInventoryList.get_selected_items().size() == 1:
+			var inventory_item = PlayerInventoryController.take_item(%PlayerInventoryList.get_selected_items()[0])
+			%Stations.get_child(active_station_index).add_item(inventory_item)
+		elif %StationInventoryList.get_selected_items().size() == 1:
+			var station_item = %Stations.get_child(active_station_index)\
+					.take_item(%StationInventoryList.get_selected_items()[0])
+			PlayerInventoryController.add_item(station_item)
+	elif event.is_action_pressed("Navigate To Next Page"):
+		switch_active_station(1)
+	elif event.is_action_pressed("Navigate to Last Page"):
+		switch_active_station(-1)
+		
+func switch_active_station(increment: int) -> void:
+	var new_active_index = (active_station_index + increment) % %Stations.get_child_count()
+	print("Switching active station from %d to %d" % [active_station_index, new_active_index])
 	
-	%CuttingBoard.add_item(potato)
-	%CuttingBoard.dice()
-	var diced_potatoes = %CuttingBoard.take_item(0)
-	
-	%CookingPot.add_item(butter)
-	%CookingPot.melt()
-	var melted_butter = %CookingPot.take_item(0)
-	
-	%CookingPot.add_item(diced_potatoes)
-	%CookingPot.boil()
-	%CookingPot.add_item(melted_butter)
-	%CookingPot.mash()
+	var active_station = %Stations.get_child(active_station_index)
+	if active_station and active_station.has_signal("inventory_updated") \
+			and active_station.inventory_updated.is_connected(_on_station_inventory_updated):
+		active_station.inventory_updated.disconnect(_on_station_inventory_updated)
+		active_station.visible = false
+
+	active_station_index = new_active_index
+	var new_active_station = %Stations.get_child(active_station_index)
+	new_active_station.visible = true
+	if new_active_station and new_active_station.has_signal("inventory_updated"):
+		new_active_station.inventory_updated.connect(_on_station_inventory_updated)
+
+	update_station_item_list()
+
+func update_station_item_list() -> void:
+	%StationInventoryList.clear()
+	for each_item in %Stations.get_child(active_station_index).inventory.items:
+		%StationInventoryList.add_item(each_item.name)
+
+func update_player_item_list() -> void:
+	%PlayerInventoryList.clear()
+	for each_item in PlayerInventoryController.inventory.items:
+		%PlayerInventoryList.add_item(each_item.name)
+
+func _on_player_inventory_updated() -> void:
+	print("_on_player_inventory_updated")
+	update_player_item_list()
+
+func _on_station_inventory_updated() -> void:
+	print("_on_station_inventory_updated")
+	update_station_item_list()

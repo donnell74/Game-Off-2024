@@ -38,4 +38,10 @@ offset_top = 128.0
 offset_right = 145.0
 offset_bottom = 213.0
 text = "Description of card here"
+editable = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
 wrap_mode = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
