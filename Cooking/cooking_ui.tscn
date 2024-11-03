@@ -39,17 +39,22 @@ columns = 5
 layout_mode = 2
 image_texture = ExtResource("2_gph8i")
 description = "Dice"
+action = 1
 
 [node name="Card2" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 description = "Boil"
+action = 3
 
 [node name="Card3" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 description = "Melt"
+action = 6
 
 [node name="Card4" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
+description = "Mash"
+action = 7
 
 [node name="Card5" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2

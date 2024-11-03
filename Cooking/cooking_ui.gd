@@ -10,6 +10,9 @@ func _ready() -> void:
 	if active_station and active_station.has_signal("inventory_updated"):
 		update_station_item_list()
 		active_station.inventory_updated.connect(_on_station_inventory_updated)
+	
+	for card in %CardContainer.get_children():
+		card.card_clicked.connect(_on_card_clicked)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Accept"):
@@ -60,3 +63,8 @@ func _on_player_inventory_updated() -> void:
 func _on_station_inventory_updated() -> void:
 	print("_on_station_inventory_updated")
 	update_station_item_list()
+
+func _on_card_clicked(action: Actions.Actions) -> void:
+	print("_on_card_clicked with action: %s" % Actions.Actions.keys()[action])
+	var active_station = %Stations.get_child(active_station_index)
+	active_station.get_perform_method(action).call()
