@@ -9,6 +9,7 @@ location = ExtResource("2_7llln")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-offset_right = 1157.0
-offset_bottom = 649.0
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 1150.0
+offset_bottom = 650.0

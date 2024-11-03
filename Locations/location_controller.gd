@@ -11,6 +11,8 @@ func _ready() -> void:
 	print("Party stats at beginning of day: %s" % location.description)
 	print(PartyController)
 	
+	%Background.texture = location.background_texture
+	
 	location.advance_time_of_day()
 	location.simulate() 
 	location.advance_time_of_day() 
