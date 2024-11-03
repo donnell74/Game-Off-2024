@@ -5,5 +5,3 @@
 [resource]
 script = ExtResource("1_kml20")
 name = "Melted Butter"
-quantity = 1
-transistions = {}
