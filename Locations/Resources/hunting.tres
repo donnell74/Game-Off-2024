@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Location" load_steps=4 format=3 uid="uid://drar7k6n8xn0q"]
+
+[ext_resource type="Script" path="res://Locations/activity.gd" id="1_8ev3h"]
+[ext_resource type="Resource" uid="uid://tcyigavudprm" path="res://Locations/Activities/rabbit_hunting.tres" id="2_f1y2t"]
+[ext_resource type="Script" path="res://Locations/location.gd" id="2_x0y78"]
+
+[resource]
+script = ExtResource("2_x0y78")
+description = "Hunting"
+type = 3
+morningActivities = Array[ExtResource("1_8ev3h")]([ExtResource("2_f1y2t")])
+afternoonActivities = Array[ExtResource("1_8ev3h")]([ExtResource("2_f1y2t")])
+eveningActivities = Array[ExtResource("1_8ev3h")]([])
+currentTimeOfDay = 0

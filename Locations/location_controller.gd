@@ -1,5 +1,7 @@
 extends Node2D
 
+signal location_simulation_done
+
 @export var location : Location
 
 func _ready() -> void:
@@ -11,7 +13,7 @@ func _ready() -> void:
 	print("Party stats at beginning of day: %s" % location.description)
 	print(PartyController)
 	
-	%Background.texture = location.background_texture
+	%Background.texture = location.backgroundTexture
 	
 	location.advance_time_of_day()
 	location.simulate() 
@@ -22,3 +24,6 @@ func _ready() -> void:
 	
 	print("Party stats at end of day: %s" % location.description)
 	print(PartyController)
+
+func _on_timer_timeout() -> void:
+	location_simulation_done.emit()
