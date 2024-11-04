@@ -10,8 +10,17 @@ enum TimeOfDay {
 	EVENING
 }
 
+enum Type {
+	DUNGEON,
+	TOWN,
+	FISHING,
+	HUNTING,
+	FORAGING
+}
+
 @export var description : String = "<Unknown>"
-@export var background_texture : Texture2D
+@export var backgroundTexture : Texture2D
+@export var type : Type = Type.DUNGEON
 @export var morningActivities : Array[Activity] = []
 @export var afternoonActivities : Array[Activity] = []
 @export var eveningActivities : Array[Activity] = []
