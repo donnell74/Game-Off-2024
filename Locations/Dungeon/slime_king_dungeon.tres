@@ -10,6 +10,7 @@
 script = ExtResource("2_66sqr")
 description = "Slime King's Dungeon"
 backgroundTexture = ExtResource("3_75u8h")
+type = 0
 morningActivities = Array[ExtResource("1_to2q0")]([ExtResource("3_a2htq")])
 afternoonActivities = Array[ExtResource("1_to2q0")]([ExtResource("2_hovrn")])
 eveningActivities = Array[ExtResource("1_to2q0")]([])
