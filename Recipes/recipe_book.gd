@@ -17,15 +17,30 @@ func match(action: Actions.Actions, item_array: Array[InventoryItem] = []) -> Ar
 	
 	return matches
 
-func item_arrays_match(left, right) -> bool:
+func item_arrays_match(left: Array[InventoryItem], right: Array[InventoryItem], ignoreModifiers: bool = true) -> bool:
 	if left.size() != right.size(): 
 		return false
 	
 	for item in left:
-		if !right.has(item): 
+		if !array_contains_item(left, item, ignoreModifiers):
 			return false
 		
-		if left.count(item) != right.count(item): 
+		if array_count_item(left, item, ignoreModifiers) != array_count_item(right, item, ignoreModifiers): 
 			return false
 	
 	return true
+
+func array_count_item(left: Array[InventoryItem], item: InventoryItem, ignoreModifiers: bool) -> bool:
+	var count = 0
+	for each_left in left:
+		if each_left.equals(item, ignoreModifiers):
+			count += 1
+	
+	return count
+
+func array_contains_item(left: Array[InventoryItem], item: InventoryItem, ignoreModifiers: bool) -> bool:
+	for each_left in left:
+		if each_left.equals(item, ignoreModifiers):
+			return true
+	
+	return false
