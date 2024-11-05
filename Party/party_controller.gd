@@ -66,7 +66,6 @@ func _to_string() -> String:
 	var result = "Team: Level: %d, Health: %d, Strength: %d, Stamina: %d\n" % \
 		[get_max_party_level(), get_total_party_health(), get_total_party_strength(), get_total_party_stamina()]
 	for each_member in party.members:
-		print(each_member.name)
 		result += each_member.to_string() + "\n"
 	
 	return result

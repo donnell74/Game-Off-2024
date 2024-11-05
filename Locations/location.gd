@@ -7,7 +7,8 @@ enum TimeOfDay {
 	LUNCH,
 	AFTERNOON,
 	DINNER,
-	EVENING
+	EVENING,
+	END_OF_DAY
 }
 
 enum Type {

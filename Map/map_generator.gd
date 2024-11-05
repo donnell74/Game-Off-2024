@@ -1,4 +1,4 @@
-extends Node
+extends Control
 
 @export var mapPathResource : Resource = preload("res://Map/map_path.gd")
 @export var mapNodeScene : Control
@@ -19,9 +19,18 @@ extends Node
 var RAND_NUM_GEN = RandomNumberGenerator.new()
 
 func _ready() -> void:
+	%MapCamera.enabled = false
 	generate_map()
 	# Start centered on the middle path
 	%MapCamera.global_position = bottomLeftMapPosition + Vector2i((pathCount / 2) * pathHorizontalPadding, pathVerticalPadding * 2)
+
+func show_map() -> void:
+	visible = true
+	%MapCamera.enabled = true
+
+func hide_map() -> void:
+	visible = false
+	%MapCamera.enabled = false
 
 func _process(delta: float) -> void:
 	# TODO: Smooth camera movement
@@ -115,6 +124,7 @@ func get_map_node_texture(type: Location.Type) -> Texture2D:
 
 func _on_map_node_clicked(x_map_pos: int, y_map_pos: int) -> void:
 	print("_on_map_node_clicked for MapNode (%d, %d)" % [x_map_pos, y_map_pos])
+	hide_map()
 	
 	var location = map.paths[x_map_pos].locations[y_map_pos]
 	currentlyLoadedMapNode = Vector2(x_map_pos, y_map_pos)
@@ -132,10 +142,11 @@ func _on_location_simulation_done() -> void:
 	print("MapGenerator - _on_location_simulation_done")
 	$"/root/Location".queue_free()
 	# The MapNode is not owned by the map /shrug
-	var mapNode = $"/root/Map".find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y), true, false)
+	#var mapScene = get_root().find_child("Map", true, false)
+	var mapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y), true, false)
 	mapNode.find_child("CompletedIndicator").visible = true
 	mapNode.make_not_visitable()
 	# TODO: Handle end of map!
 	# Make the next MapNode on the path visitable
-	var nextMapNode = $"/root/Map".find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y + 1), true, false)
+	var nextMapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y + 1), true, false)
 	nextMapNode.make_visitable()
