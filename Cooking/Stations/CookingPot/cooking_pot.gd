@@ -11,13 +11,13 @@ func add_item(item: InventoryItem) -> void:
 	print("CookingPot.add_item => New inventory: %s" % to_string())
 
 func melt() -> void:
-	perform_combination(Actions.Actions.MELT, {PartyController.Stats.HEALTH: 1.1})
+	perform_combination(Actions.Actions.MELT, ItemModifier.from_values(1.1, 1.0, 1.0))
 	print("CookingPot.melt => New inventory: %s" % to_string())
 
 func boil() -> void:
-	perform_combination(Actions.Actions.BOIL, {PartyController.Stats.STRENGTH: 1.1})
+	perform_combination(Actions.Actions.BOIL, ItemModifier.from_values(1.0, 1.0, 1.1))
 	print("CookingPot.boil => New inventory: %s" % to_string())
 
 func mash() -> void:
-	perform_combination(Actions.Actions.MASH, {PartyController.Stats.STAMINA: 1.1})
+	perform_combination(Actions.Actions.MASH, ItemModifier.from_values(1.0, 1.1, 1.0))
 	print("CookingPot.mash => New inventory: %s" % to_string())

@@ -8,35 +8,26 @@ enum Stats {
 
 @export var party: Party = preload("res://Party/First Party/first_party.tres")
 
-func update_stat_multiplier(stats: Stats, new_multiplier: float) -> void:
-	match stats:
-		Stats.STRENGTH:
-			party.strength_multiplier = new_multiplier
-		Stats.STAMINA:
-			party.stamina_multiplier = new_multiplier
-		Stats.HEALTH:
-			party.health_multiplier = new_multiplier
-
 func get_total_party_health() -> float:
 	var total_health = 0.0
 	for each_member in party.members:
 		total_health += each_member.health
 	
-	return total_health * party.health_multiplier
+	return total_health
 
 func get_total_party_strength() -> float:
 	var total_strength = 0.0
 	for each_member in party.members:
 		total_strength += each_member.strength
 	
-	return total_strength * party.strength_multiplier
+	return total_strength
 
 func get_total_party_stamina() -> float:
 	var total_stamina = 0.0
 	for each_member in party.members:
 		total_stamina += each_member.stamina
 	
-	return total_stamina * party.stamina_multiplier
+	return total_stamina
 
 func get_max_party_level() -> int:
 	var max_level = 1
@@ -44,6 +35,27 @@ func get_max_party_level() -> int:
 		max_level = max(max_level, each_member.level)
 	
 	return max_level
+
+func feed_party_item(item: InventoryItem) -> void:
+	print("PartyController - feed-party-item with: %s" % item.name)
+	print("PartyController - Modifiers: %s" % item.modifiers)
+	if !item.modifiers:
+		item.modifiers = ItemModifier.new()
+	
+	apply_to_each_member(Stats.HEALTH, item.modifiers.health)
+	apply_to_each_member(Stats.STRENGTH, item.modifiers.strength)
+	apply_to_each_member(Stats.STAMINA, item.modifiers.stamina)
+	print(self)
+
+func apply_to_each_member(stat: Stats, amount: float) -> void:
+	for member in party.members:
+		match stat:
+			Stats.STRENGTH:
+				member.multiply_strength(amount)
+			Stats.STAMINA:
+				member.multiply_stamina(amount)
+			Stats.HEALTH:
+				member.multiply_health(amount)
 
 func apply_party_damage(stat: Stats, amount: float) -> void:
 	var damagePerIteration = get_max_party_level() # so we spread out the damage but don't iterate 1 by 1

@@ -27,6 +27,8 @@ func _input(event: InputEvent) -> void:
 		switch_active_station(1)
 	elif event.is_action_pressed("Navigate to Last Page"):
 		switch_active_station(-1)
+	elif event.is_action_pressed("Toggle Cooking"):
+		visible = !visible
 		
 func switch_active_station(increment: int) -> void:
 	var new_active_index = (active_station_index + increment) % %Stations.get_child_count()

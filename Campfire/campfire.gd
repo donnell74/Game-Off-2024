@@ -5,12 +5,6 @@ func _ready() -> void:
 	print("Party Health: %d" % PartyController.get_total_party_health())
 	print("Party Strength: %d" % PartyController.get_total_party_strength())
 	print("Party Stamina: %d" % PartyController.get_total_party_stamina())
-	PartyController.update_stat_multiplier(PartyController.Stats.STRENGTH, 1.1)
-	PartyController.update_stat_multiplier(PartyController.Stats.STAMINA, 1.2)
-	PartyController.update_stat_multiplier(PartyController.Stats.HEALTH, 1.5)
-	print("Party Health: %d" % PartyController.get_total_party_health())
-	print("Party Strength: %d" % PartyController.get_total_party_strength())
-	print("Party Stamina: %d" % PartyController.get_total_party_stamina())
 
 func _on_continue_day_button_pressed() -> void:
 	print("Campfire - _on_continue_day_button_pressed")
