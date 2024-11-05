@@ -7,11 +7,18 @@ signal card_clicked(action: Actions.Actions)
 @export var action: Actions.Actions = Actions.Actions.WAIT
 @export var mouseOver : bool = false
 
-func _ready() -> void:
-	if image_texture:
-		%ImageTexture.texture = image_texture
-	
+const ACTION_TO_TEXTURE = {
+	Actions.Actions.DICE: preload("res://Cooking/Assets/knife.png"),
+	Actions.Actions.WAIT: preload("res://Cooking/Assets/clock.png"),
+}
+
+func update_ui(_action: Actions.Actions, description: String) -> void:
+	action = _action
 	%DescriptionText.text = description
+	if ACTION_TO_TEXTURE.has(action):
+		%ImageTexture.texture = ACTION_TO_TEXTURE[action]
+	else:
+		%ImageTexture.texture = null
 
 func _input(event: InputEvent) -> void:
 	if mouseOver and event is InputEventMouseButton and event.is_pressed():

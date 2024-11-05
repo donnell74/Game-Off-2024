@@ -1,6 +1,8 @@
 extends Control
 
 @export var active_station_index = 0
+@export var actions_starting_index = Actions.Actions.keys().size() / 2
+@export var cards_to_show = 4
 
 func _ready() -> void:
 	PlayerInventoryController.inventory_updated.connect(_on_player_inventory_updated)
@@ -13,6 +15,8 @@ func _ready() -> void:
 	
 	for card in %CardContainer.get_children():
 		card.card_clicked.connect(_on_card_clicked)
+	
+	update_cards()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Accept"):
@@ -70,3 +74,27 @@ func _on_card_clicked(action: Actions.Actions) -> void:
 	print("_on_card_clicked with action: %s" % Actions.Actions.keys()[action])
 	var active_station = %Stations.get_child(active_station_index)
 	active_station.get_perform_method(action).call()
+
+func update_cards() -> void:
+	for card_index in range(actions_starting_index, actions_starting_index + cards_to_show):
+		var card = %CardContainer.get_child(card_index - actions_starting_index)
+		card.update_ui(card_index as Actions.Actions, Actions.Actions.keys()[card_index])
+
+func _on_left_card_nav_button_pressed() -> void:
+	actions_starting_index -= 1
+	update_cards()
+	if actions_starting_index == 0:
+		print("Hit far left of action cards, disabling left card nav button")
+		%LeftCardNavButton.disabled = true
+	
+	%RightCardNavButton.disabled = false
+
+
+func _on_right_card_nav_button_pressed() -> void:
+	actions_starting_index += 1
+	update_cards()
+	if actions_starting_index + cards_to_show == Actions.Actions.size():
+		print("Hit far right of action cards, disabling right card nav button")
+		%RightCardNavButton.disabled = true
+	
+	%LeftCardNavButton.disabled = false

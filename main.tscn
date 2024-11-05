@@ -17,3 +17,5 @@ visible = false
 
 [node name="CookingUi" parent="." instance=ExtResource("4_r6qyd")]
 visible = false
+active_station_index = 0
+cards_to_show = 4
