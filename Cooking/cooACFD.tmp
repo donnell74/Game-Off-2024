@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://36tjrcun16m8"]
+[gd_scene load_steps=6 format=3 uid="uid://36tjrcun16m8"]
 
 [ext_resource type="Script" path="res://Cooking/cooking_ui.gd" id="1_s1hhb"]
 [ext_resource type="PackedScene" uid="uid://c4lvb75fcwdoy" path="res://Cooking/Card/card.tscn" id="2_lyesf"]
 [ext_resource type="PackedScene" uid="uid://dvo2wsgg80c87" path="res://Cooking/Stations/CookingPot/cooking_pot.tscn" id="2_y8iop"]
 [ext_resource type="PackedScene" uid="uid://d38nlxol5ysn2" path="res://Cooking/Stations/CuttingBoard/cutting_board.tscn" id="5_m5731"]
 [ext_resource type="Texture2D" uid="uid://xyqkbdqlq44" path="res://Map/Assets/map_node_complete.png" id="6_m7uhn"]
-[ext_resource type="Texture2D" uid="uid://d261fee57t0m4" path="res://Map/Assets/monster.png" id="6_vt2gx"]
 
 [node name="CookingUi" type="Control"]
 layout_mode = 3
@@ -79,7 +78,6 @@ visible = false
 position = Vector2(590, 225)
 
 [node name="LeftCardNavButton" type="TextureButton" parent="."]
-unique_name_in_owner = true
 layout_mode = 0
 offset_left = 166.0
 offset_top = 440.0
@@ -87,10 +85,8 @@ offset_right = 206.0
 offset_bottom = 480.0
 rotation = 1.5708
 texture_normal = ExtResource("6_m7uhn")
-texture_disabled = ExtResource("6_vt2gx")
 
 [node name="RightCardNavButton" type="TextureButton" parent="."]
-unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1000.0
 offset_top = 520.0
@@ -98,7 +94,6 @@ offset_right = 1064.0
 offset_bottom = 584.0
 rotation = 4.71239
 texture_normal = ExtResource("6_m7uhn")
-texture_disabled = ExtResource("6_vt2gx")
 
 [connection signal="pressed" from="LeftCardNavButton" to="." method="_on_left_card_nav_button_pressed"]
 [connection signal="pressed" from="RightCardNavButton" to="." method="_on_right_card_nav_button_pressed"]
