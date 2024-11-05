@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://biettojpu23cw"]
+[gd_scene load_steps=5 format=3 uid="uid://plp1w1ebjlml"]
 
 [ext_resource type="PackedScene" uid="uid://bh2lobbodbpsk" path="res://Campfire/campfire.tscn" id="1_0c8er"]
-[ext_resource type="PackedScene" uid="uid://cf381lamnti87" path="res://Inventory/inventory_ui.tscn" id="2_xny2q"]
+[ext_resource type="PackedScene" uid="uid://cnurxmck8x2nv" path="res://Inventory/inventory_ui.tscn" id="2_xny2q"]
 [ext_resource type="PackedScene" uid="uid://di34kvc0uchpb" path="res://Map/map.tscn" id="3_cykj2"]
 [ext_resource type="PackedScene" uid="uid://36tjrcun16m8" path="res://Cooking/cooking_ui.tscn" id="4_r6qyd"]
 

@@ -8,6 +8,7 @@ script = ExtResource("1_osbva")
 location = ExtResource("2_7llln")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
 [node name="Background" type="TextureRect" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -16,6 +17,5 @@ offset_bottom = 650.0
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

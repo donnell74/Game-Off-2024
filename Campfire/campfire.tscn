@@ -4,3 +4,12 @@
 
 [node name="Campfire" type="Node2D"]
 script = ExtResource("1_ip6u0")
+
+[node name="ContinueDayButton" type="Button" parent="."]
+offset_left = 37.0
+offset_top = 54.0
+offset_right = 255.0
+offset_bottom = 109.0
+text = "Continue Day"
+
+[connection signal="pressed" from="ContinueDayButton" to="." method="_on_continue_day_button_pressed"]
