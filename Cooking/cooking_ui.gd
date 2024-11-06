@@ -6,6 +6,8 @@ extends Control
 
 func _ready() -> void:
 	PlayerInventoryController.inventory_updated.connect(_on_player_inventory_updated)
+	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+
 	update_player_item_list()
 
 	var active_station = %Stations.get_child(active_station_index)
@@ -19,7 +21,7 @@ func _ready() -> void:
 	update_cards()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Accept"):
+	if event.is_action_pressed("ui_accept"):
 		if %PlayerInventoryList.get_selected_items().size() == 1:
 			var inventory_item = PlayerInventoryController.take_item(%PlayerInventoryList.get_selected_items()[0])
 			%Stations.get_child(active_station_index).add_item(inventory_item)
@@ -32,8 +34,15 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("Navigate to Last Page"):
 		switch_active_station(-1)
 	elif event.is_action_pressed("Toggle Cooking"):
-		visible = !visible
-		
+		UiEvents.active_ui_changed.emit(UiEvents.UiScene.COOKING)
+
+func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
+	if newActive == UiEvents.UiScene.COOKING:
+		visible = true
+		%PlayerInventoryList.grab_focus()
+	else:
+		visible = false
+
 func switch_active_station(increment: int) -> void:
 	var new_active_index = (active_station_index + increment) % %Stations.get_child_count()
 	print("Switching active station from %d to %d" % [active_station_index, new_active_index])
@@ -89,7 +98,6 @@ func _on_left_card_nav_button_pressed() -> void:
 	
 	%RightCardNavButton.disabled = false
 
-
 func _on_right_card_nav_button_pressed() -> void:
 	actions_starting_index += 1
 	update_cards()
@@ -98,3 +106,9 @@ func _on_right_card_nav_button_pressed() -> void:
 		%RightCardNavButton.disabled = true
 	
 	%LeftCardNavButton.disabled = false
+
+func _on_player_inventory_list_focus_exited() -> void:
+	%PlayerInventoryList.deselect_all()
+
+func _on_station_inventory_list_focus_exited() -> void:
+	%StationInventoryList.deselect_all()
