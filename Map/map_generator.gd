@@ -15,33 +15,74 @@ extends Control
 @export var cameraMovementSpeed = 1000.0
 @export var locationScene = preload("res://Locations/location.tscn")
 @export var currentlyLoadedMapNode = Vector2.ZERO
+@export var currentlyFocusedMapNode : Control
 
 var RAND_NUM_GEN = RandomNumberGenerator.new()
+const MAP_NODE_PATH = "/root/Main/Map/"
 
 func _ready() -> void:
+	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	%MapCamera.enabled = false
 	generate_map()
 	# Start centered on the middle path
 	%MapCamera.global_position = bottomLeftMapPosition + Vector2i((pathCount / 2) * pathHorizontalPadding, pathVerticalPadding * 2)
+	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+
+func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
+	match newActive:
+		UiEvents.UiScene.MAP:
+			show_map()
+		UiEvents.UiScene.INVENTORY:
+			pass
+		_:
+			hide_map()
+
+func _on_focus_changed(control: Control) -> void:
+	print("Focus changed to: %s" % control.name)
+	if !visible:
+		return
+	
+	if control:
+		# Make the old one not selected
+		if currentlyFocusedMapNode:
+			currentlyFocusedMapNode.find_child("SelectedIndicator").visible = false
+		currentlyFocusedMapNode = control
+		currentlyFocusedMapNode.find_child("SelectedIndicator").visible = true
 
 func show_map() -> void:
 	visible = true
 	%MapCamera.enabled = true
+	var pathLengthIndex = 0
+	var mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
+	while !mapNode.visitable:
+		pathLengthIndex += 1
+		mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
+
+	mapNode.set_focus_mode(FocusMode.FOCUS_ALL)
+	mapNode.grab_focus()
+	#currentlyFocusedMapNode = mapNode
+	#mapNode.find_child("SelectedIndicator").visible = true
 
 func hide_map() -> void:
 	visible = false
 	%MapCamera.enabled = false
 
+func _input(event: InputEvent) -> void:
+	if !visible:
+		return
+	
+	if event.is_action_pressed("ui_accept"):
+		_on_map_node_clicked(currentlyFocusedMapNode.x_map_pos, currentlyFocusedMapNode.y_map_pos)
+
 func _process(delta: float) -> void:
-	# TODO: Smooth camera movement
 	var movement = Vector2.ZERO
-	if Input.is_action_pressed("Navigate Up"):
+	if Input.is_action_pressed("Pan Up"):
 		movement.y = -1
-	if Input.is_action_pressed("Navigate Down"):
+	if Input.is_action_pressed("Pan Down"):
 		movement.y = 1
-	if Input.is_action_pressed("Navigate Left"):
+	if Input.is_action_pressed("Pan Left"):
 		movement.x = -1
-	if Input.is_action_pressed("Navigate Right"):
+	if Input.is_action_pressed("Pan Right"):
 		movement.x = 1
 	
 	%MapCamera.position += movement.normalized() * cameraMovementSpeed * delta
@@ -51,6 +92,25 @@ func generate_map() -> void:
 		map.paths.append(create_map_path())
 
 	add_map_to_ui()
+	set_focus_neighbors()
+
+func set_focus_neighbors() -> void:
+	for pathIndex in range(pathCount):
+		for pathLengthIndex in range(pathLength):
+			#                        (pathIndex, pathLengthIndex - 1)
+			#                                   ^
+			# (pathIndex - 1, pathLengthIndex) < > (pathIndex + 1, pathLengthIndex)
+			#                                   V
+			#                        (pathIndex, pathLengthIndex + 1)
+			var rootMapNode = find_child(_get_map_node_name(pathIndex, pathLengthIndex), true, false)
+			if pathIndex != 0:
+				rootMapNode.set_focus_neighbor(SIDE_LEFT, MAP_NODE_PATH + _get_map_node_name(pathIndex - 1, pathLengthIndex))
+			if pathIndex != pathCount - 1:
+				rootMapNode.set_focus_neighbor(SIDE_RIGHT, MAP_NODE_PATH + _get_map_node_name(pathIndex + 1, pathLengthIndex))
+			if pathLengthIndex != pathLengthIndex - 1:
+				rootMapNode.set_focus_neighbor(SIDE_TOP, MAP_NODE_PATH + _get_map_node_name(pathIndex, pathLengthIndex + 1))
+			if pathLengthIndex != 0:
+				rootMapNode.set_focus_neighbor(SIDE_BOTTOM, MAP_NODE_PATH + _get_map_node_name(pathIndex, pathLengthIndex - 1))
 
 func create_map_path() -> MapPath:
 	var mapPath = mapPathResource.new()
@@ -94,6 +154,7 @@ func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 	mapNode.x_map_pos = pathIndex
 	mapNode.y_map_pos = pathLengthIndex
 	mapNode.map_node_clicked.connect(_on_map_node_clicked)
+	mapNode.set_focus_mode(FocusMode.FOCUS_ALL)
 	return mapNode
 
 func _get_map_node_positiion(pathIndex: int, pathLengthIndex: int) -> Vector2i:
@@ -108,7 +169,7 @@ func create_line_node(from: Node, to: Node) -> Line2D:
 	line.add_point(to.global_position)
 	line.visible = true
 	line.z_index = -1
-	line.name = "Line2D %s => %s)" % [from.name, to.name] # for debugging
+	line.name = "Line2D (%s => %s)" % [from.name, to.name] # for debugging
 	return line
 
 func get_map_node_texture(type: Location.Type) -> Texture2D:
@@ -124,6 +185,10 @@ func get_map_node_texture(type: Location.Type) -> Texture2D:
 
 func _on_map_node_clicked(x_map_pos: int, y_map_pos: int) -> void:
 	print("_on_map_node_clicked for MapNode (%d, %d)" % [x_map_pos, y_map_pos])
+	if !currentlyFocusedMapNode.visitable:
+		print("MapNode is not visitable")
+		return
+
 	hide_map()
 	
 	var location = map.paths[x_map_pos].locations[y_map_pos]
@@ -136,7 +201,7 @@ func _on_map_node_clicked(x_map_pos: int, y_map_pos: int) -> void:
 	get_tree().root.add_child(scene_to_load)
 
 func _get_map_node_name(x_map_pos: int, y_map_pos: int) -> String:
-	return "MapNode (%d, %d)" % [x_map_pos, y_map_pos]
+	return "MapNode%dx%d" % [x_map_pos, y_map_pos]
 
 func _on_location_simulation_done() -> void:
 	print("MapGenerator - _on_location_simulation_done")

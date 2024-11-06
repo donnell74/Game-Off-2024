@@ -2,11 +2,16 @@ extends Node2D
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Inventory"):
-		%InventoryCanvas.visible = !%InventoryCanvas.visible
+		UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
 
 func _ready() -> void:
 	PlayerInventoryController.inventory_updated.connect(update_inventory_item_list)
+	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	update_inventory_item_list()
+
+func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
+	if newActive == UiEvents.UiScene.INVENTORY:
+		%InventoryCanvas.visible = !%InventoryCanvas.visible
 
 func update_inventory_item_list() -> void:
 	%ItemList.clear()

@@ -15,17 +15,24 @@ func _ready() -> void:
 	
 	%Background.texture = location.backgroundTexture
 	LocationEvents.advance_day.connect(_on_advance_day)
-	hide_ui()
+	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+	# TODO: Show an animation instead of going straight to Campfire
+	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
+
+func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
+	match newActive:
+		UiEvents.UiScene.LOCATION:
+			show_ui()
+		_:
+			hide_ui()
 
 func hide_ui() -> void:
 	visible = false
 	%CanvasLayer.visible = false
-	$"/root/Main/Campfire".visible = true
 
 func show_ui() -> void:
 	visible = true
 	%CanvasLayer.visible = true
-	$"/root/Main/Campfire".visible = false
 
 func _on_advance_day() -> void:
 	print("LocationController - _on_advance_day")
@@ -37,7 +44,7 @@ func _on_advance_day() -> void:
 	$Timer.start(1)
 
 func _on_timer_timeout() -> void:
-	hide_ui()
+	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
 	print("Location TimeOfDay: %s" % Location.TimeOfDay.keys()[location.currentTimeOfDay])
 	if location.currentTimeOfDay == Location.TimeOfDay.END_OF_DAY:
 		location_simulation_done.emit()

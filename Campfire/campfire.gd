@@ -5,6 +5,17 @@ func _ready() -> void:
 	print("Party Health: %d" % PartyController.get_total_party_health())
 	print("Party Strength: %d" % PartyController.get_total_party_strength())
 	print("Party Stamina: %d" % PartyController.get_total_party_stamina())
+	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+
+func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
+	match newActive:
+		UiEvents.UiScene.CAMPFIRE:
+			visible = true
+			$ContinueDayButton.grab_focus()
+		UiEvents.UiScene.INVENTORY:
+			pass # overlay, do nothing
+		_:
+			visible = false
 
 func _on_continue_day_button_pressed() -> void:
 	print("Campfire - _on_continue_day_button_pressed")
