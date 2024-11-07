@@ -43,6 +43,7 @@ func _input(event: InputEvent) -> void:
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.COOKING:
 		visible = true
+		%PlayerInventoryList.grab_focus()
 	else:
 		visible = false
 
@@ -69,7 +70,6 @@ func move_station_items_to_player(station: Station):
 	if station == null:
 		station = %Stations.get_child(active_station_index)
 	for item_idx in range(0, %StationInventoryList.item_count):
-		print("item_idx: ", item_idx)
 		var station_item = station.take_item(item_idx)
 		PlayerInventoryController.add_item(station_item)
 
