@@ -180,6 +180,8 @@ func get_map_node_texture(type: Location.Type) -> Texture2D:
 			return preload("res://Map/Assets/fishing.png")
 		Location.Type.HUNTING:
 			return preload("res://Map/Assets/hunting.png")
+		Location.Type.FORAGING:
+			return preload("res://Cooking/Assets/clock.png")
 		_:
 			return preload("res://Map/Assets/monster.png")
 
