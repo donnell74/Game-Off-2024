@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://bqtapx8v07yhu" path="res://Locations/Resources/fishing.tres" id="4_04i42"]
 [ext_resource type="PackedScene" uid="uid://bgu6ancyjl4kb" path="res://Map/map_node.tscn" id="4_aegn2"]
 [ext_resource type="Resource" uid="uid://drar7k6n8xn0q" path="res://Locations/Resources/hunting.tres" id="5_d6ubw"]
-[ext_resource type="Resource" uid="uid://6yu2tnvetura" path="res://Locations/Resources/foraging.tres" id="6_26ymd"]
+[ext_resource type="Resource" path="res://Locations/Resources/foraging.tres" id="6_26ymd"]
 
 [node name="Map" type="Control" node_paths=PackedStringArray("mapNodeScene", "pathLineTemplateScene")]
 layout_mode = 3
