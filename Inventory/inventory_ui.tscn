@@ -36,6 +36,9 @@ offset_right = 32.0
 offset_bottom = 169.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_left = NodePath("../CloseButton")
+focus_neighbor_right = NodePath("../FeedButton")
+focus_neighbor_bottom = NodePath("../FeedButton")
 allow_search = false
 
 [node name="CloseButton" type="Button" parent="InventoryCanvas"]
@@ -51,6 +54,8 @@ offset_right = 278.0
 offset_bottom = 162.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_left = NodePath("../ItemList")
+focus_neighbor_top = NodePath("../FeedButton")
 text = "Close"
 
 [node name="FeedButton" type="Button" parent="InventoryCanvas"]
@@ -66,6 +71,9 @@ offset_right = 278.0
 offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_left = NodePath("../ItemList")
+focus_neighbor_top = NodePath("../ItemList")
+focus_neighbor_bottom = NodePath("../CloseButton")
 text = "Feed"
 
 [connection signal="pressed" from="InventoryCanvas/CloseButton" to="." method="_on_close_button_pressed"]
