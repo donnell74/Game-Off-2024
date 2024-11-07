@@ -3,6 +3,11 @@ extends Node2D
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Inventory"):
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
+	if event.is_action_pressed("ui_accept") and %ItemList.has_focus():
+		call_deferred("switch_focus_to_feed_button")
+
+func switch_focus_to_feed_button() -> void:
+	%FeedButton.grab_focus()
 
 func _ready() -> void:
 	PlayerInventoryController.inventory_updated.connect(update_inventory_item_list)
@@ -12,6 +17,8 @@ func _ready() -> void:
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.INVENTORY:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
+		if %InventoryCanvas.visible:
+			%ItemList.grab_focus()
 
 func update_inventory_item_list() -> void:
 	%ItemList.clear()

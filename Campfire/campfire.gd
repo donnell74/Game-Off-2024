@@ -15,12 +15,13 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		UiEvents.UiScene.CAMPFIRE:
 			visible = true
 			$ContinueDayButton.grab_focus()
-			var locationNode = $"/root/Location"
-			if locationNode:
-				%LocationInfo.text = locationNode.location.description
-				%TimeOfDayInfo.text = Location.TimeOfDay.keys()[locationNode.location.currentTimeOfDay]
-			else:
-				%TimeOfDayInfo.text = Location.TimeOfDay.keys()[Location.TimeOfDay.BREAKFAST]
+			if has_node("/root/Location"):
+				var locationNode = $"/root/Location"
+				if locationNode:
+					%LocationInfo.text = locationNode.location.description
+					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[locationNode.location.currentTimeOfDay]
+				else:
+					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[Location.TimeOfDay.BREAKFAST]
 		UiEvents.UiScene.INVENTORY:
 			pass # overlay, do nothing
 		_:
