@@ -12,4 +12,15 @@ offset_right = 255.0
 offset_bottom = 109.0
 text = "Continue Day"
 
+[node name="PartyStatsGrid" type="GridContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 686.0
+offset_top = 40.0
+offset_right = 726.0
+offset_bottom = 80.0
+
+[node name="TeamPartyInfo" type="Label" parent="PartyStatsGrid"]
+layout_mode = 2
+text = "TeamPartyInfo"
+
 [connection signal="pressed" from="ContinueDayButton" to="." method="_on_continue_day_button_pressed"]
