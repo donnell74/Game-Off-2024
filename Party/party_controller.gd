@@ -6,6 +6,8 @@ enum Stats {
 	HEALTH
 }
 
+signal party_stats_changed
+
 @export var party: Party = preload("res://Party/First Party/first_party.tres")
 
 func get_total_party_health() -> float:
@@ -56,6 +58,7 @@ func apply_to_each_member(stat: Stats, amount: float) -> void:
 				member.multiply_stamina(amount)
 			Stats.HEALTH:
 				member.multiply_health(amount)
+	party_stats_changed.emit()
 
 func apply_party_damage(stat: Stats, amount: float) -> void:
 	var damagePerIteration = get_max_party_level() # so we spread out the damage but don't iterate 1 by 1
@@ -73,11 +76,17 @@ func apply_party_damage(stat: Stats, amount: float) -> void:
 				damagedMember.decrement_health(damagePerIteration)
 		
 		amount -= damagePerIteration
+	party_stats_changed.emit()
 
 func _to_string() -> String:
-	var result = "Team: Level: %d, Health: %d, Strength: %d, Stamina: %d\n" % \
-		[get_max_party_level(), get_total_party_health(), get_total_party_strength(), get_total_party_stamina()]
+	var result = party_stats()
 	for each_member in party.members:
 		result += each_member.to_string() + "\n"
 	
 	return result
+	
+func party_stats() -> String:
+	var result = "Team: Level: %d, Health: %d, Strength: %d, Stamina: %d\n" % \
+		[get_max_party_level(), get_total_party_health(), get_total_party_strength(), get_total_party_stamina()]
+	return result
+	

@@ -6,6 +6,9 @@ func _ready() -> void:
 	print("Party Strength: %d" % PartyController.get_total_party_strength())
 	print("Party Stamina: %d" % PartyController.get_total_party_stamina())
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+	PartyController.party_stats_changed.connect(populatePartyStats)
+	
+	populatePartyStats()
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
@@ -31,3 +34,18 @@ func _on_continue_day_button_pressed() -> void:
 		
 		var campfire = $"/root/Main/Campfire"
 		campfire.visible = false
+
+
+func populatePartyStats():
+	# Clean up the grid
+	for label in %PartyStatsGrid.get_children():
+		%PartyStatsGrid.remove_child(label)
+		label.queue_free()
+	# Re-populate the party stats
+	var partyStatsLabel = Label.new()
+	partyStatsLabel.text = PartyController.party_stats()
+	%PartyStatsGrid.add_child(partyStatsLabel)
+	for member in PartyController.party.members:
+		var teamMemberLabel = Label.new()
+		teamMemberLabel.text = member.to_string()
+		%PartyStatsGrid.add_child(teamMemberLabel)
