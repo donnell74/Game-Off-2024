@@ -41,7 +41,7 @@ func _on_advance_day() -> void:
 	location.simulate()
 	print("Party stats at end of activity: %s" % location.description)
 	print(PartyController)
-	$Timer.start(1)
+	$Timer.start(2)
 
 func _on_timer_timeout() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)

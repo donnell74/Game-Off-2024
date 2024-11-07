@@ -10,6 +10,30 @@ location = ExtResource("2_7llln")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.257177, 0.171193, 0.136212, 1)
+
+[node name="SimulationRunningLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -396.0
+offset_top = -51.5
+offset_right = 396.0
+offset_bottom = 51.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = "Simulation Running ..."
+
 [node name="Background" type="TextureRect" parent="CanvasLayer"]
 unique_name_in_owner = true
 offset_right = 1150.0
