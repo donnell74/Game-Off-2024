@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://di34kvc0uchpb"]
+[gd_scene load_steps=8 format=3 uid="uid://di34kvc0uchpb"]
 
 [ext_resource type="Script" path="res://Map/map_generator.gd" id="1_ht3iq"]
 [ext_resource type="Script" path="res://Locations/location.gd" id="2_co2yx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://bqtapx8v07yhu" path="res://Locations/Resources/fishing.tres" id="4_04i42"]
 [ext_resource type="PackedScene" uid="uid://bgu6ancyjl4kb" path="res://Map/map_node.tscn" id="4_aegn2"]
 [ext_resource type="Resource" uid="uid://drar7k6n8xn0q" path="res://Locations/Resources/hunting.tres" id="5_d6ubw"]
+[ext_resource type="Resource" uid="uid://6yu2tnvetura" path="res://Locations/Resources/foraging.tres" id="6_26ymd"]
 
 [node name="Map" type="Control" node_paths=PackedStringArray("mapNodeScene", "pathLineTemplateScene")]
 layout_mode = 3
@@ -13,7 +14,7 @@ anchors_preset = 0
 script = ExtResource("1_ht3iq")
 mapNodeScene = NodePath("MapNodeTemplate")
 pathLineTemplateScene = NodePath("Line2D")
-possibleLocations = Array[ExtResource("2_co2yx")]([ExtResource("3_rj6ve"), ExtResource("4_04i42"), ExtResource("5_d6ubw")])
+possibleLocations = Array[ExtResource("2_co2yx")]([ExtResource("3_rj6ve"), ExtResource("4_04i42"), ExtResource("5_d6ubw"), ExtResource("6_26ymd")])
 bottomLeftMapPosition = Vector2i(50, 600)
 
 [node name="MapNodeTemplate" parent="." instance=ExtResource("4_aegn2")]
