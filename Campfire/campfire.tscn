@@ -6,10 +6,17 @@
 script = ExtResource("1_ip6u0")
 
 [node name="ContinueDayButton" type="Button" parent="."]
-offset_left = 37.0
-offset_top = 54.0
-offset_right = 255.0
-offset_bottom = 109.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 483.0
+offset_top = 306.0
+offset_right = 701.0
+offset_bottom = 361.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Continue Day"
 
 [node name="PartyStatsGrid" type="GridContainer" parent="."]
@@ -22,5 +29,28 @@ offset_bottom = 80.0
 [node name="TeamPartyInfo" type="Label" parent="PartyStatsGrid"]
 layout_mode = 2
 text = "TeamPartyInfo"
+
+[node name="LocationGrid" type="GridContainer" parent="."]
+offset_left = 86.0
+offset_top = 40.0
+offset_right = 221.0
+offset_bottom = 90.0
+
+[node name="LocationLabel" type="Label" parent="LocationGrid"]
+layout_mode = 2
+text = "Current Location"
+
+[node name="LocationInfo" type="Label" parent="LocationGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Traveling"
+
+[node name="TimeOfDayLabel" type="Label" parent="LocationGrid"]
+layout_mode = 2
+text = "Current Time of Day"
+
+[node name="TimeOfDayInfo" type="Label" parent="LocationGrid"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [connection signal="pressed" from="ContinueDayButton" to="." method="_on_continue_day_button_pressed"]
