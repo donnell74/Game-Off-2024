@@ -34,7 +34,11 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("Navigate to Last Page"):
 		switch_active_station(-1)
 	elif event.is_action_pressed("Toggle Cooking"):
-		UiEvents.active_ui_changed.emit(UiEvents.UiScene.COOKING)
+		if visible:
+			move_station_items_to_player(null)
+			UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
+		else:
+			UiEvents.active_ui_changed.emit(UiEvents.UiScene.COOKING)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.COOKING:
@@ -50,6 +54,7 @@ func switch_active_station(increment: int) -> void:
 	var active_station = %Stations.get_child(active_station_index)
 	if active_station and active_station.has_signal("inventory_updated") \
 			and active_station.inventory_updated.is_connected(_on_station_inventory_updated):
+		move_station_items_to_player(active_station)
 		active_station.inventory_updated.disconnect(_on_station_inventory_updated)
 		active_station.visible = false
 
@@ -60,6 +65,13 @@ func switch_active_station(increment: int) -> void:
 		new_active_station.inventory_updated.connect(_on_station_inventory_updated)
 
 	update_station_item_list()
+	
+func move_station_items_to_player(station: Station):
+	if station == null:
+		station = %Stations.get_child(active_station_index)
+	for item_idx in range(0, %StationInventoryList.item_count):
+		var station_item = station.take_item(item_idx)
+		PlayerInventoryController.add_item(station_item)
 
 func update_station_item_list() -> void:
 	%StationInventoryList.clear()
