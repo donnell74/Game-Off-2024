@@ -58,3 +58,23 @@ func simulate_activity(activity: Activity) -> void:
 	
 func advance_time_of_day() -> void:
 	currentTimeOfDay = (currentTimeOfDay + 1) as TimeOfDay
+
+func save() -> Dictionary:	
+	var save_map = { 
+		"description": description,
+		"backgroundTexture": backgroundTexture.resource_path if backgroundTexture else "",
+		"type": type,
+		"morningActivities": { "activities" : morningActivities.map(func(a): return a.save()) }, 
+		"afternoonActivities": { "activities" : afternoonActivities.map(func(a): return a.save()) }, 
+		"eveningActivities": { "activities" : eveningActivities.map(func(a): return a.save()) }, 
+	}
+	return save_map
+
+func load(load_data: Variant) -> void:
+	description = load_data["description"]
+	if load_data["backgroundTexture"]:
+		backgroundTexture = load(load_data["backgroundTexture"])
+	
+	type = load_data["type"]
+	for each_activity in load_data["morningActivities"]["activities"]:
+		morningActivities.append(Activity.from_values(each_activity))

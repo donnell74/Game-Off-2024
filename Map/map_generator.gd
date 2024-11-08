@@ -18,7 +18,7 @@ extends Control
 @export var currentlyFocusedMapNode : Control
 
 var RAND_NUM_GEN = RandomNumberGenerator.new()
-const MAP_NODE_PATH = "/root/Main/Map/"
+const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
@@ -87,11 +87,12 @@ func _process(delta: float) -> void:
 	
 	%MapCamera.position += movement.normalized() * cameraMovementSpeed * delta
 
-func generate_map() -> void:
-	for pathIndex in range(pathCount):
-		map.paths.append(create_map_path())
+func generate_map(map_node_data: Dictionary = {}) -> void:
+	if map.paths.size() == 0:
+		for pathIndex in range(pathCount):
+			map.paths.append(create_map_path())
 
-	add_map_to_ui()
+	add_map_to_ui(map_node_data)
 	set_focus_neighbors()
 
 func set_focus_neighbors() -> void:
@@ -121,10 +122,14 @@ func create_map_path() -> MapPath:
 	
 	return mapPath
 
-func add_map_to_ui() -> void:
+func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 	if !mapNodeScene:
 		print("Unable to run add_map_to_ui")
 		return
+	
+	# Delete all the previous nodes
+	for child in %MapContainer.get_children():
+		child.free()
 	
 	# loop through paths, horizontal padding based on index
 	# Add map node for each location on path, vertical padded based on index
@@ -133,13 +138,24 @@ func add_map_to_ui() -> void:
 	for pathIndex in range(pathCount):
 		for pathLengthIndex in range(pathLength):
 			var mapNode = create_map_node(pathIndex, pathLengthIndex)
-			add_child(mapNode)
-			if pathLengthIndex == 0:
-				mapNode.make_visitable()
+			%MapContainer.add_child(mapNode)
+			if map_node_data.size() == 0:
+				if pathLengthIndex == 0:
+					mapNode.make_visitable()
+				else:
+					mapNode.make_not_visitable()
 			else:
-				mapNode.make_not_visitable()
-				add_child(create_line_node(lastMapNode, mapNode))
-			
+				var node_data = map_node_data[_get_map_node_name(pathIndex, pathLengthIndex)]
+				mapNode.global_position.x = node_data["global_position_x"]
+				mapNode.global_position.y = node_data["global_position_y"]
+				if node_data["visitable"]:
+					mapNode.make_visitable()
+				else:
+					mapNode.make_not_visitable()
+
+			if pathLengthIndex != 0:
+				%MapContainer.add_child(create_line_node(lastMapNode, mapNode))
+
 			lastMapNode = mapNode
 
 func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
@@ -217,3 +233,35 @@ func _on_location_simulation_done() -> void:
 	# Make the next MapNode on the path visitable
 	var nextMapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y + 1), true, false)
 	nextMapNode.make_visitable()
+
+func save_map_node_data() -> Dictionary:
+	var save_data: Dictionary = {}
+	for child in %MapContainer.get_children():
+		if not child.has_method("make_visitable"):
+			continue
+		
+		var child_data = {
+			"name": child.name,
+			"global_position_x": child.global_position.x,
+			"global_position_y": child.global_position.y,
+			"x_map_pos": child.x_map_pos,
+			"y_map_pos": child.y_map_pos,
+			"visitable": child.visitable
+		}
+		save_data[_get_map_node_name(child.x_map_pos, child.y_map_pos)] = child_data
+	
+	return save_data
+
+func save() -> Dictionary:
+	var save_dict = {
+		SaveLoad.PATH_FROM_ROOT_KEY: get_path(),
+		"map": map.save(),
+		"map_node_data": save_map_node_data()
+	}
+	
+	return save_dict
+
+func load(load_data: Dictionary) -> void:
+	map.paths = []
+	map.load(load_data["map"])
+	generate_map(load_data["map_node_data"])

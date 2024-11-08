@@ -23,3 +23,11 @@ func multiply(other: ItemModifier) -> ItemModifier:
 	stamina *= other.stamina
 	strength *= other.strength
 	return self
+
+func save() -> Dictionary:
+	var save_map = {
+		"health": health,
+		"stamina": stamina,
+		"strength": strength
+	}
+	return save_map

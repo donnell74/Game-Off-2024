@@ -8,4 +8,5 @@ enum UiScene {
 	LOCATION
 }
 
+
 signal active_ui_changed(newActive: UiScene)
