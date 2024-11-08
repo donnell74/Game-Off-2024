@@ -54,7 +54,7 @@ func show_map() -> void:
 	%MapCamera.enabled = true
 	var pathLengthIndex = 0
 	var mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
-	while !mapNode.visitable:
+	while mapNode.visitState != MapNode.VisitState.VISITABLE:
 		pathLengthIndex += 1
 		mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
 
@@ -141,17 +141,17 @@ func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 			%MapContainer.add_child(mapNode)
 			if map_node_data.size() == 0:
 				if pathLengthIndex == 0:
-					mapNode.make_visitable()
+					mapNode.change_visit_state(MapNode.VisitState.VISITABLE)
 				else:
-					mapNode.make_not_visitable()
+					mapNode.change_visit_state(MapNode.VisitState.NOT_VISITABLE)
 			else:
 				var node_data = map_node_data[_get_map_node_name(pathIndex, pathLengthIndex)]
 				mapNode.global_position.x = node_data["global_position_x"]
 				mapNode.global_position.y = node_data["global_position_y"]
-				if node_data["visitable"]:
-					mapNode.make_visitable()
+				if node_data["visitState"]:
+					mapNode.change_visit_state(node_data["visitState"])
 				else:
-					mapNode.make_not_visitable()
+					mapNode.change_visit_state(MapNode.VisitState.NOT_VISITABLE)
 
 			if pathLengthIndex != 0:
 				%MapContainer.add_child(create_line_node(lastMapNode, mapNode))
@@ -203,7 +203,7 @@ func get_map_node_texture(type: Location.Type) -> Texture2D:
 
 func _on_map_node_clicked(x_map_pos: int, y_map_pos: int) -> void:
 	print("_on_map_node_clicked for MapNode (%d, %d)" % [x_map_pos, y_map_pos])
-	if !currentlyFocusedMapNode.visitable:
+	if currentlyFocusedMapNode.visitState != MapNode.VisitState.VISITABLE:
 		print("MapNode is not visitable")
 		return
 
@@ -228,16 +228,16 @@ func _on_location_simulation_done() -> void:
 	#var mapScene = get_root().find_child("Map", true, false)
 	var mapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y), true, false)
 	mapNode.find_child("CompletedIndicator").visible = true
-	mapNode.make_not_visitable()
+	mapNode.change_visit_state(MapNode.VisitState.VISTED)
 	# TODO: Handle end of map!
 	# Make the next MapNode on the path visitable
 	var nextMapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y + 1), true, false)
-	nextMapNode.make_visitable()
+	nextMapNode.change_visit_state(MapNode.VisitState.VISITABLE)
 
 func save_map_node_data() -> Dictionary:
 	var save_data: Dictionary = {}
 	for child in %MapContainer.get_children():
-		if not child.has_method("make_visitable"):
+		if not child.has_method("change_visit_state"):
 			continue
 		
 		var child_data = {
@@ -246,7 +246,7 @@ func save_map_node_data() -> Dictionary:
 			"global_position_y": child.global_position.y,
 			"x_map_pos": child.x_map_pos,
 			"y_map_pos": child.y_map_pos,
-			"visitable": child.visitable
+			"visitState": child.visitState
 		}
 		save_data[_get_map_node_name(child.x_map_pos, child.y_map_pos)] = child_data
 	
