@@ -9,4 +9,5 @@ enum UiScene {
 }
 
 
+@warning_ignore("unused_signal")
 signal active_ui_changed(newActive: UiScene)
