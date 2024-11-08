@@ -23,6 +23,15 @@ Actions="*res://Cooking/actions.gd"
 AllRecipeController="*res://Recipes/Books/all_recipe_controller.tscn"
 LocationEvents="*res://Locations/location_events.gd"
 UiEvents="*res://Global/ui_events.gd"
+SaveLoad="*res://Saving/save_load.gd"
+
+[debug]
+
+gdscript/warnings/integer_division=0
+
+[global_group]
+
+persist="Nodes to persist (save & load)"
 
 [input]
 

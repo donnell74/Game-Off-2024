@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://drar7k6n8xn0q" path="res://Locations/Resources/hunting.tres" id="5_d6ubw"]
 [ext_resource type="Resource" path="res://Locations/Resources/foraging.tres" id="6_26ymd"]
 
-[node name="Map" type="Control" node_paths=PackedStringArray("mapNodeScene", "pathLineTemplateScene")]
+[node name="Map" type="Control" node_paths=PackedStringArray("mapNodeScene", "pathLineTemplateScene") groups=["persist"]]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ht3iq")
@@ -26,3 +26,9 @@ unique_name_in_owner = true
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
 default_color = Color(0.51578, 0.357592, 0.234679, 1)
+
+[node name="MapContainer" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

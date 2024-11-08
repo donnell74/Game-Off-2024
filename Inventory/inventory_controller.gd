@@ -31,3 +31,15 @@ func _to_string() -> String:
 	
 	inventory_string = inventory_string.substr(0, inventory_string.length() - 2) + "]"
 	return inventory_string
+
+func save() -> Dictionary:
+	var save_dict = {
+		SaveLoad.PATH_FROM_ROOT_KEY: get_path(),
+		"inventory": inventory.save()
+	}
+	
+	return save_dict
+
+func load(load_data: Dictionary) -> void:
+	inventory.load(load_data)
+	inventory_updated.emit()
