@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=8 format=3 uid="uid://bo1x5px66u0eo"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_5iuys"]
+[ext_resource type="Script" path="res://Recipes/recipe.gd" id="2_eehkh"]
+[ext_resource type="Resource" uid="uid://dnxki7cqb1jk5" path="res://Inventory/Items/fish.tres" id="2_i06l6"]
+[ext_resource type="Resource" uid="uid://ddmh2dgmpdakk" path="res://Inventory/Items/melted_butter.tres" id="3_asjkw"]
+[ext_resource type="Resource" uid="uid://dwwavbcbrow2e" path="res://Inventory/Items/diced_potatoes.tres" id="4_ct2vd"]
+[ext_resource type="Resource" uid="uid://ctcqpasnuj6k0" path="res://Inventory/Items/seaweed.tres" id="5_luds2"]
+[ext_resource type="Resource" uid="uid://b2bj7ndefvn3r" path="res://Inventory/Items/seafood_chowder.tres" id="6_bc8gk"]
+
+[resource]
+script = ExtResource("2_eehkh")
+input = Array[ExtResource("1_5iuys")]([ExtResource("2_i06l6"), ExtResource("3_asjkw"), ExtResource("4_ct2vd"), ExtResource("5_luds2")])
+output = Array[ExtResource("1_5iuys")]([ExtResource("6_bc8gk"), ExtResource("6_bc8gk")])
+action = 5
