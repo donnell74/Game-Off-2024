@@ -11,4 +11,5 @@ enum Actions {
 	MELT   = 6, # cooking pot
 	MASH   = 7, # cooking pot
 	CHOP   = 8, # cutting board
+	MIX    = 9, # cooking pot
 }

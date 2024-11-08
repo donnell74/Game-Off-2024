@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=5 format=3 uid="uid://ppvs6y16gwf3"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_wdnyh"]
+[ext_resource type="Resource" uid="uid://dnxki7cqb1jk5" path="res://Inventory/Items/fish.tres" id="2_7otsq"]
+[ext_resource type="Script" path="res://Recipes/recipe.gd" id="2_bb11b"]
+[ext_resource type="Resource" uid="uid://b4yy2beowo6v0" path="res://Inventory/Items/sashimi.tres" id="3_pfwoq"]
+
+[resource]
+script = ExtResource("2_bb11b")
+input = Array[ExtResource("1_wdnyh")]([ExtResource("2_7otsq")])
+output = Array[ExtResource("1_wdnyh")]([ExtResource("3_pfwoq")])
+action = 1
