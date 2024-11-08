@@ -60,8 +60,6 @@ func show_map() -> void:
 
 	mapNode.set_focus_mode(FocusMode.FOCUS_ALL)
 	mapNode.grab_focus()
-	#currentlyFocusedMapNode = mapNode
-	#mapNode.find_child("SelectedIndicator").visible = true
 
 func hide_map() -> void:
 	visible = false
