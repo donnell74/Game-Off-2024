@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_dmflh"]
 [ext_resource type="Script" path="res://Locations/activity.gd" id="2_3bwuh"]
 [ext_resource type="Resource" uid="uid://dnxki7cqb1jk5" path="res://Inventory/Items/fish.tres" id="2_sl85o"]
-[ext_resource type="Resource" path="res://Inventory/Items/seaweed.tres" id="3_v1doe"]
+[ext_resource type="Resource" uid="uid://ctcqpasnuj6k0" path="res://Inventory/Items/seaweed.tres" id="3_v1doe"]
 
 [resource]
 script = ExtResource("2_3bwuh")
