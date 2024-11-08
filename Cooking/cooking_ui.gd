@@ -69,8 +69,8 @@ func switch_active_station(increment: int) -> void:
 func move_station_items_to_player(station: Station):
 	if station == null:
 		station = %Stations.get_child(active_station_index)
-	for item_idx in range(0, %StationInventoryList.item_count):
-		var station_item = station.take_item(item_idx)
+	while %StationInventoryList.item_count > 0:
+		var station_item = station.take_item(0)
 		PlayerInventoryController.add_item(station_item)
 
 func update_station_item_list() -> void:
