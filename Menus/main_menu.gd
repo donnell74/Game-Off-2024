@@ -16,6 +16,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			%CanvasLayer.visible = false
 
 func _on_start_new_run_button_pressed() -> void:
+	Dialogic.start("introduction")
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
 
 func _on_settings_button_pressed() -> void:
@@ -24,4 +25,5 @@ func _on_settings_button_pressed() -> void:
 func _on_continue_button_pressed() -> void:
 	if SaveLoad.save_file_exists():
 		SaveLoad.load_game()
+
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)

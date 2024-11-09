@@ -17,7 +17,6 @@ extends Control
 @export var currentlyLoadedMapNode = Vector2.ZERO
 @export var currentlyFocusedMapNode : Control
 
-var RAND_NUM_GEN = RandomNumberGenerator.new()
 const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
 func _ready() -> void:
@@ -113,9 +112,10 @@ func set_focus_neighbors() -> void:
 
 func create_map_path() -> MapPath:
 	var mapPath = mapPathResource.new()
+	var rng = Settings.random()
 	for lengthIndex in range(pathLength):
 		var each_location = possibleLocations[
-			RAND_NUM_GEN.randi_range(0, possibleLocations.size() - 1)].duplicate()
+			rng.randi_range(0, possibleLocations.size() - 1)].duplicate()
 		mapPath.locations.append(each_location)
 	
 	return mapPath
@@ -175,7 +175,7 @@ func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 func _get_map_node_positiion(pathIndex: int, pathLengthIndex: int) -> Vector2i:
 	var y_pos = 100 - (pathLengthIndex * pathVerticalPadding)
 	var x_pos = pathIndex * pathHorizontalPadding
-	x_pos = x_pos + RAND_NUM_GEN.randi_range(x_pos - pathHorizontalPadding, x_pos + pathHorizontalPadding)
+	x_pos = x_pos + Settings.random().randi_range(x_pos - pathHorizontalPadding, x_pos + pathHorizontalPadding)
 	return bottomLeftMapPosition + Vector2i(x_pos, y_pos)
 
 func create_line_node(from: Node, to: Node) -> Line2D:

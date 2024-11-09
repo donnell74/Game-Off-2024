@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource("1_cq5r1")
 name = "Potato"
+rarity = 1.0
