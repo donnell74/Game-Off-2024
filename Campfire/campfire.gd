@@ -31,15 +31,7 @@ func _on_continue_day_button_pressed() -> void:
 	if has_node("/root/Location"):
 		LocationEvents.advance_day.emit()
 	else:
-		# show map
-		var map = $"/root/Main/Map"
-		if map and map.has_method("show_map"):
-			map.show_map()
-		else:
-			print("Unable to show map.")
-		
-		var campfire = $"/root/Main/Campfire"
-		campfire.visible = false
+		UiEvents.active_ui_changed.emit(UiEvents.UiScene.MAP)
 
 
 func populatePartyStats():
