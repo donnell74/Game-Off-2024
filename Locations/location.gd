@@ -16,7 +16,8 @@ enum Type {
 	TOWN,
 	FISHING,
 	HUNTING,
-	FORAGING
+	FORAGING,
+	BOSS
 }
 
 @export var description : String = "<Unknown>"
@@ -87,7 +88,7 @@ func select_random_items(items: Array[InventoryItem], min_num_items: int, max_nu
 func advance_time_of_day() -> void:
 	currentTimeOfDay = (currentTimeOfDay + 1) as TimeOfDay
 
-func save() -> Dictionary:	
+func save() -> Dictionary:
 	var save_map = { 
 		"description": description,
 		"backgroundTexture": backgroundTexture.resource_path if backgroundTexture else "",

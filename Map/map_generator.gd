@@ -4,6 +4,7 @@ extends Control
 @export var mapNodeScene : Control
 @export var pathLineTemplateScene : Node
 @export var possibleLocations : Array[Location] = []
+@export var possibleBosses : Array[Location] = []
 @export var pathCount : int = 5
 @export var pathLength : int = 10
 @export var dungeonPercent : int = 50
@@ -16,6 +17,7 @@ extends Control
 @export var locationScene = preload("res://Locations/location.tscn")
 @export var currentlyLoadedMapNode = Vector2.ZERO
 @export var currentlyFocusedMapNode : Control
+@export var selectedBoss : Location
 
 const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
@@ -55,7 +57,10 @@ func show_map() -> void:
 	var mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
 	while mapNode.visitState != MapNode.VisitState.VISITABLE:
 		pathLengthIndex += 1
-		mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
+		if pathLengthIndex == pathLength:
+			mapNode = %Boss
+		else:
+			mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
 
 	mapNode.set_focus_mode(FocusMode.FOCUS_ALL)
 	mapNode.grab_focus()
@@ -89,6 +94,9 @@ func generate_map(map_node_data: Dictionary = {}) -> void:
 		for pathIndex in range(pathCount):
 			map.paths.append(create_map_path())
 
+	selectedBoss = possibleBosses[Settings.random().randi_range(0, possibleBosses.size() - 1)]
+	%Boss.find_child("Icon").texture = preload("res://Map/Assets/monster.png")
+	%Boss.global_position = _get_map_node_positiion(pathCount / 2, pathLength + 2)
 	add_map_to_ui(map_node_data)
 	set_focus_neighbors()
 
@@ -109,6 +117,8 @@ func set_focus_neighbors() -> void:
 				rootMapNode.set_focus_neighbor(SIDE_TOP, MAP_NODE_PATH + _get_map_node_name(pathIndex, pathLengthIndex + 1))
 			if pathLengthIndex != 0:
 				rootMapNode.set_focus_neighbor(SIDE_BOTTOM, MAP_NODE_PATH + _get_map_node_name(pathIndex, pathLengthIndex - 1))
+			if pathLengthIndex == pathLength - 1:
+				rootMapNode.set_focus_neighbor(SIDE_TOP, %Boss.get_path())
 
 func create_map_path() -> MapPath:
 	var mapPath = mapPathResource.new()
@@ -153,14 +163,17 @@ func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 
 			if pathLengthIndex != 0:
 				%MapContainer.add_child(create_line_node(lastMapNode, mapNode))
+			if pathLengthIndex == pathLength - 1:
+				%MapContainer.add_child(create_line_node(mapNode, %Boss))
 
 			lastMapNode = mapNode
 
 func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 	var mapNode = mapNodeScene.duplicate()
 	var location = map.paths[pathIndex].locations[pathLengthIndex]
-	mapNode.find_child("Icon").texture = get_map_node_texture(location.type)
-	mapNode.find_child("Icon").expand_mode = TextureRect.EXPAND_FIT_WIDTH
+	var icon = mapNode.find_child("Icon")
+	icon.texture = get_map_node_texture(location.type)
+	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	# We want the path to move up to give the since of building up to a boss so we multiple
 	# y by negative
 	mapNode.global_position = _get_map_node_positiion(pathIndex, pathLengthIndex)
@@ -208,7 +221,12 @@ func _on_map_node_clicked(x_map_pos: int, y_map_pos: int) -> void:
 
 	hide_map()
 	
-	var location = map.paths[x_map_pos].locations[y_map_pos]
+	var location
+	if x_map_pos == -1 and y_map_pos == -1:
+		location = selectedBoss
+	else:
+		location = map.paths[x_map_pos].locations[y_map_pos]
+
 	currentlyLoadedMapNode = Vector2(x_map_pos, y_map_pos)
 	print("Location for MapNode (%d, %d): %s" % [x_map_pos, y_map_pos, location.description])
 	
@@ -223,15 +241,24 @@ func _get_map_node_name(x_map_pos: int, y_map_pos: int) -> String:
 func _on_location_simulation_done() -> void:
 	print("MapGenerator - _on_location_simulation_done")
 	$"/root/Location".queue_free()
+	if currentlyLoadedMapNode == Vector2(-1, -1):
+		# Level complete
+		generate_map()
+		PartyController.level_up()
+		SaveLoad.save_game()
+		UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
+		return
+	
 	# The MapNode is not owned by the map /shrug
-	#var mapScene = get_root().find_child("Map", true, false)
 	var mapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y), true, false)
 	mapNode.find_child("CompletedIndicator").visible = true
 	mapNode.change_visit_state(MapNode.VisitState.VISTED)
-	# TODO: Handle end of map!
 	# Make the next MapNode on the path visitable
-	var nextMapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y + 1), true, false)
-	nextMapNode.change_visit_state(MapNode.VisitState.VISITABLE)
+	if currentlyLoadedMapNode.y == pathLength - 1:
+		%Boss.change_visit_state(MapNode.VisitState.VISITABLE)
+	else:
+		var nextMapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y + 1), true, false)
+		nextMapNode.change_visit_state(MapNode.VisitState.VISITABLE)
 
 func save_map_node_data() -> Dictionary:
 	var save_data: Dictionary = {}
@@ -255,7 +282,11 @@ func save() -> Dictionary:
 	var save_dict = {
 		SaveLoad.PATH_FROM_ROOT_KEY: get_path(),
 		"map": map.save(),
-		"map_node_data": save_map_node_data()
+		"map_node_data": save_map_node_data(),
+		"boss": {
+			"visitState": %Boss.visitState,
+			"location": selectedBoss.save()
+		}
 	}
 	
 	return save_dict
@@ -263,4 +294,7 @@ func save() -> Dictionary:
 func load(load_data: Dictionary) -> void:
 	map.paths = []
 	map.load(load_data["map"])
+	selectedBoss = Location.new()
+	selectedBoss.load(load_data["boss"]["location"])
+	%Boss.visitState = load_data["boss"]["visitState"]
 	generate_map(load_data["map_node_data"])

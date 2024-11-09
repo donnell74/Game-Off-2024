@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Location" load_steps=5 format=3 uid="uid://6yu2tnvetura"]
 
 [ext_resource type="Script" path="res://Locations/activity.gd" id="1_ygp4x"]
-[ext_resource type="Resource" uid="uid://bb7mcy4nnuhut" path="res://Locations/Activities/foraging.tres" id="2_huoeg"]
+[ext_resource type="Resource" uid="uid://caod5vsc22v66" path="res://Locations/Activities/foraging.tres" id="2_huoeg"]
 [ext_resource type="Script" path="res://Locations/location.gd" id="2_wr12j"]
 [ext_resource type="Texture2D" uid="uid://bwud7nedrsyj2" path="res://Map/Assets/foraging.jpeg" id="3_vitry"]
 
