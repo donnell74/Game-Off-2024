@@ -1,5 +1,7 @@
 extends Node2D
 
+const ITEM_STACK_FORMAT = "%s x%d"
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Inventory"):
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
@@ -22,8 +24,15 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 
 func update_inventory_item_list() -> void:
 	%ItemList.clear()
+	var counts : Dictionary = {}
 	for each_item in PlayerInventoryController.inventory.items:
-		%ItemList.add_item(each_item.name)
+		if each_item.name in counts:
+			counts[each_item.name] += 1
+		else:
+			counts[each_item.name] = 1
+
+	for item_name in counts:
+		%ItemList.add_item(ITEM_STACK_FORMAT % [item_name, counts[item_name]])
 
 func _on_close_button_pressed() -> void:
 	print("Inventory close button clicked, hiding inventory ui")

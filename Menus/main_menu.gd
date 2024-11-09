@@ -22,4 +22,6 @@ func _on_settings_button_pressed() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.SETTINGS)
 
 func _on_continue_button_pressed() -> void:
+	if SaveLoad.save_file_exists():
+		SaveLoad.load_game()
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
