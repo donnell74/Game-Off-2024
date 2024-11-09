@@ -1,8 +1,11 @@
 extends Control
 
 @export var active_station_index = 0
-@export var actions_starting_index = Actions.Actions.keys().size() / 2
+@export var actions_starting_index = 0
 @export var cards_to_show = 4
+
+var active_station: Station
+var actions
 
 const ITEM_STACK_FORMAT = "%s x%d"
 var item_stack_regex : RegEx
@@ -16,7 +19,9 @@ func _ready() -> void:
 
 	update_player_item_list()
 
-	var active_station = %Stations.get_child(active_station_index)
+	active_station = %Stations.get_child(active_station_index)
+	actions = get_actions_for_station(active_station)
+	
 	if active_station and active_station.has_signal("inventory_updated"):
 		update_station_item_list()
 		active_station.inventory_updated.connect(_on_station_inventory_updated)
@@ -69,12 +74,16 @@ func switch_active_station(increment: int) -> void:
 		active_station.visible = false
 
 	active_station_index = new_active_index
-	var new_active_station = %Stations.get_child(active_station_index)
-	new_active_station.visible = true
-	if new_active_station and new_active_station.has_signal("inventory_updated"):
-		new_active_station.inventory_updated.connect(_on_station_inventory_updated)
+	active_station = %Stations.get_child(active_station_index)
+	actions = get_actions_for_station(active_station)
+	actions_starting_index = 0
+	
+	active_station.visible = true
+	if active_station and active_station.has_signal("inventory_updated"):
+		active_station.inventory_updated.connect(_on_station_inventory_updated)
 
 	update_station_item_list()
+	update_cards()
 	
 func move_station_items_to_player(station: Station):
 	if station == null:
@@ -112,29 +121,49 @@ func _on_card_clicked(action: Actions.Actions) -> void:
 	print("_on_card_clicked with action: %s" % Actions.Actions.keys()[action])
 	var active_station = %Stations.get_child(active_station_index)
 	active_station.get_perform_method(action).call()
+	
+func get_actions_for_station(station: Station):
+	return station.perform_method_map.keys()
 
 func update_cards() -> void:
-	for card_index in range(actions_starting_index, actions_starting_index + cards_to_show):
-		var card = %CardContainer.get_child(card_index - actions_starting_index)
-		card.update_ui(card_index as Actions.Actions, Actions.Actions.keys()[card_index])
-
-func _on_left_card_nav_button_pressed() -> void:
-	actions_starting_index -= 1
-	update_cards()
 	if actions_starting_index == 0:
 		print("Hit far left of action cards, disabling left card nav button")
 		%LeftCardNavButton.disabled = true
 	
-	%RightCardNavButton.disabled = false
+	print("actions for station", actions)
+	for card_index in range(actions_starting_index,actions_starting_index + cards_to_show):
+		var card = %CardContainer.get_child(card_index - actions_starting_index)
+		if card_index > actions.size() - 1:
+			card.visible = false
+			continue
+		else:
+			card.visible = true
+		
+		var action = actions[card_index]
+		card.update_ui(actions[card_index], Actions.Actions.keys()[actions[card_index]])
+	
+	if actions.size() <= cards_to_show:
+		%LeftCardNavButton.disabled = true
+		%RightCardNavButton.disabled = true
+	elif actions_starting_index == 0:
+		print("Hit far left of action cards, disabling left card nav button")
+		%LeftCardNavButton.disabled = true
+		if actions.size() > cards_to_show:
+			%RightCardNavButton.disabled = false
+	elif actions_starting_index + cards_to_show == actions.size():
+		print("Hit far right of action cards, disabling right card nav button")
+		%RightCardNavButton.disabled = true
+		if actions.size() > cards_to_show:
+			%LeftCardNavButton.disabled = false
+		
+
+func _on_left_card_nav_button_pressed() -> void:
+	actions_starting_index -= 1
+	update_cards()
 
 func _on_right_card_nav_button_pressed() -> void:
 	actions_starting_index += 1
 	update_cards()
-	if actions_starting_index + cards_to_show == Actions.Actions.size():
-		print("Hit far right of action cards, disabling right card nav button")
-		%RightCardNavButton.disabled = true
-	
-	%LeftCardNavButton.disabled = false
 
 func _on_player_inventory_list_focus_exited() -> void:
 	%PlayerInventoryList.deselect_all()
