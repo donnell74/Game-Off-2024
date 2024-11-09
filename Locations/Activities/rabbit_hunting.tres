@@ -8,6 +8,8 @@
 script = ExtResource("3_vup1e")
 description = "Hunting for rabbit"
 rewardItems = Array[ExtResource("1_33sab")]([ExtResource("2_qirjg"), ExtResource("2_qirjg")])
+minRewardItems = 1
+maxRewardItems = 3
 rewardCurrency = 0
 healthCost = 0.0
 staminaCost = 0.0

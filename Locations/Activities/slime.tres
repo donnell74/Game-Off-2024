@@ -8,6 +8,8 @@
 script = ExtResource("2_rn1u5")
 description = "A pack of wild slimes attacked"
 rewardItems = Array[ExtResource("1_xj7xe")]([ExtResource("2_cvgj7")])
+minRewardItems = 1
+maxRewardItems = 3
 rewardCurrency = 0
 healthCost = 1.0
 staminaCost = 0.0

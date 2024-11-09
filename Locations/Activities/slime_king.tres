@@ -9,6 +9,8 @@
 script = ExtResource("2_1yu5x")
 description = "A slime king approaches!"
 rewardItems = Array[ExtResource("1_ofqqy")]([ExtResource("2_6bmba"), ExtResource("3_umsh1")])
+minRewardItems = 1
+maxRewardItems = 3
 rewardCurrency = 0
 healthCost = 2.0
 staminaCost = 1.0
