@@ -47,10 +47,9 @@ func simulate() -> void:
 	advance_time_of_day()
 
 func simulate_activity(activity: Activity) -> void:
-	print("Simulating")
 	if activity.rewardItems.size() > 0:
 		print("Activity potential rewards: ", activity.rewardItems)
-		for reward in select_random_items(activity.rewardItems, 1, 2):
+		for reward in select_random_items(activity.rewardItems, activity.minRewardItems, activity.maxRewardItems):
 			PlayerInventoryController.add_item(reward)
 		
 		# handle decrementing 
@@ -66,6 +65,12 @@ func select_random_items(items: Array[InventoryItem], min_num_items: int, max_nu
 	
 	# Determine how many items this activity will return
 	var num_items = randi_range(min_num_items, max_num_items)
+	var format_string = "Randomized num of reward b/w {min} and {max} and got {got}".format({
+		"min": min_num_items,
+		"max": max_num_items,
+		"got": num_items
+	})
+	print(format_string)
 	var selected_items: Array[InventoryItem] = []
 	
 	for i in range(num_items):
