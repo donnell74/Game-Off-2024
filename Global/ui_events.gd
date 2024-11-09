@@ -5,7 +5,9 @@ enum UiScene {
 	MAP,
 	CAMPFIRE,
 	INVENTORY,
-	LOCATION
+	LOCATION,
+	MAIN_MENU,
+	SETTINGS
 }
 
 

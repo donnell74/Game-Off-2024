@@ -1,20 +1,18 @@
 extends Node2D
 
 func _ready() -> void:
-	# TODO: Remove this test code once we have UI
-	print("Party Health: %d" % PartyController.get_total_party_health())
-	print("Party Strength: %d" % PartyController.get_total_party_strength())
-	print("Party Stamina: %d" % PartyController.get_total_party_stamina())
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	PartyController.party_stats_changed.connect(populatePartyStats)
 	
 	populatePartyStats()
+
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.CAMPFIRE:
 			visible = true
 			$ContinueDayButton.grab_focus()
+			%AmbienceSound.play()
 			if has_node("/root/Location"):
 				var locationNode = $"/root/Location"
 				if locationNode:
@@ -22,9 +20,10 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[locationNode.location.currentTimeOfDay]
 				else:
 					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[Location.TimeOfDay.BREAKFAST]
-		UiEvents.UiScene.INVENTORY:
+		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY:
 			pass # overlay, do nothing
 		_:
+			%AmbienceSound.stop()
 			visible = false
 
 func _on_continue_day_button_pressed() -> void:

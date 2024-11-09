@@ -41,11 +41,14 @@ func _input(event: InputEvent) -> void:
 			UiEvents.active_ui_changed.emit(UiEvents.UiScene.COOKING)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
-	if newActive == UiEvents.UiScene.COOKING:
-		visible = true
-		%PlayerInventoryList.grab_focus()
-	else:
-		visible = false
+	match newActive:
+		UiEvents.UiScene.COOKING:
+			visible = true
+			%PlayerInventoryList.grab_focus()
+		UiEvents.UiScene.SETTINGS:
+			pass # overlay, don't hide
+		_:
+			visible = false
 
 func switch_active_station(increment: int) -> void:
 	var new_active_index = (active_station_index + increment) % %Stations.get_child_count()

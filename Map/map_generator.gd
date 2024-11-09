@@ -32,8 +32,8 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.MAP:
 			show_map()
-		UiEvents.UiScene.INVENTORY:
-			pass
+		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY:
+			pass # overlay, don't hide
 		_:
 			hide_map()
 
@@ -42,7 +42,7 @@ func _on_focus_changed(control: Control) -> void:
 	if !visible:
 		return
 	
-	if control:
+	if control and control.has_node("SelectedIndicator"):
 		# Make the old one not selected
 		if currentlyFocusedMapNode:
 			currentlyFocusedMapNode.find_child("SelectedIndicator").visible = false
