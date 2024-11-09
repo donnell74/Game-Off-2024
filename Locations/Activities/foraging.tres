@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Activity" load_steps=8 format=3 uid="uid://bb7mcy4nnuhut"]
+[gd_resource type="Resource" script_class="Activity" load_steps=8 format=3 uid="uid://caod5vsc22v66"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_alff2"]
-[ext_resource type="Resource" uid="uid://b1ac4yj1nddo2" path="res://Inventory/Items/berries.tres" id="2_fsfyd"]
+[ext_resource type="Resource" uid="uid://b1rdj2e1hcv4f" path="res://Inventory/Items/berries.tres" id="2_fsfyd"]
 [ext_resource type="Script" path="res://Locations/activity.gd" id="2_nb73b"]
 [ext_resource type="Resource" uid="uid://bi47dt7ky5lr5" path="res://Inventory/Items/onions.tres" id="3_usbyb"]
 [ext_resource type="Resource" uid="uid://c28lnc87hdaqw" path="res://Inventory/Items/garlic.tres" id="4_fyvgt"]

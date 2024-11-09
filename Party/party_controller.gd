@@ -38,6 +38,10 @@ func get_max_party_level() -> int:
 	
 	return max_level
 
+func level_up() -> void:
+	for each_member in party.members:
+		each_member.level += 1
+
 func feed_party_item(item: InventoryItem) -> void:
 	print("PartyController - feed-party-item with: %s" % item.name)
 	print("PartyController - Modifiers: %s" % item.modifiers)
