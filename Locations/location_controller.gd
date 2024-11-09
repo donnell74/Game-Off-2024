@@ -14,6 +14,11 @@ func _ready() -> void:
 	print(PartyController)
 	
 	%Background.texture = location.backgroundTexture
+	var animation = $AnimationPlayer.get_animation("background")
+	animation.loop = true
+
+	# Play the animation
+	$AnimationPlayer.play("background")
 	LocationEvents.advance_day.connect(_on_advance_day)
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	# TODO: Show an animation instead of going straight to Campfire
