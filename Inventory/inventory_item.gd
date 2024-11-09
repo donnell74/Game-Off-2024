@@ -4,6 +4,8 @@ class_name InventoryItem
 @export var name : String = "<Unknown>"
 @export var texture : Texture2D
 @export var modifiers : ItemModifier = ItemModifier.new()
+# Lower rarity means smaller change of being selected
+@export var rarity: float = 1.0
 
 func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
 	if name != other.name:

@@ -48,13 +48,41 @@ func simulate() -> void:
 
 func simulate_activity(activity: Activity) -> void:
 	if activity.rewardItems.size() > 0:
-		for each_reward in activity.rewardItems:
-			PlayerInventoryController.add_item(each_reward)
+		print("Activity potential rewards: ", activity.rewardItems)
+		for reward in select_random_items(activity.rewardItems, activity.minRewardItems, activity.maxRewardItems):
+			PlayerInventoryController.add_item(reward)
 		
 		# handle decrementing 
 		PartyController.apply_party_damage(PartyController.Stats.STRENGTH, activity.strengthCost)
 		PartyController.apply_party_damage(PartyController.Stats.STAMINA, activity.staminaCost)
 		PartyController.apply_party_damage(PartyController.Stats.HEALTH, activity.healthCost)
+		
+func select_random_items(items: Array[InventoryItem], min_num_items: int, max_num_items: int) -> Array[InventoryItem]:
+	# Total sum of rarity items
+	var total_rarity = 0.0
+	for item in items:
+		total_rarity += item.rarity
+	
+	# Determine how many items this activity will return
+	var num_items = randi_range(min_num_items, max_num_items)
+	var format_string = "Randomized num of reward b/w {min} and {max} and got {got}".format({
+		"min": min_num_items,
+		"max": max_num_items,
+		"got": num_items
+	})
+	print(format_string)
+	var selected_items: Array[InventoryItem] = []
+	
+	for i in range(num_items):
+		var rand_value = randf_range(0.0, total_rarity)
+		var cumulative_rarity = 0.0
+		
+		for item in items:
+			cumulative_rarity += item.rarity
+			if rand_value <= cumulative_rarity:
+				selected_items.append(item)
+				break
+	return selected_items
 	
 func advance_time_of_day() -> void:
 	currentTimeOfDay = (currentTimeOfDay + 1) as TimeOfDay
