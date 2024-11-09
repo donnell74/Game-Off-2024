@@ -9,6 +9,8 @@
 script = ExtResource("2_3bwuh")
 description = "Fishing"
 rewardItems = Array[ExtResource("1_dmflh")]([ExtResource("2_sl85o"), ExtResource("3_v1doe")])
+minRewardItems = 1
+maxRewardItems = 3
 rewardCurrency = 0
 healthCost = 0.0
 staminaCost = 0.0
