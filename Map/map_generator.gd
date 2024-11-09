@@ -160,6 +160,7 @@ func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 	var mapNode = mapNodeScene.duplicate()
 	var location = map.paths[pathIndex].locations[pathLengthIndex]
 	mapNode.find_child("Icon").texture = get_map_node_texture(location.type)
+	mapNode.find_child("Icon").expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	# We want the path to move up to give the since of building up to a boss so we multiple
 	# y by negative
 	mapNode.global_position = _get_map_node_positiion(pathIndex, pathLengthIndex)
@@ -195,7 +196,7 @@ func get_map_node_texture(type: Location.Type) -> Texture2D:
 		Location.Type.HUNTING:
 			return preload("res://Map/Assets/hunting.png")
 		Location.Type.FORAGING:
-			return preload("res://Cooking/Assets/clock.png")
+			return preload("res://Map/Assets/foraging_map_icon.jpeg")
 		_:
 			return preload("res://Map/Assets/monster.png")
 
