@@ -7,6 +7,7 @@ extends Control
 var active_station: Station
 var actions
 
+
 func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 
@@ -38,6 +39,10 @@ func _input(event: InputEvent) -> void:
 					.take_item(%StationInventoryList.get_selected_item_name())
 			PlayerInventoryController.add_item(station_item)
 			PlayerInventoryController.sort_by_name()
+		if %StationInventoryList.size() == 0:
+			$MoveAllItemsBackButton.visible = false
+		else:
+			$MoveAllItemsBackButton.visible = true
 	elif event.is_action_pressed("Navigate To Next Page"):
 		switch_active_station(1)
 	elif event.is_action_pressed("Navigate to Last Page"):
@@ -93,6 +98,7 @@ func move_items_from_station_to_player(from_station: Station):
 			var station_item = from_station.take_item_index(0)
 			PlayerInventoryController.add_item(station_item)
 		PlayerInventoryController.sort_by_name()
+	$MoveAllItemsBackButton.visible = false
 
 func _on_card_clicked(action: Actions.Actions) -> void:
 	print("_on_card_clicked with action: %s" % Actions.Actions.keys()[action])
@@ -147,3 +153,6 @@ func _on_player_inventory_list_focus_exited() -> void:
 
 func _on_station_inventory_list_focus_exited() -> void:
 	%StationInventoryList.deselect_all()
+
+func _on_move_items_button_pressed() -> void:
+	move_items_from_station_to_player(active_station)
