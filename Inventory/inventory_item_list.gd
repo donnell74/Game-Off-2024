@@ -26,14 +26,14 @@ func get_item_count() -> int:
 func get_item(index) -> InventoryItem:
 	return inventory.items[index]
 
-func get_item_text(index) -> String:
-	return %ItemList.get_item_text(index)
-
 func clear() -> void:
 	%ItemList.clear()
 
 func get_selected_items() -> Array:
 	return %ItemList.get_selected_items()
+
+func get_item_text(index: int) -> String:
+	return %ItemList.get_item_text(index)
 
 func set_inventory(newInventory: Inventory) -> void:
 	if inventory and inventory.inventory_updated.is_connected(update_inventory_item_list):
@@ -57,6 +57,10 @@ func update_inventory_item_list() -> void:
 	for item_name in counts:
 		%ItemList.add_item("%dx %s" % [counts[item_name], item_name])
 
+func get_selected_item_name() -> String:
+	var selected_index = %ItemList.get_selected_items()[0]
+	var selected_text = %ItemList.get_item_text(selected_index)
+	return selected_text.substr(selected_text.find("x") + 2)
 
 func _on_item_list_item_selected(index: int) -> void:
 	item_selected.emit(index)
