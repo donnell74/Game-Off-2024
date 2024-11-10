@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://36tjrcun16m8"]
+[gd_scene load_steps=8 format=3 uid="uid://36tjrcun16m8"]
 
 [ext_resource type="Script" path="res://Cooking/cooking_ui.gd" id="1_s1hhb"]
 [ext_resource type="PackedScene" uid="uid://c4lvb75fcwdoy" path="res://Cooking/Card/card.tscn" id="2_lyesf"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d38nlxol5ysn2" path="res://Cooking/Stations/CuttingBoard/cutting_board.tscn" id="5_m5731"]
 [ext_resource type="Texture2D" uid="uid://xyqkbdqlq44" path="res://Map/Assets/map_node_complete.png" id="6_m7uhn"]
 [ext_resource type="Texture2D" uid="uid://d261fee57t0m4" path="res://Map/Assets/monster.png" id="6_vt2gx"]
+[ext_resource type="PackedScene" uid="uid://o54ba27sc13" path="res://Inventory/inventory_item_list.tscn" id="7_ggatq"]
 
 [node name="CookingUi" type="Control"]
 layout_mode = 3
@@ -39,46 +40,22 @@ columns = 5
 [node name="Card1" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../../LeftCardNavButton")
-focus_neighbor_top = NodePath("../../PlayerInventoryList")
 focus_neighbor_right = NodePath("../Card2")
 
 [node name="Card2" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Card1")
-focus_neighbor_top = NodePath("../../PlayerInventoryList")
 focus_neighbor_right = NodePath("../Card3")
 
 [node name="Card3" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Card2")
-focus_neighbor_top = NodePath("../../StationInventoryList")
 focus_neighbor_right = NodePath("../Card4")
 
 [node name="Card4" parent="CardContainer" instance=ExtResource("2_lyesf")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../Card3")
-focus_neighbor_top = NodePath("../../StationInventoryList")
 focus_neighbor_right = NodePath("../../RightCardNavButton")
-
-[node name="StationInventoryList" type="ItemList" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 800.0
-offset_top = 25.0
-offset_right = 1130.0
-offset_bottom = 325.0
-focus_neighbor_right = NodePath("../PlayerInventoryList")
-allow_search = false
-
-[node name="PlayerInventoryList" type="ItemList" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 50.0
-offset_top = 25.0
-offset_right = 380.0
-offset_bottom = 325.0
-focus_neighbor_left = NodePath("../StationInventoryList")
-allow_search = false
 
 [node name="Stations" type="Control" parent="."]
 unique_name_in_owner = true
@@ -92,7 +69,10 @@ unique_name_in_owner = true
 [node name="CuttingBoard" parent="Stations" instance=ExtResource("5_m5731")]
 unique_name_in_owner = true
 visible = false
-position = Vector2(590, 225)
+offset_left = 590.0
+offset_top = 225.0
+offset_right = 590.0
+offset_bottom = 225.0
 
 [node name="LeftCardNavButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
@@ -116,7 +96,19 @@ rotation = 4.71239
 texture_normal = ExtResource("6_m7uhn")
 texture_disabled = ExtResource("6_vt2gx")
 
-[connection signal="focus_exited" from="StationInventoryList" to="." method="_on_station_inventory_list_focus_exited"]
-[connection signal="focus_exited" from="PlayerInventoryList" to="." method="_on_player_inventory_list_focus_exited"]
+[node name="StationInventoryList" parent="." instance=ExtResource("7_ggatq")]
+unique_name_in_owner = true
+offset_left = 725.0
+offset_top = 23.0
+offset_right = 1138.0
+offset_bottom = 358.0
+
+[node name="PlayerInventoryList" parent="." instance=ExtResource("7_ggatq")]
+unique_name_in_owner = true
+offset_left = 28.0
+offset_top = 24.0
+offset_right = 450.0
+offset_bottom = 361.0
+
 [connection signal="pressed" from="LeftCardNavButton" to="." method="_on_left_card_nav_button_pressed"]
 [connection signal="pressed" from="RightCardNavButton" to="." method="_on_right_card_nav_button_pressed"]

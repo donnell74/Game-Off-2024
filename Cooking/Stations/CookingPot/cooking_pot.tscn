@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvo2wsgg80c87"]
+[gd_scene load_steps=4 format=3 uid="uid://dvo2wsgg80c87"]
 
-[ext_resource type="Texture2D" uid="uid://bsyb6cikb4ini" path="res://Cooking/Assets/cooking_pot.png" id="1_p7g1w"]
 [ext_resource type="Script" path="res://Cooking/Stations/CookingPot/cooking_pot.gd" id="2_vrf1w"]
 [ext_resource type="Resource" uid="uid://cra15gw66qvce" path="res://Cooking/Stations/CookingPot/cooking_pot_inventory.tres" id="3_l4flm"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="4_fxgf1"]
 
-[node name="CookingPot" type="Sprite2D"]
-position = Vector2(590, 225)
+[node name="CookingPot" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 590.0
+offset_top = 225.0
+offset_right = 590.0
+offset_bottom = 225.0
 scale = Vector2(3, 3)
-texture = ExtResource("1_p7g1w")
 script = ExtResource("2_vrf1w")
 inventory = ExtResource("3_l4flm")
 inventory_item_resource = ExtResource("4_fxgf1")

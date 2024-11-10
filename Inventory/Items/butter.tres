@@ -6,3 +6,4 @@
 script = ExtResource("1_ynjam")
 name = "Butter"
 rarity = 1.0
+value = 10

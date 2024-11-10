@@ -10,3 +10,4 @@
 [resource]
 script = ExtResource("1_qkl14")
 members = Array[ExtResource("1_hpwxu")]([ExtResource("2_2mvw1"), ExtResource("3_54x7v"), ExtResource("1_tqk26"), ExtResource("4_2e8cr")])
+currency = 100

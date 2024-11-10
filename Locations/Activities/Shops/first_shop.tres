@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Activity" load_steps=8 format=3 uid="uid://cee08f73t404"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_unkqp"]
+[ext_resource type="Script" path="res://Locations/activity.gd" id="2_0nxta"]
+[ext_resource type="Resource" uid="uid://1ne47rfdydf4" path="res://Inventory/Items/cheese.tres" id="2_4y8hu"]
+[ext_resource type="Resource" uid="uid://c28lnc87hdaqw" path="res://Inventory/Items/garlic.tres" id="3_qhh65"]
+[ext_resource type="Resource" uid="uid://bi47dt7ky5lr5" path="res://Inventory/Items/onions.tres" id="4_d2n8k"]
+[ext_resource type="Resource" uid="uid://bdgy2r6xf7cjh" path="res://Inventory/Items/milk.tres" id="5_kc5i8"]
+[ext_resource type="Resource" uid="uid://dxj8seqeeuxp7" path="res://Inventory/Items/butter.tres" id="6_v1yg8"]
+
+[resource]
+script = ExtResource("2_0nxta")
+description = "The only shop in this small twon"
+rewardItems = Array[ExtResource("1_unkqp")]([ExtResource("2_4y8hu"), ExtResource("3_qhh65"), ExtResource("4_d2n8k"), ExtResource("5_kc5i8"), ExtResource("6_v1yg8")])
+minRewardItems = 1
+maxRewardItems = 3
+rewardCurrency = 0
+healthCost = 0.0
+staminaCost = 0.0
+strengthCost = 0.0

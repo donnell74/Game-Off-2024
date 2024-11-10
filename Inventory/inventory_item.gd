@@ -6,6 +6,7 @@ class_name InventoryItem
 @export var modifiers : ItemModifier = ItemModifier.new()
 # Lower rarity means smaller change of being selected
 @export var rarity: float = 1.0
+@export var value: int = 10
 
 func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
 	if name != other.name:

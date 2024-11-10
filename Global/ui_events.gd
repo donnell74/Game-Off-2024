@@ -8,6 +8,7 @@ enum UiScene {
 	LOCATION,
 	MAIN_MENU,
 	SETTINGS,
+	SHOP,
 	RECIPE_BOOK
 }
 

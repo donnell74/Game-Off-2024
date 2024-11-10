@@ -7,6 +7,7 @@ enum Stats {
 }
 
 signal party_stats_changed
+signal currency_changed
 
 @export var party: Party = preload("res://Party/First Party/first_party.tres")
 
@@ -41,6 +42,17 @@ func get_max_party_level() -> int:
 func level_up() -> void:
 	for each_member in party.members:
 		each_member.level += 1
+
+func get_party_currency() -> int:
+	return party.currency
+
+func increment_currency(amount: int) -> void:
+	party.currency += amount
+	currency_changed.emit()
+
+func decrement_currency(amount: int) -> void:
+	party.currency -= amount
+	currency_changed.emit()
 
 func feed_party_item(item: InventoryItem) -> void:
 	print("PartyController - feed-party-item with: %s" % item.name)
