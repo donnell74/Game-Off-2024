@@ -40,6 +40,7 @@ func clear_inventory() -> void:
 	inventory.items = []
 	inventory.inventory_updated.emit()
 
+
 func _to_string() -> String:
 	var inventory_string = "["
 	for each_item in inventory.items:

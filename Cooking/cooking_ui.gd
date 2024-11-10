@@ -44,7 +44,7 @@ func _input(event: InputEvent) -> void:
 		switch_active_station(-1)
 	elif event.is_action_pressed("Toggle Cooking"):
 		if visible:
-			move_station_items_to_player(null)
+			move_items_from_station_to_player(active_station)
 			UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
 		else:
 			UiEvents.active_ui_changed.emit(UiEvents.UiScene.COOKING)
@@ -61,15 +61,16 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 
 func switch_active_station(increment: int) -> void:
 	var new_active_index = (active_station_index + increment) % %Stations.get_child_count()
+	var new_active_station = %Stations.get_child(new_active_index)
 	print("Switching active station from %d to %d" % [active_station_index, new_active_index])
 	
 	active_station = %Stations.get_child(active_station_index)
 	if active_station:
-		move_station_items_to_player(active_station)
+		move_items_from_station_to_station(active_station, new_active_station)
 		active_station.visible = false
 
 	active_station_index = new_active_index
-	active_station = %Stations.get_child(active_station_index)
+	active_station = new_active_station
 	actions = get_actions_for_station(active_station)
 	actions_starting_index = 0
 	
@@ -79,12 +80,17 @@ func switch_active_station(increment: int) -> void:
 
 	update_cards()
 	
-func move_station_items_to_player(station: Station):
-	if station == null:
-		station = %Stations.get_child(active_station_index)
+func move_items_from_station_to_station(from_station: Station, to_station: Station):
 	if %StationInventoryList.get_item_count() > 0:
 		while %StationInventoryList.get_item_count() > 0:
-			var station_item = station.take_item_index(0)
+			var station_item = from_station.take_item_index(0)
+			to_station.add_item(station_item)
+		to_station.sort_by_name()
+		
+func move_items_from_station_to_player(from_station: Station):
+	if %StationInventoryList.get_item_count() > 0:
+		while %StationInventoryList.get_item_count() > 0:
+			var station_item = from_station.take_item_index(0)
 			PlayerInventoryController.add_item(station_item)
 		PlayerInventoryController.sort_by_name()
 
