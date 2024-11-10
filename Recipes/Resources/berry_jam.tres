@@ -10,3 +10,4 @@ script = ExtResource("2_thtsi")
 input = Array[ExtResource("1_w80ts")]([ExtResource("2_1bo16"), ExtResource("2_1bo16")])
 output = Array[ExtResource("1_w80ts")]([ExtResource("3_dbr36")])
 action = 7
+times_cooked = 0

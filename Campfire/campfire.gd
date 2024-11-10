@@ -20,7 +20,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[locationNode.location.currentTimeOfDay]
 				else:
 					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[Location.TimeOfDay.BREAKFAST]
-		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY:
+		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
 			pass # overlay, do nothing
 		_:
 			%AmbienceSound.stop()

@@ -29,6 +29,8 @@ func _input(event: InputEvent) -> void:
 
 func _on_mouse_entered() -> void:
 	mouseOver = true
+	print("mouse-over card")
 
 func _on_mouse_exited() -> void:
 	mouseOver = false
+	print("mouse-left card")
