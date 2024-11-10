@@ -7,20 +7,10 @@ script = ExtResource("1_uey0f")
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="Background" type="ColorRect" parent="InventoryCanvas"]
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.435185
-anchor_right = 0.701389
-anchor_bottom = 0.817901
-offset_left = -576.0
-offset_top = -282.0
-offset_right = 284.0
-offset_bottom = 118.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 1100.0
+offset_bottom = 650.0
 scale = Vector2(1.05477, 1)
 color = Color(0.448371, 0.284249, 0.191908, 1)
 metadata/_edit_use_anchors_ = true
