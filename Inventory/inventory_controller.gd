@@ -30,6 +30,14 @@ func take_item_index(item_index: int) -> InventoryItem:
 func clear_inventory() -> void:
 	inventory.items = []
 	inventory.inventory_updated.emit()
+	
+func sort_by_name():
+	inventory.items.sort_custom(_by_name)
+	
+func _by_name(a: InventoryItem, b: InventoryItem):
+	if a.name > b.name:
+		return false
+	return true
 
 func _to_string() -> String:
 	var inventory_string = "["
