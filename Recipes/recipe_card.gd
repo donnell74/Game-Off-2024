@@ -22,6 +22,7 @@ func update_ui(recipe: Recipe) -> void:
 				$AdditonalDetails/IngredientsList.add_item(ingredient.name, ingredient.texture)
 				$AdditonalDetails/IngredientsList.set_item_selectable(idx, false)
 				idx += 1
+		$AdditonalDetails/IngredientsList.sort_items_by_text()	
 	
 	# Recipe Name
 	%DescriptionText.text = "{name}\n({action})(Cooked: {times_cooked})".format({

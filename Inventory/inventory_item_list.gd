@@ -54,8 +54,11 @@ func update_inventory_item_list() -> void:
 		else:
 			counts[each_item.name] = 1
 
-	for item_name in counts:
+	var sorted_keys =  counts.keys()
+	sorted_keys.sort()
+	for item_name in sorted_keys:
 		%ItemList.add_item("%dx %s" % [counts[item_name], item_name])
+	
 
 func get_selected_item_name() -> String:
 	var selected_index = %ItemList.get_selected_items()[0]

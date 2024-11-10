@@ -52,6 +52,7 @@ func simulate_activity(activity: Activity) -> void:
 		print("Activity potential rewards: ", activity.rewardItems)
 		for reward in select_random_items(activity.rewardItems, activity.minRewardItems, activity.maxRewardItems):
 			PlayerInventoryController.add_item(reward)
+		PlayerInventoryController.sort_by_name()
 		
 		# handle decrementing 
 		PartyController.apply_party_damage(PartyController.Stats.STRENGTH, activity.strengthCost)
