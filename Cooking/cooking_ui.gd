@@ -23,6 +23,10 @@ func _ready() -> void:
 	update_cards()
 
 func _input(event: InputEvent) -> void:
+	var main_menu = $"/root/Main/MainMenu"
+	if main_menu and main_menu.visible:
+		return
+	
 	if event.is_action_pressed("ui_accept"):
 		if %PlayerInventoryList.get_selected_items().size() == 1:
 			var selected_item_name = %PlayerInventoryList.get_selected_item_name()

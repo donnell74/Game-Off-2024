@@ -10,7 +10,6 @@ func _input(event: InputEvent) -> void:
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
-	print("_on_active_ui_changed")
 	if newActive == UiEvents.UiScene.RECIPE_BOOK:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
 	elif newActive == UiEvents.UiScene.INVENTORY:

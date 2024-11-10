@@ -3,6 +3,10 @@ extends Node2D
 const ITEM_STACK_FORMAT = "%s x%d"
 
 func _input(event: InputEvent) -> void:
+	var main_menu = $"/root/Main/MainMenu"
+	if main_menu and main_menu.visible:
+		return
+	
 	if event.is_action_pressed("Toggle Inventory"):
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
 	if event.is_action_pressed("ui_accept") and %InventoryItemList.has_focus():
@@ -47,7 +51,6 @@ func _on_feed_button_pressed() -> void:
 		PartyController.feed_party_item(item)
 	else:
 		print("Skipping feeding since no selected item")
-
 
 func _on_recipe_book_button_pressed() -> void:
 	print("Recipe button, clicked, showing recipe book")
