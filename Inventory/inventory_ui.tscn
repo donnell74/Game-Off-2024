@@ -23,6 +23,7 @@ offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.448371, 0.284249, 0.191908, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="InventoryItemList" parent="InventoryCanvas" instance=ExtResource("2_21x0n")]
 unique_name_in_owner = true
@@ -33,6 +34,9 @@ offset_bottom = 483.0
 focus_neighbor_right = NodePath("../FeedButton")
 focus_next = NodePath("../FeedButton")
 focus_mode = 2
+focus_neighbor_bottom = NodePath("../FeedButton")
+allow_search = false
+metadata/_edit_use_anchors_ = true
 
 [node name="CloseButton" type="Button" parent="InventoryCanvas"]
 unique_name_in_owner = true
@@ -49,7 +53,9 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_neighbor_left = NodePath("../InventoryItemList")
 focus_neighbor_top = NodePath("../FeedButton")
+focus_neighbor_bottom = NodePath("../RecipeBookButton")
 text = "Close"
+metadata/_edit_use_anchors_ = true
 
 [node name="FeedButton" type="Button" parent="InventoryCanvas"]
 unique_name_in_owner = true
@@ -66,8 +72,23 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_neighbor_left = NodePath("../InventoryItemList")
 focus_neighbor_top = NodePath(".")
+focus_neighbor_top = NodePath("../RecipeBookButton")
 focus_neighbor_bottom = NodePath("../CloseButton")
 text = "Feed"
+metadata/_edit_use_anchors_ = true
+
+[node name="RecipeBookButton" type="Button" parent="InventoryCanvas"]
+unique_name_in_owner = true
+offset_left = 740.0
+offset_top = 158.32
+offset_right = 854.0
+offset_bottom = 204.32
+focus_neighbor_top = NodePath("../CloseButton")
+focus_neighbor_right = NodePath("../ItemList")
+focus_neighbor_bottom = NodePath("../FeedButton")
+text = "Recipe Book"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="InventoryCanvas/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="InventoryCanvas/FeedButton" to="." method="_on_feed_button_pressed"]
+[connection signal="pressed" from="InventoryCanvas/RecipeBookButton" to="." method="_on_recipe_book_button_pressed"]

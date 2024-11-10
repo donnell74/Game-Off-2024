@@ -48,7 +48,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		UiEvents.UiScene.COOKING:
 			visible = true
 			%PlayerInventoryList.grab_focus()
-		UiEvents.UiScene.SETTINGS:
+		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.RECIPE_BOOK:
 			pass # overlay, don't hide
 		_:
 			visible = false

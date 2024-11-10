@@ -21,10 +21,24 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
 		if %InventoryCanvas.visible:
 			%InventoryItemList.grab_focus()
+	if newActive == UiEvents.UiScene.RECIPE_BOOK:
+		%InventoryCanvas.visible = false
+
+func update_inventory_item_list() -> void:
+	%ItemList.clear()
+	var counts : Dictionary = {}
+	for each_item in PlayerInventoryController.inventory.items:
+		if each_item.name in counts:
+			counts[each_item.name] += 1
+		else:
+			counts[each_item.name] = 1
+
+	for item_name in counts:
+		%ItemList.add_item(ITEM_STACK_FORMAT % [item_name, counts[item_name]])
 
 func _on_close_button_pressed() -> void:
 	print("Inventory close button clicked, hiding inventory ui")
-	%InventoryCanvas.visible = false
+	UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
 
 func _on_feed_button_pressed() -> void:
 	if %InventoryItemList.get_selected_items().size() > 0:
@@ -33,3 +47,8 @@ func _on_feed_button_pressed() -> void:
 		PartyController.feed_party_item(item)
 	else:
 		print("Skipping feeding since no selected item")
+
+
+func _on_recipe_book_button_pressed() -> void:
+	print("Recipe button, clicked, showing recipe book")
+	UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK)
