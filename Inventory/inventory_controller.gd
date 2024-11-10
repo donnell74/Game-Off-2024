@@ -15,7 +15,7 @@ func take_item(search_name: String) -> InventoryItem:
 			var item = inventory.items.pop_at(item_index)
 			inventory.inventory_updated.emit()
 			return item
-
+	
 	return null
 
 func take_item_index(item_index: int) -> InventoryItem:
@@ -26,6 +26,15 @@ func take_item_index(item_index: int) -> InventoryItem:
 	var item = inventory.items.pop_at(item_index)
 	inventory.inventory_updated.emit()
 	return item
+	
+func sort_by_name():
+	print("sorting, ", inventory.items.size())
+	inventory.items.sort_custom(_by_name)
+	
+func _by_name(a: InventoryItem, b: InventoryItem):
+	if a.name < b.name:
+		return true
+	return false
 
 func clear_inventory() -> void:
 	inventory.items = []

@@ -32,10 +32,12 @@ func _input(event: InputEvent) -> void:
 			var selected_item_name = %PlayerInventoryList.get_selected_item_name()
 			var inventory_item = PlayerInventoryController.take_item(selected_item_name)
 			%Stations.get_child(active_station_index).add_item(inventory_item)
+			%Stations.get_child(active_station_index).sort_by_name()
 		elif %StationInventoryList.get_selected_items().size() == 1:
 			var station_item = %Stations.get_child(active_station_index)\
 					.take_item(%StationInventoryList.get_selected_item_name())
 			PlayerInventoryController.add_item(station_item)
+			PlayerInventoryController.sort_by_name()
 	elif event.is_action_pressed("Navigate To Next Page"):
 		switch_active_station(1)
 	elif event.is_action_pressed("Navigate to Last Page"):
