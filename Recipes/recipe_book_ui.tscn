@@ -7,6 +7,7 @@ script = ExtResource("1_uey0f")
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="Background" type="ColorRect" parent="InventoryCanvas"]
 offset_right = 1100.0

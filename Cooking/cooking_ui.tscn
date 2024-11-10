@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://36tjrcun16m8"]
+[gd_scene load_steps=9 format=3 uid="uid://36tjrcun16m8"]
 
 [ext_resource type="Script" path="res://Cooking/cooking_ui.gd" id="1_s1hhb"]
 [ext_resource type="PackedScene" uid="uid://c4lvb75fcwdoy" path="res://Cooking/Card/card.tscn" id="2_lyesf"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://xyqkbdqlq44" path="res://Map/Assets/map_node_complete.png" id="6_m7uhn"]
 [ext_resource type="Texture2D" uid="uid://d261fee57t0m4" path="res://Map/Assets/monster.png" id="6_vt2gx"]
 [ext_resource type="PackedScene" uid="uid://o54ba27sc13" path="res://Inventory/inventory_item_list.tscn" id="7_ggatq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5eepe"]
+font_size = 10
+font_color = Color(0, 0, 0, 1)
 
 [node name="CookingUi" type="Control"]
 layout_mode = 3
@@ -74,6 +78,35 @@ offset_top = 225.0
 offset_right = 590.0
 offset_bottom = 225.0
 
+[node name="MoveAllItemsBackButton" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 547.0
+offset_top = 147.0
+offset_right = 639.0
+offset_bottom = 220.0
+mouse_filter = 1
+
+[node name="Button" type="TextureButton" parent="MoveAllItemsBackButton"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 76.0
+offset_top = 8.0
+offset_right = 140.0
+offset_bottom = 72.0
+rotation = 1.5708
+mouse_filter = 1
+texture_normal = ExtResource("6_m7uhn")
+texture_disabled = ExtResource("6_vt2gx")
+
+[node name="Label" type="Label" parent="MoveAllItemsBackButton"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+mouse_filter = 1
+text = "Move Items Back"
+label_settings = SubResource("LabelSettings_5eepe")
+
 [node name="LeftCardNavButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
@@ -84,6 +117,7 @@ offset_bottom = 480.0
 rotation = 1.5708
 texture_normal = ExtResource("6_m7uhn")
 texture_disabled = ExtResource("6_vt2gx")
+metadata/_edit_lock_ = true
 
 [node name="RightCardNavButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
@@ -95,6 +129,7 @@ offset_bottom = 584.0
 rotation = 4.71239
 texture_normal = ExtResource("6_m7uhn")
 texture_disabled = ExtResource("6_vt2gx")
+metadata/_edit_lock_ = true
 
 [node name="StationInventoryList" parent="." instance=ExtResource("7_ggatq")]
 unique_name_in_owner = true
@@ -110,5 +145,6 @@ offset_top = 24.0
 offset_right = 450.0
 offset_bottom = 361.0
 
+[connection signal="pressed" from="MoveAllItemsBackButton/Button" to="." method="_on_move_items_button_pressed"]
 [connection signal="pressed" from="LeftCardNavButton" to="." method="_on_left_card_nav_button_pressed"]
 [connection signal="pressed" from="RightCardNavButton" to="." method="_on_right_card_nav_button_pressed"]

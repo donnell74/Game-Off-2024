@@ -31,6 +31,9 @@ func clear() -> void:
 
 func get_selected_items() -> Array:
 	return %ItemList.get_selected_items()
+	
+func size():
+	return %ItemList.item_count
 
 func get_item_text(index: int) -> String:
 	return %ItemList.get_item_text(index)
