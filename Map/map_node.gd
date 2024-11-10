@@ -14,6 +14,8 @@ enum VisitState {
 @export var mouseOver : bool = false
 @export var visitState : VisitState = VisitState.VISITABLE
 @export var notVisitableColor : Color = Color.DARK_GRAY
+@export var location : Location
+@export var next_neighbors : Array[MapNode] = []
 
 func _input(event: InputEvent) -> void:
 	if mouseOver and event is InputEventMouseButton and event.is_pressed():

@@ -10,7 +10,7 @@ extends Control
 @export var dungeonPercent : int = 50
 @export var resourcePercent : int = 50
 @export var map : Map = preload("res://Map/map.gd").new()
-@export var pathHorizontalPadding = 200
+@export var pathHorizontalPadding = 250
 @export var pathVerticalPadding = 150
 @export var bottomLeftMapPosition : Vector2i
 @export var cameraMovementSpeed = 1000.0
@@ -19,6 +19,10 @@ extends Control
 @export var currentlyLoadedMapNode = Vector2.ZERO
 @export var currentlyFocusedMapNode : Control
 @export var selectedBoss : Location
+@export var minMergedNodes : int = 3
+@export var maxMergedNodes : int = 8
+@export var rootNodes : Array[MapNode] = []
+@export var mergeChance: float = 0.05
 
 const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
@@ -56,12 +60,14 @@ func show_map() -> void:
 	%MapCamera.enabled = true
 	var pathLengthIndex = 0
 	var mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
+	var nextNodes : Array[MapNode] = []
 	while mapNode.visitState != MapNode.VisitState.VISITABLE:
 		pathLengthIndex += 1
+		nextNodes.append_array(mapNode.next_neighbors)
 		if pathLengthIndex == pathLength:
 			mapNode = %Boss
 		else:
-			mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
+			mapNode = nextNodes.pop_front()
 
 	mapNode.set_focus_mode(FocusMode.FOCUS_ALL)
 	mapNode.grab_focus()
@@ -100,6 +106,7 @@ func generate_map(map_node_data: Dictionary = {}) -> void:
 	%Boss.global_position = _get_map_node_positiion(pathCount / 2, pathLength + 2)
 	add_map_to_ui(map_node_data)
 	set_focus_neighbors()
+	add_map_lines()
 
 func set_focus_neighbors() -> void:
 	for pathIndex in range(pathCount):
@@ -148,6 +155,9 @@ func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 		for pathLengthIndex in range(pathLength):
 			var mapNode = create_map_node(pathIndex, pathLengthIndex)
 			%MapContainer.add_child(mapNode)
+			if pathLengthIndex == 0:
+				rootNodes.append(mapNode)
+			
 			if map_node_data.size() == 0:
 				if pathLengthIndex == 0:
 					mapNode.change_visit_state(MapNode.VisitState.VISITABLE)
@@ -161,13 +171,76 @@ func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 					mapNode.change_visit_state(node_data["visitState"])
 				else:
 					mapNode.change_visit_state(MapNode.VisitState.NOT_VISITABLE)
-
-			if pathLengthIndex != 0:
-				%MapContainer.add_child(create_line_node(lastMapNode, mapNode))
-			if pathLengthIndex == pathLength - 1:
-				%MapContainer.add_child(create_line_node(mapNode, %Boss))
-
+				
+			if lastMapNode and lastMapNode.y_map_pos != pathLength - 1:
+				lastMapNode.next_neighbors.append(mapNode)
+	
 			lastMapNode = mapNode
+		
+	# don't merge nodes if we are loading data
+	if map_node_data.size() == 0:
+		merge_random_nodes()
+
+func merge_random_nodes() -> void:
+	var nodes_to_merge = Settings.random().randi_range(minMergedNodes, maxMergedNodes)
+	for merge_index in range(nodes_to_merge):
+		var current_level = rootNodes.duplicate()
+		var merged_node = false
+		while !merged_node:
+			if current_level.size() == 0:
+				# restart at root if we haven't find a node to merge yet
+				current_level = rootNodes.duplicate()
+
+			# Calculate next level
+			var next_level = []
+			var next_level_keys = []
+			for each_node in current_level:
+				for each_neighbor in each_node.next_neighbors:
+					if each_neighbor.name in next_level_keys:
+						print("Duplicate neighbor, ignoring: ", each_neighbor.name)
+						continue
+					
+					next_level.append(each_neighbor)
+					next_level_keys.append(each_neighbor.name)
+			
+			if Settings.random().randf() <= mergeChance:
+				merged_node = true
+				# pick random node, it's next_neighbor will be merged
+				# find node next to it and set next_neighbors to be the same
+				var target_node_index = Settings.random().randi_range(1, current_level.size() - 1)
+				var target_node = current_level[target_node_index - 1] # -1 so always works next line
+				var neighbor_node = current_level[target_node_index]
+				if target_node.x_map_pos == neighbor_node.x_map_pos:
+					print("Merging (%d, %d) and (%d, %d) has same x_map_pos" % [target_node.x_map_pos,
+					  target_node.y_map_pos, neighbor_node.x_map_pos, neighbor_node.y_map_pos])
+				else:
+					print("Merging (%d, %d) and (%d, %d) to same next_neighbors" % [target_node.x_map_pos,
+					  target_node.y_map_pos, neighbor_node.x_map_pos, neighbor_node.y_map_pos])
+					# given a -> b -> c, and d -> e -> f make it
+					# a/d -> b -> c/f (delete e)
+					var later_path_neighbors : Array[MapNode] = []
+					for each_neighbor in neighbor_node.next_neighbors:
+						later_path_neighbors.append_array(each_neighbor.next_neighbors)
+						each_neighbor.queue_free()
+					
+					neighbor_node.next_neighbors = target_node.next_neighbors
+					for each_neighbor in target_node.next_neighbors:
+						each_neighbor.next_neighbors.append_array(later_path_neighbors)
+			
+			# set next level
+			current_level = next_level
+
+func add_map_lines() -> void:
+	var nodes_to_visit = rootNodes.duplicate()
+	while nodes_to_visit.size() > 0:
+		var each_node = nodes_to_visit.pop_front()
+		if each_node.y_map_pos == pathLength - 1:
+			%MapContainer.add_child(create_line_node(each_node, %Boss))
+		else:
+			for each_neighbor in each_node.next_neighbors:
+				%MapContainer.add_child(create_line_node(each_node, each_neighbor))
+				nodes_to_visit.append(each_neighbor)
+
 
 func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 	var mapNode = mapNodeScene.duplicate()
@@ -180,6 +253,7 @@ func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 	mapNode.global_position = _get_map_node_positiion(pathIndex, pathLengthIndex)
 	mapNode.visible = true
 	mapNode.name = _get_map_node_name(pathIndex, pathLengthIndex)
+	mapNode.location = location
 	mapNode.x_map_pos = pathIndex
 	mapNode.y_map_pos = pathLengthIndex
 	mapNode.map_node_clicked.connect(_on_map_node_clicked)
@@ -189,7 +263,7 @@ func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 func _get_map_node_positiion(pathIndex: int, pathLengthIndex: int) -> Vector2i:
 	var y_pos = 100 - (pathLengthIndex * pathVerticalPadding)
 	var x_pos = pathIndex * pathHorizontalPadding
-	x_pos = x_pos + Settings.random().randi_range(x_pos - pathHorizontalPadding, x_pos + pathHorizontalPadding)
+	x_pos = x_pos + Settings.random().randi_range(x_pos - (pathHorizontalPadding / 2.0), x_pos + (pathHorizontalPadding / 2.0))
 	return bottomLeftMapPosition + Vector2i(x_pos, y_pos)
 
 func create_line_node(from: Node, to: Node) -> Line2D:
@@ -270,8 +344,8 @@ func _on_location_simulation_done() -> void:
 	if currentlyLoadedMapNode.y == pathLength - 1:
 		%Boss.change_visit_state(MapNode.VisitState.VISITABLE)
 	else:
-		var nextMapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y + 1), true, false)
-		nextMapNode.change_visit_state(MapNode.VisitState.VISITABLE)
+		for nextMapNode in mapNode.next_neighbors:
+			nextMapNode.change_visit_state(MapNode.VisitState.VISITABLE)
 
 func save_map_node_data() -> Dictionary:
 	var save_data: Dictionary = {}
