@@ -1,6 +1,9 @@
 extends Resource
 class_name Inventory
 
+@warning_ignore("unused_signal")
+signal inventory_updated
+
 @export var items : Array[InventoryItem] = []
 
 func save() -> Dictionary:

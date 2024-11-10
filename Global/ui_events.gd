@@ -7,7 +7,8 @@ enum UiScene {
 	INVENTORY,
 	LOCATION,
 	MAIN_MENU,
-	SETTINGS
+	SETTINGS,
+	SHOP
 }
 
 

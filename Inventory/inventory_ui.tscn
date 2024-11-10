@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnurxmck8x2nv"]
+[gd_scene load_steps=3 format=3 uid="uid://cnurxmck8x2nv"]
 
-[ext_resource type="Script" path="res://Inventory/inventory_ui.gd" id="1_802gu"]
+[ext_resource type="Script" path="res://Inventory/inventory_ui.gd" id="1_f8nx2"]
+[ext_resource type="PackedScene" uid="uid://o54ba27sc13" path="res://Inventory/inventory_item_list.tscn" id="2_21x0n"]
 
 [node name="InventoryUi" type="Node2D"]
-script = ExtResource("1_802gu")
+script = ExtResource("1_f8nx2")
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -23,23 +24,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.448371, 0.284249, 0.191908, 1)
 
-[node name="ItemList" type="ItemList" parent="InventoryCanvas"]
+[node name="InventoryItemList" parent="InventoryCanvas" instance=ExtResource("2_21x0n")]
 unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -375.0
-offset_top = -167.0
-offset_right = 32.0
-offset_bottom = 169.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbor_left = NodePath("../CloseButton")
+offset_left = 213.0
+offset_top = 165.0
+offset_right = 722.0
+offset_bottom = 483.0
 focus_neighbor_right = NodePath("../FeedButton")
-focus_neighbor_bottom = NodePath("../FeedButton")
-allow_search = false
+focus_next = NodePath("../FeedButton")
+focus_mode = 2
 
 [node name="CloseButton" type="Button" parent="InventoryCanvas"]
 unique_name_in_owner = true
@@ -54,7 +47,7 @@ offset_right = 278.0
 offset_bottom = 162.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_neighbor_left = NodePath("../ItemList")
+focus_neighbor_left = NodePath("../InventoryItemList")
 focus_neighbor_top = NodePath("../FeedButton")
 text = "Close"
 
@@ -71,8 +64,8 @@ offset_right = 278.0
 offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_neighbor_left = NodePath("../ItemList")
-focus_neighbor_top = NodePath("../ItemList")
+focus_neighbor_left = NodePath("../InventoryItemList")
+focus_neighbor_top = NodePath(".")
 focus_neighbor_bottom = NodePath("../CloseButton")
 text = "Feed"
 

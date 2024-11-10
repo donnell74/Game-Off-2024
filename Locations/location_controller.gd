@@ -21,7 +21,6 @@ func _ready() -> void:
 	$AnimationPlayer.play("background")
 	LocationEvents.advance_day.connect(_on_advance_day)
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
-	# TODO: Show an animation instead of going straight to Campfire
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
