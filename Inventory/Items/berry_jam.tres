@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource("1_ktygx")
 name = "Berry Jam"
+rarity = 1.0

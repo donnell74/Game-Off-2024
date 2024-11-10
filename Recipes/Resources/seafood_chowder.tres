@@ -13,3 +13,4 @@ script = ExtResource("2_eehkh")
 input = Array[ExtResource("1_5iuys")]([ExtResource("2_i06l6"), ExtResource("3_asjkw"), ExtResource("4_ct2vd"), ExtResource("5_luds2")])
 output = Array[ExtResource("1_5iuys")]([ExtResource("6_bc8gk"), ExtResource("6_bc8gk")])
 action = 5
+times_cooked = 0

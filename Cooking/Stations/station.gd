@@ -25,7 +25,7 @@ func perform_single(item_index: int, action: Actions.Actions, modifiers: ItemMod
 	_perform([inventory.items[item_index]], action, modifiers)
 
 func _perform(item_array: Array[InventoryItem], action: Actions.Actions, modifiers: ItemModifier) -> void:
-	var matching_recipes = AllRecipeController.recipe_book.match(action, item_array)
+	var matching_recipes = RecipeBookController.recipe_book.match(action, item_array)
 	if matching_recipes.size() == 0:
 		print("Unable to perform action, no recipe found")
 		return
@@ -34,6 +34,11 @@ func _perform(item_array: Array[InventoryItem], action: Actions.Actions, modifie
 		return
 
 	clear_inventory()
+	
+	# Increment count of recipe cooked
+	var recipe: Recipe = matching_recipes[0]
+	RecipeBookController.recipe_cooked.emit(recipe)
+	
 	for each_output_item in matching_recipes[0].output:
 		var local_output_item = each_output_item.duplicate()
 		var combined = combine_multipliers(item_array)
