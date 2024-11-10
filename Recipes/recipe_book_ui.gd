@@ -21,12 +21,18 @@ func update_recipes(type: String = "ALL"):
 	# Clear it first
 	for child in $InventoryCanvas/ScrollContainer/GridContainer.get_children():
 		child.queue_free()
+	var recipes = RecipeBookController.recipe_book.recipes
+	recipes.sort_custom(_by_name)
 	for recipe in RecipeBookController.recipe_book.recipes:
 		if (type == "UNLOCKED" and recipe.times_cooked > 0) or (type == "ALL"):
 			var recipe_card = recipe_card_scene.instantiate()
 			recipe_card.update_ui(recipe)
 			$InventoryCanvas/ScrollContainer/GridContainer.add_child(recipe_card)
 		
+func _by_name(a: Recipe, b: Recipe):
+	if a.output[0].name > b.output[0].name:
+		return false
+	return true
 
 func _on_recipe_cooked(recipe: Recipe):
 	var idx = 0

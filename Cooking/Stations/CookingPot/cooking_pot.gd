@@ -5,6 +5,8 @@ func _ready() -> void:
 	perform_method_map[Actions.Actions.BOIL] = boil
 	perform_method_map[Actions.Actions.MASH] = mash
 	perform_method_map[Actions.Actions.MIX] = mix
+	perform_method_map[Actions.Actions.SIMMER] = simmer
+	perform_method_map[Actions.Actions.WAIT] = wait
 
 func add_item(item: InventoryItem) -> void:
 	print("Adding %s to cooking pot" % item.name)
@@ -26,3 +28,11 @@ func mash() -> void:
 func mix() -> void:
 	perform_combination(Actions.Actions.MIX, ItemModifier.from_values(1.0, 1.05, 1.05))
 	print("CookingPot.mix => New inventory: %s" % to_string())
+	
+func simmer() -> void:
+	perform_combination(Actions.Actions.SIMMER, ItemModifier.from_values(1.0, 1.05, 1.05))
+	print("CookingPot.simmer => New inventory: %s" % to_string())
+	
+func wait() -> void:
+	perform_combination(Actions.Actions.WAIT, ItemModifier.from_values(1.0, 1.1, 1.0))
+	print("CuttingBoard.wait => New inventory: %s" % to_string())

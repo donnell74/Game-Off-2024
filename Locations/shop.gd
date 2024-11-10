@@ -63,12 +63,14 @@ func _on_buy_sell_button_pressed() -> void:
 		for index in range(%Amount.text.to_int()):
 			var item_to_sell = %PlayerInventoryItemList.take_item(selected_item_name)
 			%ShopInventoryItemList.add_item(item_to_sell)
+			%ShopInventoryItemList.sort_by_name()
 			PartyController.increment_currency(item_to_sell.value)
 	else:
 		var selected_item_name = %ShopInventoryItemList.get_selected_item_name()
 		for index in range(%Amount.text.to_int()):
 			var item_to_buy = %ShopInventoryItemList.take_item(selected_item_name)
 			%PlayerInventoryItemList.add_item(item_to_buy)
+			%PlayerInventoryItemList.sort_by_name()
 			PartyController.decrement_currency(item_to_buy.value)
 
 func calculate_new_amount(change: int) -> String:
