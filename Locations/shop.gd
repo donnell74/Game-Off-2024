@@ -59,17 +59,13 @@ func _on_advance_day() -> void:
 
 func _on_buy_sell_button_pressed() -> void:
 	if %PlayerInventoryItemList.visible:
-		var selected_index = %PlayerInventoryItemList.get_selected_items()[0]
-		var selected_text = %PlayerInventoryItemList.get_item_text(selected_index)
-		var selected_item_name = selected_text.substr(selected_text.find("x") + 2)
+		var selected_item_name = %PlayerInventoryItemList.get_selected_item_name()
 		for index in range(%Amount.text.to_int()):
 			var item_to_sell = %PlayerInventoryItemList.take_item(selected_item_name)
 			%ShopInventoryItemList.add_item(item_to_sell)
 			PartyController.increment_currency(item_to_sell.value)
 	else:
-		var selected_index = %ShopInventoryItemList.get_selected_items()[0]
-		var selected_text = %ShopInventoryItemList.get_item_text(selected_index)
-		var selected_item_name = selected_text.substr(selected_text.find("x") + 2)
+		var selected_item_name = %ShopInventoryItemList.get_selected_item_name()
 		for index in range(%Amount.text.to_int()):
 			var item_to_buy = %ShopInventoryItemList.take_item(selected_item_name)
 			%PlayerInventoryItemList.add_item(item_to_buy)

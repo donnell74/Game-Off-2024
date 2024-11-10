@@ -42,7 +42,7 @@ func _on_close_button_pressed() -> void:
 
 func _on_feed_button_pressed() -> void:
 	if %InventoryItemList.get_selected_items().size() > 0:
-		var item = PlayerInventoryController.take_item_index(%InventoryItemList.get_selected_items()[0])
+		var item = PlayerInventoryController.take_item(%InventoryItemList.get_selected_item_name())
 		print("Feeding selected item to party: %s" % item.name)
 		PartyController.feed_party_item(item)
 	else:

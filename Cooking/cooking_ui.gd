@@ -25,12 +25,12 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		if %PlayerInventoryList.get_selected_items().size() == 1:
-			var selected_item_index = %PlayerInventoryList.get_selected_items()[0]
-			var inventory_item = PlayerInventoryController.take_item_index(selected_item_index)
+			var selected_item_name = %PlayerInventoryList.get_selected_item_name()
+			var inventory_item = PlayerInventoryController.take_item(selected_item_name)
 			%Stations.get_child(active_station_index).add_item(inventory_item)
 		elif %StationInventoryList.get_selected_items().size() == 1:
 			var station_item = %Stations.get_child(active_station_index)\
-					.take_item_index(%StationInventoryList.get_selected_items()[0])
+					.take_item(%StationInventoryList.get_selected_item_name())
 			PlayerInventoryController.add_item(station_item)
 	elif event.is_action_pressed("Navigate To Next Page"):
 		switch_active_station(1)
