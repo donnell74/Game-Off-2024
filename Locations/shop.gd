@@ -20,7 +20,7 @@ func _ready() -> void:
 	print("Party stats at beginning of day: %s" % location.description)
 	print(PartyController)
 	
-	%PlayerInventoryItemList.set_inventory(PlayerInventoryController.inventory)
+	%PlayerInventoryGridContainer.set_inventory(PlayerInventoryController.inventory)
 	PartyController.currency_changed.connect(_on_party_currency_changed)
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 
@@ -37,7 +37,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 func hide_ui() -> void:
 	visible = false
 	%CanvasLayer.visible = false
-	%ShopInventoryItemList.set_inventory(null)
+	%ShopInventoryGridContainer.set_inventory(null)
 
 func show_ui() -> void:
 	visible = true
@@ -48,85 +48,69 @@ func update_ui() -> void:
 	_on_party_currency_changed()
 	var shopInventory = Inventory.new()
 	# Shop expects items for sale to be in afternoon reward items
+	var index = 0
 	for each_item in location.afternoonActivities[0].rewardItems:
-		shopInventory.items.append(each_item)
+		shopInventory.items[index] = each_item
 	
-	%ShopInventoryItemList.set_inventory(shopInventory)
+	%ShopInventoryGridContainer.set_inventory(shopInventory)
 
 func _on_advance_day() -> void:
 	print("Shop - _on_advance_day")
 	show_ui()
 
 func _on_buy_sell_button_pressed() -> void:
-	if %PlayerInventoryItemList.visible:
-		var selected_item_name = %PlayerInventoryItemList.get_selected_item_name()
-		for index in range(%Amount.text.to_int()):
-			var item_to_sell = %PlayerInventoryItemList.take_item(selected_item_name)
-			%ShopInventoryItemList.add_item(item_to_sell)
-			%ShopInventoryItemList.sort_by_name()
+	if %PlayerInventoryGridContainer.visible:
+		var selected_items = %PlayerInventoryGridContainer.get_selected_items()
+		for selected_item_index in selected_items:
+			var item_to_sell = %PlayerInventoryGridContainer.take_item_index(selected_item_index)
+			%ShopInventoryGridContainer.add_item(item_to_sell)
 			PartyController.increment_currency(item_to_sell.value)
 	else:
-		var selected_item_name = %ShopInventoryItemList.get_selected_item_name()
-		for index in range(%Amount.text.to_int()):
-			var item_to_buy = %ShopInventoryItemList.take_item(selected_item_name)
-			%PlayerInventoryItemList.add_item(item_to_buy)
-			%PlayerInventoryItemList.sort_by_name()
+		var selected_items = %ShopInventoryGridContainer.get_selected_items()
+		for selected_item_index in selected_items:
+			var item_to_buy = %ShopInventoryGridContainer.take_item_index(selected_item_index)
+			%PlayerInventoryGridContainer.add_item(item_to_buy)
 			PartyController.decrement_currency(item_to_buy.value)
-
-func calculate_new_amount(change: int) -> String:
-	var new_amount = %Amount.text.to_int() + change
-	var selected_item_quantity = 1
-	if %PlayerInventoryItemList.visible:
-		if %PlayerInventoryItemList.get_selected_items():
-			var selected_text = %PlayerInventoryItemList.get_item_text(%PlayerInventoryItemList.get_selected_items()[0])
-			selected_item_quantity = selected_text.substr(0, selected_text.find("x")).to_int()
-	else:
-		if %ShopInventoryItemList.get_selected_items():
-			var selected_text = %ShopInventoryItemList.get_item_text(%ShopInventoryItemList.get_selected_items()[0])
-			selected_item_quantity = selected_text.substr(0, selected_text.find("x")).to_int()
 	
-	if new_amount == 0:
-		new_amount = selected_item_quantity
-	
-	if new_amount == selected_item_quantity + 1:
-		new_amount = 1
-	
-	return "%d" % new_amount
+	%CostValueLabel.text = "0"
 
-func _on_plus_button_pressed() -> void:
-	%Amount.text = calculate_new_amount(1)
-
-func _on_minus_button_pressed() -> void:
-	%Amount.text = calculate_new_amount(-1)
 
 func _on_buy_menu_button_pressed() -> void:
 	%BuyMenuButton.disabled = true
 	%SaleMenuButton.disabled = false
-	%PlayerInventoryItemList.visible = false
-	%ShopInventoryItemList.visible = true
+	%PlayerInventoryGridContainer.visible = false
+	%ShopInventoryGridContainer.visible = true
 
 func _on_sale_menu_button_pressed() -> void:
 	%BuyMenuButton.disabled = false
 	%SaleMenuButton.disabled = true
-	%PlayerInventoryItemList.visible = true
-	%ShopInventoryItemList.visible = false
-
-func _on_player_inventory_item_list_item_selected(index: int) -> void:
-	print("_on_player_inventory_item_list_item_selected: ", index)
-	selected_item = %PlayerInventoryItemList.get_item(index)
-	%CostValueLabel.text = "%d" % selected_item.value
-	%ItemNameValueLabel.text = selected_item.name
-	%Amount.text = "1"
+	%PlayerInventoryGridContainer.visible = true
+	%ShopInventoryGridContainer.visible = false
 
 func _on_shop_inventory_item_list_item_selected(index: int) -> void:
 	print("_on_shop_inventory_item_list_item_selected: ", index)
-	selected_item = %ShopInventoryItemList.get_item(index)
+	selected_item = %ShopInventoryGridContainer.get_item(index)
 	%CostValueLabel.text = "%d" % selected_item.value
 	%ItemNameValueLabel.text = selected_item.name
-	%Amount.text = "1"
 
 func _on_continue_button_pressed() -> void:
 	location.currentTimeOfDay = Location.TimeOfDay.END_OF_DAY
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
 	location_simulation_done.emit()
 	LocationEvents.end_of_day.emit()
+
+func _on_player_inventory_grid_container_selected_indexes_updated() -> void:
+	print("_on_player_inventory_grid_container_selected_indexes_updated: ", %PlayerInventoryGridContainer.selected_slots)
+	var total_value = 0
+	for each_selected in %PlayerInventoryGridContainer.selected_slots:
+		total_value += %PlayerInventoryGridContainer.get_item(each_selected).value
+	
+	%CostValueLabel.text = "%d" % total_value
+
+func _on_shop_inventory_grid_container_selected_indexes_updated() -> void:
+	print("_on_shop_inventory_grid_container_selected_indexes_updated: ", %ShopInventoryGridContainer.selected_slots)
+	var total_value = 0
+	for each_selected in %ShopInventoryGridContainer.selected_slots:
+		total_value += %ShopInventoryGridContainer.get_item(each_selected).value
+	
+	%CostValueLabel.text = "%d" % total_value

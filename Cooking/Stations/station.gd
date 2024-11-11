@@ -44,7 +44,6 @@ func _perform(item_array: Array[InventoryItem], action: Actions.Actions, modifie
 		var combined = combine_multipliers(item_array)
 		local_output_item.modifiers.multiply(combined).multiply(modifiers)
 		add_item(local_output_item)
-	sort_by_name()
 
 func combine_multipliers(item_array: Array[InventoryItem]) -> ItemModifier:
 	var item_modifier = ItemModifier.new()
@@ -57,4 +56,4 @@ func combine_multipliers(item_array: Array[InventoryItem]) -> ItemModifier:
 # Combines all items into a recipe based on the action, setting the inventory to the output of the recipe
 func perform_combination(action: Actions.Actions, modifiers: ItemModifier) -> void:
 	print("Performing action %s on item_array: %s with modifiers: %s" % [Actions.Actions.keys()[action], to_string(), modifiers])
-	_perform(inventory.items, action, modifiers)
+	#_perform(inventory.items, action, modifiers)

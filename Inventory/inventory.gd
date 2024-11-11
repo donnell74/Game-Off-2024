@@ -4,15 +4,17 @@ class_name Inventory
 @warning_ignore("unused_signal")
 signal inventory_updated
 
-@export var items : Array[InventoryItem] = []
+@export var capacity : int = 160
+@export var items : Dictionary = {}
 
 func save() -> Dictionary:
-	var save_map = { "items": items.map(func(i): return i.save()) }
+	var save_map = { "items": {} }
+	for item_key in items:
+		save_map["items"][item_key] = items[item_key].save()
+	
 	return save_map
 
 func load(load_data: Variant) -> void:
-	var new_items: Array[InventoryItem] = []
-	for each_item_data in load_data["inventory"]["items"]:
-		new_items.append(InventoryItem.from_values(each_item_data))
-	
-	items = new_items
+	for each_item_key in load_data["inventory"]["items"]:
+		items[each_item_key] = InventoryItem.from_values(
+			load_data["inventory"]["items"][each_item_key])

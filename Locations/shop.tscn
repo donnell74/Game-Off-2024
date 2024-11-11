@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmo63pfwqd4sd"]
 
 [ext_resource type="Script" path="res://Locations/shop.gd" id="1_6ddx6"]
-[ext_resource type="PackedScene" uid="uid://o54ba27sc13" path="res://Inventory/inventory_item_list.tscn" id="2_hkaxy"]
+[ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_n0al8"]
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -46,15 +46,6 @@ offset_right = 530.0
 offset_bottom = 707.0
 columns = 2
 
-[node name="ItemNameLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
-layout_mode = 2
-text = "Item:"
-
-[node name="ItemNameValueLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Item name"
-
 [node name="CostLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
 layout_mode = 2
 text = "Cost: 
@@ -63,24 +54,7 @@ text = "Cost:
 [node name="CostValueLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "100"
-
-[node name="AmountSelectGridContainer" type="GridContainer" parent="CanvasLayer/ItemGridContainer"]
-layout_mode = 2
-columns = 3
-
-[node name="MinusButton" type="Button" parent="CanvasLayer/ItemGridContainer/AmountSelectGridContainer"]
-layout_mode = 2
-text = "-"
-
-[node name="Amount" type="Label" parent="CanvasLayer/ItemGridContainer/AmountSelectGridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "1"
-
-[node name="PlusButton" type="Button" parent="CanvasLayer/ItemGridContainer/AmountSelectGridContainer"]
-layout_mode = 2
-text = "+"
+text = "0"
 
 [node name="BuySellButton" type="Button" parent="CanvasLayer/ItemGridContainer"]
 layout_mode = 2
@@ -118,26 +92,26 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Sale"
 
-[node name="PlayerInventoryItemList" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_hkaxy")]
+[node name="PlayerInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
 unique_name_in_owner = true
 visible = false
-offset_left = -2.0
+layout_mode = 0
+offset_left = 5.0
 offset_top = 30.0
-offset_right = 1017.0
-offset_bottom = 447.0
+offset_right = 805.0
+offset_bottom = 346.0
 
-[node name="ShopInventoryItemList" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_hkaxy")]
+[node name="ShopInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
 unique_name_in_owner = true
-offset_left = -2.0
+layout_mode = 0
+offset_left = 5.0
 offset_top = 30.0
-offset_right = 1017.0
-offset_bottom = 447.0
+offset_right = 805.0
+offset_bottom = 346.0
 
-[connection signal="pressed" from="CanvasLayer/ItemGridContainer/AmountSelectGridContainer/MinusButton" to="." method="_on_minus_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/ItemGridContainer/AmountSelectGridContainer/PlusButton" to="." method="_on_plus_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ItemGridContainer/BuySellButton" to="." method="_on_buy_sell_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/BuyMenuButton" to="." method="_on_buy_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/SaleMenuButton" to="." method="_on_sale_menu_button_pressed"]
-[connection signal="item_selected" from="CanvasLayer/InventoriesContainer/PlayerInventoryItemList" to="." method="_on_player_inventory_item_list_item_selected"]
-[connection signal="item_selected" from="CanvasLayer/InventoriesContainer/ShopInventoryItemList" to="." method="_on_shop_inventory_item_list_item_selected"]
+[connection signal="selected_indexes_updated" from="CanvasLayer/InventoriesContainer/PlayerInventoryGridContainer" to="." method="_on_player_inventory_grid_container_selected_indexes_updated"]
+[connection signal="selected_indexes_updated" from="CanvasLayer/InventoriesContainer/ShopInventoryGridContainer" to="." method="_on_shop_inventory_grid_container_selected_indexes_updated"]
