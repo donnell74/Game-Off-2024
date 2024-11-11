@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://dnxki7cqb1jk5"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dnxki7cqb1jk5"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_1eidt"]
+[ext_resource type="Texture2D" uid="uid://bmkskrlnkef18" path="res://Map/Assets/fishing.png" id="2_eyvw5"]
 
 [resource]
 script = ExtResource("1_1eidt")
 name = "Fish"
+texture = ExtResource("2_eyvw5")
+rarity = 1.0
+value = 10

@@ -51,11 +51,11 @@ func update_inventory_item_list() -> void:
 	print(name, " - update_inventory_item_list")
 	clear()
 	var counts : Dictionary = {}
-	for each_item in inventory.items:
-		if each_item.name in counts:
-			counts[each_item.name] += 1
+	for each_item_key in inventory.items:
+		if inventory.items[each_item_key].name in counts:
+			counts[inventory.items[each_item_key].name] += 1
 		else:
-			counts[each_item.name] = 1
+			counts[inventory.items[each_item_key].name] = 1
 
 	var sorted_keys =  counts.keys()
 	sorted_keys.sort()

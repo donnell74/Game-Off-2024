@@ -1,9 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnurxmck8x2nv"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_ui.gd" id="1_f8nx2"]
-[ext_resource type="PackedScene" uid="uid://o54ba27sc13" path="res://Inventory/inventory_item_list.tscn" id="2_21x0n"]
+[ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_6we01"]
 
-[node name="InventoryUi" type="Node2D"]
+[node name="InventoryUi" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_f8nx2")
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
@@ -16,77 +18,50 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -400.0
+offset_left = -411.0
 offset_top = -200.0
-offset_right = 400.0
+offset_right = 409.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.448371, 0.284249, 0.191908, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="InventoryItemList" parent="InventoryCanvas" instance=ExtResource("2_21x0n")]
-unique_name_in_owner = true
-offset_left = 213.0
-offset_top = 165.0
-offset_right = 722.0
-offset_bottom = 483.0
-focus_neighbor_right = NodePath("../FeedButton")
-focus_neighbor_bottom = NodePath("../FeedButton")
-focus_next = NodePath("../FeedButton")
-focus_mode = 2
-metadata/_edit_use_anchors_ = true
+[node name="ButtonGridContainer" type="GridContainer" parent="InventoryCanvas"]
+offset_left = 749.0
+offset_top = 466.0
+offset_right = 955.0
+offset_bottom = 506.0
+columns = 3
 
-[node name="CloseButton" type="Button" parent="InventoryCanvas"]
+[node name="RecipeBookButton" type="Button" parent="InventoryCanvas/ButtonGridContainer"]
 unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 164.0
-offset_top = 116.0
-offset_right = 278.0
-offset_bottom = 162.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbor_left = NodePath("../InventoryItemList")
-focus_neighbor_top = NodePath("../FeedButton")
-focus_neighbor_bottom = NodePath("../RecipeBookButton")
-text = "Close"
-metadata/_edit_use_anchors_ = true
-
-[node name="FeedButton" type="Button" parent="InventoryCanvas"]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 164.0
-offset_top = 56.0
-offset_right = 278.0
-offset_bottom = 102.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbor_left = NodePath("../InventoryItemList")
-focus_neighbor_top = NodePath("../RecipeBookButton")
-focus_neighbor_bottom = NodePath("../CloseButton")
-text = "Feed"
-metadata/_edit_use_anchors_ = true
-
-[node name="RecipeBookButton" type="Button" parent="InventoryCanvas"]
-unique_name_in_owner = true
-offset_left = 740.0
-offset_top = 158.32
-offset_right = 854.0
-offset_bottom = 204.32
+layout_mode = 2
 focus_neighbor_top = NodePath("../CloseButton")
 focus_neighbor_right = NodePath("../ItemList")
 focus_neighbor_bottom = NodePath("../FeedButton")
 text = "Recipe Book"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="InventoryCanvas/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="InventoryCanvas/FeedButton" to="." method="_on_feed_button_pressed"]
-[connection signal="pressed" from="InventoryCanvas/RecipeBookButton" to="." method="_on_recipe_book_button_pressed"]
+[node name="FeedButton" type="Button" parent="InventoryCanvas/ButtonGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../RecipeBookButton")
+focus_neighbor_bottom = NodePath("../CloseButton")
+text = "Feed"
+metadata/_edit_use_anchors_ = true
+
+[node name="CloseButton" type="Button" parent="InventoryCanvas/ButtonGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../FeedButton")
+focus_neighbor_bottom = NodePath("../RecipeBookButton")
+text = "Close"
+metadata/_edit_use_anchors_ = true
+
+[node name="InventoryGridContainer" parent="InventoryCanvas" instance=ExtResource("2_6we01")]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/RecipeBookButton" to="." method="_on_recipe_book_button_pressed"]
+[connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/FeedButton" to="." method="_on_feed_button_pressed"]
+[connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/CloseButton" to="." method="_on_close_button_pressed"]

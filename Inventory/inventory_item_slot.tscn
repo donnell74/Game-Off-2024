@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1tfu787m8yj6"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item_slot.gd" id="1_gj0ou"]
+
+[node name="InventoryItemSlot" type="Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gj0ou")
+
+[node name="Background" type="ColorRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.827, 0.827, 0.827, 1)
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -5,41 +5,46 @@ class_name InventoryController
 @export var inventory_item_resource : Resource
 
 func add_item(item: InventoryItem) -> void:
-	print("Adding item to inventory: %s" % item.name)
-	inventory.items.append(item)
+	var index = 0
+	while index < inventory.capacity:
+		if not inventory.items.has(index):
+			break
+		
+		index += 1
+
+	print("Adding item to inventory: %s at index: %d" % [item.name, index])
+	inventory.items[index] = item
 	inventory.inventory_updated.emit()
 
+func get_item(index: int) -> InventoryItem:
+	if not inventory.items.has(index):
+		return null
+
+	return inventory.items[index]
+
 func take_item(search_name: String) -> InventoryItem:
-	for item_index in range(inventory.items.size()):
-		if inventory.items[item_index].name == search_name:
-			var item = inventory.items.pop_at(item_index)
+	for item_index in range(inventory.capacity):
+		if inventory.items.has(item_index) and inventory.items[item_index].name == search_name:
+			var item = inventory.items[item_index]
+			inventory.items.erase(item_index)
 			inventory.inventory_updated.emit()
 			return item
 	
 	return null
 
 func take_item_index(item_index: int) -> InventoryItem:
-	if item_index >= inventory.items.size():
-		print("Invalid index of inventory: %d when size is %d" % [item_index, inventory.items.size()])
+	if not inventory.items.has(item_index):
 		return null
 
-	var item = inventory.items.pop_at(item_index)
+	print(inventory.resource_name, " is called with take_item_index: ", item_index)
+	var item = inventory.items[item_index]
+	inventory.items.erase(item_index)
 	inventory.inventory_updated.emit()
 	return item
-	
-func sort_by_name():
-	print("sorting, ", inventory.items.size())
-	inventory.items.sort_custom(_by_name)
-	
-func _by_name(a: InventoryItem, b: InventoryItem):
-	if a.name < b.name:
-		return true
-	return false
 
 func clear_inventory() -> void:
-	inventory.items = []
+	inventory.items = {}
 	inventory.inventory_updated.emit()
-
 
 func _to_string() -> String:
 	var inventory_string = "["

@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://plp1w1ebjlml"]
+[gd_scene load_steps=8 format=3 uid="uid://plp1w1ebjlml"]
 
 [ext_resource type="PackedScene" uid="uid://bh2lobbodbpsk" path="res://Campfire/campfire.tscn" id="1_0c8er"]
 [ext_resource type="Script" path="res://main.gd" id="1_t3g0l"]
 [ext_resource type="PackedScene" uid="uid://cnurxmck8x2nv" path="res://Inventory/inventory_ui.tscn" id="2_xny2q"]
 [ext_resource type="PackedScene" uid="uid://di34kvc0uchpb" path="res://Map/map.tscn" id="3_cykj2"]
-[ext_resource type="PackedScene" uid="uid://36tjrcun16m8" path="res://Cooking/cooking_ui.tscn" id="4_r6qyd"]
 [ext_resource type="PackedScene" uid="uid://cm56kd0ryjcvo" path="res://Menus/main_menu.tscn" id="6_7lalr"]
 [ext_resource type="PackedScene" uid="uid://clxg1guhakryv" path="res://Menus/settings_menu.tscn" id="7_2yds1"]
 [ext_resource type="PackedScene" uid="uid://bvdkaj1eb6nme" path="res://Recipes/recipe_book_ui.tscn" id="8_lg1d1"]
@@ -23,9 +22,6 @@ visible = false
 visible = false
 
 [node name="Map" parent="." instance=ExtResource("3_cykj2")]
-visible = false
-
-[node name="CookingUi" parent="." instance=ExtResource("4_r6qyd")]
 visible = false
 
 [node name="MainMenu" parent="." instance=ExtResource("6_7lalr")]

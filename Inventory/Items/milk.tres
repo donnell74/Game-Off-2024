@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://bdgy2r6xf7cjh"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bdgy2r6xf7cjh"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_cwa0j"]
+[ext_resource type="Texture2D" uid="uid://c0m7kim5wwupc" path="res://Inventory/Assets/milk.png" id="2_jc6tx"]
 
 [resource]
 script = ExtResource("1_cwa0j")
 name = "Milk"
+texture = ExtResource("2_jc6tx")
+rarity = 1.0
+value = 10

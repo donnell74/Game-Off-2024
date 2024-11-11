@@ -47,12 +47,6 @@ func _input(event: InputEvent) -> void:
 		switch_active_station(1)
 	elif event.is_action_pressed("Navigate to Last Page"):
 		switch_active_station(-1)
-	elif event.is_action_pressed("Toggle Cooking"):
-		if visible:
-			move_items_from_station_to_player(active_station)
-			UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
-		else:
-			UiEvents.active_ui_changed.emit(UiEvents.UiScene.COOKING)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
