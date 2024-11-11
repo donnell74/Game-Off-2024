@@ -9,3 +9,4 @@ name = "Potato"
 texture = ExtResource("2_shjle")
 rarity = 1.0
 value = 10
+type = 0

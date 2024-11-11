@@ -9,3 +9,4 @@ name = "Knife"
 texture = ExtResource("2_opuwa")
 rarity = 1.0
 value = 100
+type = 1

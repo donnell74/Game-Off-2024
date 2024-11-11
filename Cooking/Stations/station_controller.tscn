@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://cneojniy4wvnd"]
+
+[ext_resource type="Script" path="res://Cooking/Stations/station_controller.gd" id="1_gfao6"]
+[ext_resource type="Script" path="res://Cooking/Stations/station.gd" id="2_2wicr"]
+[ext_resource type="Resource" uid="uid://cc7akpkrs4ejb" path="res://Cooking/Stations/Resources/cutting_board.tres" id="3_v2bbd"]
+[ext_resource type="Resource" uid="uid://cuqie5s8cnk0j" path="res://Cooking/Stations/Resources/cooking_pot.tres" id="4_4kf3r"]
+
+[node name="StationController" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gfao6")
+all_stations = Array[ExtResource("2_2wicr")]([ExtResource("3_v2bbd"), ExtResource("4_4kf3r")])

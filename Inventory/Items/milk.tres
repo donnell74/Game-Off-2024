@@ -9,3 +9,4 @@ name = "Milk"
 texture = ExtResource("2_jc6tx")
 rarity = 1.0
 value = 10
+type = 0

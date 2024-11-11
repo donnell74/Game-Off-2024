@@ -7,7 +7,6 @@ class_name RecipeBook
 func match(action: Actions.Actions, item_array: Array[InventoryItem] = []) -> Array[Recipe]:
 	var matches: Array[Recipe] = []
 	for each_recipe in recipes:
-		print(each_recipe)
 		if each_recipe.action != action:
 			continue
 		

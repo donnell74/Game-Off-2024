@@ -1,12 +1,18 @@
 extends Resource
 class_name InventoryItem
 
+enum ItemType {
+	ITEM,
+	STATION
+}
+
 @export var name : String = "<Unknown>"
 @export var texture : Texture2D
 @export var modifiers : ItemModifier = ItemModifier.new()
 # Lower rarity means smaller change of being selected
 @export var rarity: float = 1.0
 @export var value: int = 10
+@export var type: ItemType = ItemType.ITEM
 
 func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
 	if name != other.name:
