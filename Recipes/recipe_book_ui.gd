@@ -12,6 +12,7 @@ func _input(event: InputEvent) -> void:
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.RECIPE_BOOK:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
+		update_recipes()
 	elif newActive == UiEvents.UiScene.INVENTORY:
 		%InventoryCanvas.visible = false
 
