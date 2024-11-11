@@ -9,3 +9,4 @@ name = "Butter"
 texture = ExtResource("2_aam62")
 rarity = 1.0
 value = 10
+type = 0

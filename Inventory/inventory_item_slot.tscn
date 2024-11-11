@@ -11,6 +11,7 @@ script = ExtResource("1_gj0ou")
 [node name="Background" type="ColorRect" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.827, 0.827, 0.827, 1)

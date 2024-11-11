@@ -26,6 +26,7 @@ SaveLoad="*res://Saving/save_load.tscn"
 Settings="*res://Menus/settings.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 RecipeBookController="*res://Recipes/Books/recipe_book_controller.tscn"
+StationController="*res://Cooking/Stations/station_controller.tscn"
 
 [debug]
 
