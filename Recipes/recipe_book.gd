@@ -45,3 +45,18 @@ func array_contains_item(left: Array[InventoryItem], item: InventoryItem, ignore
 			return true
 	
 	return false
+	
+func save() -> Dictionary:
+	var recipes_dict = {}
+	for recipe: Recipe in recipes:
+		recipes_dict[recipe.output[0].name] = recipe.save()
+	return {
+		"recipes": recipes_dict
+	}
+	
+func load(load_data: Dictionary) -> void:
+	recipes = []
+	for r in load_data["recipes"]:
+		var recipe = Recipe.new()
+		recipe.load(load_data["recipes"][r])
+		recipes.append(recipe)
