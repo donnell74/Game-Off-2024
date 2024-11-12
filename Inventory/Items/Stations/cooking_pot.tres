@@ -9,4 +9,4 @@ name = "Cooking Pot"
 texture = ExtResource("2_d82yo")
 rarity = 1.0
 value = 10
-type = 0
+type = 1

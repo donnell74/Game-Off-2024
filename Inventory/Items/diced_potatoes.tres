@@ -1,7 +1,12 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://dwwavbcbrow2e"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dwwavbcbrow2e"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_wes0u"]
+[ext_resource type="Texture2D" uid="uid://dru4d0opv8d5" path="res://Inventory/Assets/diced_potatoes.png" id="2_g6jjo"]
 
 [resource]
 script = ExtResource("1_wes0u")
 name = "Diced Potato"
+texture = ExtResource("2_g6jjo")
+rarity = 1.0
+value = 10
+type = 0

@@ -14,7 +14,7 @@
 
 [resource]
 script = ExtResource("2_gwfnm")
-capacity = 160
+capacity = 72
 items = {
 0: ExtResource("1_fwewe"),
 1: ExtResource("2_ype0o"),

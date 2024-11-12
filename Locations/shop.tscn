@@ -41,9 +41,9 @@ text = "9999999"
 
 [node name="ItemGridContainer" type="GridContainer" parent="CanvasLayer"]
 offset_left = 145.0
-offset_top = 516.0
+offset_top = 531.0
 offset_right = 530.0
-offset_bottom = 707.0
+offset_bottom = 597.0
 columns = 2
 
 [node name="CostLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
@@ -92,26 +92,34 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Sale"
 
-[node name="PlayerInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 0
+[node name="PlayerContainerScrollContainer" type="ScrollContainer" parent="CanvasLayer/InventoriesContainer"]
+layout_mode = 2
 offset_left = 5.0
 offset_top = 30.0
-offset_right = 805.0
-offset_bottom = 346.0
+offset_right = 1005.0
+offset_bottom = 430.0
+horizontal_scroll_mode = 0
 
-[node name="ShopInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
+[node name="PlayerInventoryGridContainer" parent="CanvasLayer/InventoriesContainer/PlayerContainerScrollContainer" instance=ExtResource("2_n0al8")]
 unique_name_in_owner = true
-layout_mode = 0
+layout_mode = 2
+
+[node name="ShopInventoryScrollContainer" type="ScrollContainer" parent="CanvasLayer/InventoriesContainer"]
+custom_minimum_size = Vector2(1000, 400)
+layout_mode = 2
 offset_left = 5.0
 offset_top = 30.0
-offset_right = 805.0
-offset_bottom = 346.0
+offset_right = 5.0
+offset_bottom = 30.0
+horizontal_scroll_mode = 0
+
+[node name="ShopInventoryGridContainer" parent="CanvasLayer/InventoriesContainer/ShopInventoryScrollContainer" instance=ExtResource("2_n0al8")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [connection signal="pressed" from="CanvasLayer/ItemGridContainer/BuySellButton" to="." method="_on_buy_sell_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/BuyMenuButton" to="." method="_on_buy_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/SaleMenuButton" to="." method="_on_sale_menu_button_pressed"]
-[connection signal="selected_indexes_updated" from="CanvasLayer/InventoriesContainer/PlayerInventoryGridContainer" to="." method="_on_player_inventory_grid_container_selected_indexes_updated"]
-[connection signal="selected_indexes_updated" from="CanvasLayer/InventoriesContainer/ShopInventoryGridContainer" to="." method="_on_shop_inventory_grid_container_selected_indexes_updated"]
+[connection signal="selected_indexes_updated" from="CanvasLayer/InventoriesContainer/PlayerContainerScrollContainer/PlayerInventoryGridContainer" to="." method="_on_player_inventory_grid_container_selected_indexes_updated"]
+[connection signal="selected_indexes_updated" from="CanvasLayer/InventoriesContainer/ShopInventoryScrollContainer/ShopInventoryGridContainer" to="." method="_on_shop_inventory_grid_container_selected_indexes_updated"]
