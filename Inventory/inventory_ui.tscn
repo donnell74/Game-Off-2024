@@ -10,7 +10,6 @@ script = ExtResource("1_f8nx2")
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="Background" type="ColorRect" parent="InventoryCanvas"]
 anchors_preset = 15

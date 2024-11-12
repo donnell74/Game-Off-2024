@@ -1,19 +1,29 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=7 format=3 uid="uid://cg8dfx000up56"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=12 format=3 uid="uid://cg8dfx000up56"]
 
+[ext_resource type="Resource" uid="uid://bob22ywvwvnvi" path="res://Inventory/Items/Stations/knife.tres" id="1_fwewe"]
 [ext_resource type="Script" path="res://Inventory/inventory.gd" id="2_gwfnm"]
 [ext_resource type="Resource" uid="uid://bmvaedpd7h8r1" path="res://Inventory/Items/potato.tres" id="2_hab74"]
+[ext_resource type="Resource" uid="uid://cd66q4yy0f8ek" path="res://Inventory/Items/Stations/cooking_pot.tres" id="2_ype0o"]
 [ext_resource type="Resource" uid="uid://dxj8seqeeuxp7" path="res://Inventory/Items/butter.tres" id="3_odc2n"]
 [ext_resource type="Resource" uid="uid://bdgy2r6xf7cjh" path="res://Inventory/Items/milk.tres" id="4_a0d0i"]
-[ext_resource type="Resource" uid="uid://bob22ywvwvnvi" path="res://Inventory/Items/knife.tres" id="5_un68q"]
-[ext_resource type="Resource" uid="uid://cd66q4yy0f8ek" path="res://Inventory/Items/cooking_pot.tres" id="6_p81f8"]
+[ext_resource type="Resource" uid="uid://blivvph2lqcof" path="res://Inventory/Items/Stations/boiling_pot.tres" id="6_goylx"]
+[ext_resource type="Resource" uid="uid://bd3dc2n271ge4" path="res://Inventory/Items/Stations/masher.tres" id="7_rvfjl"]
+[ext_resource type="Resource" uid="uid://ceui3p0ucojg2" path="res://Inventory/Items/Stations/mixing_bowl.tres" id="8_tac5v"]
+[ext_resource type="Resource" uid="uid://c5py8agaw4syw" path="res://Inventory/Items/Stations/peeler.tres" id="9_blmsd"]
+[ext_resource type="Resource" uid="uid://du826wdoaxnhe" path="res://Inventory/Items/Stations/sauce_pan.tres" id="10_atvxi"]
 
 [resource]
 script = ExtResource("2_gwfnm")
 capacity = 72
 items = {
-0: ExtResource("5_un68q"),
-1: ExtResource("6_p81f8"),
+0: ExtResource("1_fwewe"),
+1: ExtResource("2_ype0o"),
 2: ExtResource("2_hab74"),
 3: ExtResource("3_odc2n"),
-4: ExtResource("4_a0d0i")
+4: ExtResource("4_a0d0i"),
+5: ExtResource("6_goylx"),
+6: ExtResource("7_rvfjl"),
+7: ExtResource("8_tac5v"),
+8: ExtResource("9_blmsd"),
+9: ExtResource("10_atvxi")
 }

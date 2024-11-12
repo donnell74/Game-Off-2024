@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Station" load_steps=5 format=3 uid="uid://cc7akpkrs4ejb"]
 
-[ext_resource type="Resource" uid="uid://bob22ywvwvnvi" path="res://Inventory/Items/knife.tres" id="1_0ap14"]
+[ext_resource type="Resource" uid="uid://bob22ywvwvnvi" path="res://Inventory/Items/Stations/knife.tres" id="1_0ap14"]
 [ext_resource type="Script" path="res://Cooking/Stations/station.gd" id="1_vkxj2"]
 [ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="2_n538d"]
 

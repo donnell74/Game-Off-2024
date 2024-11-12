@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Station" load_steps=5 format=3 uid="uid://wrnudtvd8ugb"]
+
+[ext_resource type="Resource" uid="uid://bd3dc2n271ge4" path="res://Inventory/Items/Stations/masher.tres" id="1_b3xnf"]
+[ext_resource type="Script" path="res://Cooking/Stations/station.gd" id="1_vhamw"]
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="2_7ufgn"]
+
+[sub_resource type="Resource" id="Resource_4bu6s"]
+script = ExtResource("2_7ufgn")
+health = 1.1
+stamina = 1.1
+strength = 1.0
+
+[resource]
+script = ExtResource("1_vhamw")
+inventory_item = ExtResource("1_b3xnf")
+action = 5
+modifier = SubResource("Resource_4bu6s")
