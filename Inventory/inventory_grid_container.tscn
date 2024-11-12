@@ -10,3 +10,4 @@ offset_bottom = 454.0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 script = ExtResource("1_h48c3")
+width = 12

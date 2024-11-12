@@ -13,26 +13,28 @@ unique_name_in_owner = true
 visible = false
 
 [node name="Background" type="ColorRect" parent="InventoryCanvas"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -411.0
-offset_top = -200.0
-offset_right = 409.0
-offset_bottom = 200.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.448371, 0.284249, 0.191908, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="ButtonGridContainer" type="GridContainer" parent="InventoryCanvas"]
-offset_left = 749.0
-offset_top = 466.0
-offset_right = 955.0
-offset_bottom = 506.0
-columns = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -36.66
+offset_right = 103.0
+offset_bottom = -5.65997
+grow_horizontal = 2
+grow_vertical = 0
+columns = 5
 
 [node name="RecipeBookButton" type="Button" parent="InventoryCanvas/ButtonGridContainer"]
 unique_name_in_owner = true
@@ -61,6 +63,20 @@ metadata/_edit_use_anchors_ = true
 
 [node name="InventoryGridContainer" parent="InventoryCanvas" instance=ExtResource("2_6we01")]
 unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.03
+anchor_right = 0.5
+anchor_bottom = 0.1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 608.0
+grow_horizontal = 2
+mouse_filter = 2
+columns = 14
+width = 14
+height = 7
 
 [connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/RecipeBookButton" to="." method="_on_recipe_book_button_pressed"]
 [connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/FeedButton" to="." method="_on_feed_button_pressed"]

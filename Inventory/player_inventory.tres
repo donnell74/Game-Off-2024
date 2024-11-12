@@ -9,7 +9,7 @@
 
 [resource]
 script = ExtResource("2_gwfnm")
-capacity = 160
+capacity = 72
 items = {
 0: ExtResource("5_un68q"),
 1: ExtResource("6_p81f8"),

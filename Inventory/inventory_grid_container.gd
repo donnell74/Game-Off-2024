@@ -3,7 +3,7 @@ extends InventoryController
 signal selected_indexes_updated
 
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
-@export var width : int = 20
+@export var width : int = 16
 @export var height : int = 8
 @export var selected_slots : Array[int] = []
 
