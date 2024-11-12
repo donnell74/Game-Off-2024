@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://ceui3p0ucojg2"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_0d1si"]
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_yo53i"]
+[ext_resource type="Texture2D" uid="uid://n8iwc8lcj6hx" path="res://Inventory/Assets/mixing_bowl.png" id="3_38whj"]
+
+[sub_resource type="Resource" id="Resource_ws56s"]
+script = ExtResource("1_yo53i")
+health = 1.0
+stamina = 1.0
+strength = 1.0
+
+[resource]
+script = ExtResource("1_0d1si")
+name = "Mixing Bowl"
+texture = ExtResource("3_38whj")
+modifiers = SubResource("Resource_ws56s")
+rarity = 1.0
+value = 10
+type = 1

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://du826wdoaxnhe"]
+
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_6jkmw"]
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_g0cd6"]
+[ext_resource type="Texture2D" uid="uid://vje703b2wxs5" path="res://Inventory/Assets/sauce_pan.png" id="3_ebgpf"]
+
+[sub_resource type="Resource" id="Resource_hhv68"]
+script = ExtResource("1_6jkmw")
+health = 1.1
+stamina = 1.0
+strength = 1.1
+
+[resource]
+script = ExtResource("1_g0cd6")
+name = "Sauce Pan"
+texture = ExtResource("3_ebgpf")
+modifiers = SubResource("Resource_hhv68")
+rarity = 1.0
+value = 10
+type = 1

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Station" load_steps=5 format=3 uid="uid://cuqie5s8cnk0j"]
+
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_fpeir"]
+[ext_resource type="Resource" uid="uid://ceui3p0ucojg2" path="res://Inventory/Items/Stations/mixing_bowl.tres" id="1_te2cs"]
+[ext_resource type="Script" path="res://Cooking/Stations/station.gd" id="2_r763y"]
+
+[sub_resource type="Resource" id="Resource_6ju5u"]
+script = ExtResource("1_fpeir")
+health = 1.1
+stamina = 1.0
+strength = 1.1
+
+[resource]
+script = ExtResource("2_r763y")
+inventory_item = ExtResource("1_te2cs")
+action = 6
+modifier = SubResource("Resource_6ju5u")

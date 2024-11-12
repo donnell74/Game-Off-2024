@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Station" load_steps=5 format=3 uid="uid://dtrpkvjbmop6f"]
+
+[ext_resource type="Resource" uid="uid://blivvph2lqcof" path="res://Inventory/Items/Stations/boiling_pot.tres" id="1_8oy8k"]
+[ext_resource type="Script" path="res://Cooking/Stations/station.gd" id="1_e0f8l"]
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="2_xx2l4"]
+
+[sub_resource type="Resource" id="Resource_2lnmd"]
+script = ExtResource("2_xx2l4")
+health = 1.1
+stamina = 1.0
+strength = 1.1
+
+[resource]
+script = ExtResource("1_e0f8l")
+inventory_item = ExtResource("1_8oy8k")
+action = 3
+modifier = SubResource("Resource_2lnmd")
