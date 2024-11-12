@@ -9,5 +9,5 @@
 script = ExtResource("2_ghvur")
 input = Array[ExtResource("1_84hr4")]([ExtResource("2_5wtwm")])
 output = Array[ExtResource("1_84hr4")]([ExtResource("3_571ag")])
-action = 6
+action = 4
 times_cooked = 0
