@@ -4,7 +4,8 @@ class_name Inventory
 @warning_ignore("unused_signal")
 signal inventory_updated
 
-@export var capacity : int = 160
+@export var width : int = 10
+@export var height : int = 4
 @export var items : Dictionary = {}
 
 func save() -> Dictionary:

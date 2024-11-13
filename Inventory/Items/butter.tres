@@ -10,3 +10,5 @@ texture = ExtResource("2_aam62")
 rarity = 1.0
 value = 10
 type = 0
+inventory_width = 1
+inventory_height = 1

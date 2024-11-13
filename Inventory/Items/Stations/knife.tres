@@ -10,3 +10,5 @@ texture = ExtResource("2_opuwa")
 rarity = 1.0
 value = 100
 type = 1
+inventory_width = 1
+inventory_height = 3

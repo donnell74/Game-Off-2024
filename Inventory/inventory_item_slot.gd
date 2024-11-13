@@ -1,10 +1,10 @@
 extends Control
 
-signal inventory_item_slot_clicked(index: int)
-signal slot_right_clicked(index: int)
+signal inventory_item_slot_clicked(index: Vector2)
+signal slot_right_clicked(index: Vector2)
 
 @export var mouseOver : bool = false
-@export var index : int
+@export var index : Vector2
 @export var selected : bool = false
 @export var selected_color : Color = Color.YELLOW
 @export var unselected_color : Color = Color.LIGHT_GRAY
@@ -17,7 +17,7 @@ func _input(event: InputEvent) -> void:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				selected = !selected
-				%Background.color = selected_color if selected else unselected_color
+				%Background.modulate = selected_color
 				inventory_item_slot_clicked.emit(index)
 			MOUSE_BUTTON_RIGHT:
 				slot_right_clicked.emit(index)
