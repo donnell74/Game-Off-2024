@@ -4,25 +4,61 @@ class_name InventoryController
 @export var inventory : Inventory = preload("res://Inventory/player_inventory.tres")
 @export var inventory_item_resource : Resource
 
-func add_item(item: InventoryItem) -> void:
-	var index = 0
-	while index < inventory.capacity:
-		if not inventory.items.has(index):
-			break
-		
-		index += 1
+func _ready() -> void:
+	fill_refs()
 
-	print("Adding item to inventory: %s at index: %d" % [item.name, index])
+func fill_refs() -> void:
+	for key in inventory.items:
+		var item_slot = inventory.items[key] as InventoryItem
+		if not item_slot:
+			continue
+		
+		if item_slot.inventory_width == 1 and item_slot.inventory_height == 1:
+			continue
+		
+		for pos_x in range(item_slot.inventory_width):
+			for pos_y in range(item_slot.inventory_height):
+				if pos_x == 0 and pos_y == 0:
+					continue
+
+				var ref_location = Vector2(pos_x, pos_y) + key				
+				var ref = InventoryItemSlotRef.new()
+				ref.root_node = item_slot
+				ref.root_node_type = item_slot.type
+				if inventory.items.has(ref_location):
+					print("fill_refs - Overwriting item at %s with other item" % ref_location)
+					
+				inventory.items[ref_location] = ref
+
+func add_item(item: InventoryItem) -> void:
+	var index = Vector2.ZERO
+	for pos_x in inventory.width:
+		for pos_y in inventory.height:
+			index = Vector2(pos_x, pos_y)
+			if not inventory.items.has(index):
+				break
+			
+			index += 1
+
+	print("Adding item to inventory: %s at index: %s" % [item.name, index.to_string()])
 	inventory.items[index] = item
 	inventory.inventory_updated.emit()
 
-func get_item(index: int) -> InventoryItem:
+func can_place_item(index: int, item: InventoryItem) -> bool:
+	for inv_x in item.inventory_width:
+		for inv_y in item.inventory_height:
+			# if index + inv_x + inv_y in space is not free
+			return false
+	
+	return true
+
+func get_item(index: Vector2) -> Resource:
 	if not inventory.items.has(index):
 		return null
 
 	return inventory.items[index]
 
-func take_item(search_name: String) -> InventoryItem:
+func take_item(search_name: String) -> Resource:
 	for item_index in range(inventory.capacity):
 		if inventory.items.has(item_index) and inventory.items[item_index].name == search_name:
 			var item = inventory.items[item_index]
@@ -32,7 +68,7 @@ func take_item(search_name: String) -> InventoryItem:
 	
 	return null
 
-func take_item_index(item_index: int) -> InventoryItem:
+func take_item_index(item_index: int) -> Resource:
 	if not inventory.items.has(item_index):
 		return null
 

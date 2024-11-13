@@ -13,6 +13,8 @@ enum ItemType {
 @export var rarity: float = 1.0
 @export var value: int = 10
 @export var type: ItemType = ItemType.ITEM
+@export var inventory_width : int = 1
+@export var inventory_height : int = 1
 
 func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
 	if name != other.name:
