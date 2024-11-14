@@ -28,12 +28,11 @@ func _on_close_button_pressed() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
 
 func _on_feed_button_pressed() -> void:
-	var selected_indexes = %InventoryGridContainer.get_selected_items()
-	if selected_indexes.size() > 0:
-		for each_selected in selected_indexes:
-			var item = PlayerInventoryController.take_item_index(each_selected)
-			print("Feeding selected item to party: %s" % item.name)
-			PartyController.feed_party_item(item)
+	var selected_index = %InventoryGridContainer.get_selected_item()
+	if selected_index != Vector2(-1, -1):
+		var item = PlayerInventoryController.take_item_index(selected_index)
+		print("Feeding selected item to party: %s" % item.name)
+		PartyController.feed_party_item(item)
 	else:
 		print("Skipping feeding since no selected item")
 

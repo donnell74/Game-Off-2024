@@ -100,17 +100,9 @@ func _on_continue_button_pressed() -> void:
 	LocationEvents.end_of_day.emit()
 
 func _on_player_inventory_grid_container_selected_indexes_updated() -> void:
-	print("_on_player_inventory_grid_container_selected_indexes_updated: ", %PlayerInventoryGridContainer.selected_slots)
-	var total_value = 0
-	for each_selected in %PlayerInventoryGridContainer.selected_slots:
-		total_value += %PlayerInventoryGridContainer.get_item(each_selected).value
-	
-	%CostValueLabel.text = "%d" % total_value
+	print("_on_player_inventory_grid_container_selected_indexes_updated: ", %PlayerInventoryGridContainer.selected_slots)	
+	%CostValueLabel.text = "%d" % %PlayerInventoryGridContainer.get_item(%PlayerInventoryGridContainer.selected_slot).value
 
 func _on_shop_inventory_grid_container_selected_indexes_updated() -> void:
-	print("_on_shop_inventory_grid_container_selected_indexes_updated: ", %ShopInventoryGridContainer.selected_slots)
-	var total_value = 0
-	for each_selected in %ShopInventoryGridContainer.selected_slots:
-		total_value += %ShopInventoryGridContainer.get_item(each_selected).value
-	
-	%CostValueLabel.text = "%d" % total_value
+	print("_on_shop_inventory_grid_container_selected_indexes_updated: ", %ShopInventoryGridContainer.selected_slots)	
+	%CostValueLabel.text = "%d" % %ShopInventoryGridContainer.get_item(%ShopInventoryGridContainer.selected_slot).value
