@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://6udrtvt2baaf"]
+
+[ext_resource type="Script" path="res://Inventory/recipe_context_menu.gd" id="1_7a8kf"]
+
+[node name="RecipeContextMenu" type="Control"]
+custom_minimum_size = Vector2(260, 350)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7a8kf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.662452, 0.662452, 0.662452, 1)
+
+[node name="RecipeList" type="ItemList" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="item_clicked" from="RecipeList" to="." method="_on_recipe_list_item_clicked"]
+[connection signal="mouse_entered" from="RecipeList" to="." method="_on_recipe_list_mouse_entered"]
+[connection signal="mouse_exited" from="RecipeList" to="." method="_on_recipe_list_mouse_exited"]

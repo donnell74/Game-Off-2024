@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://b4yy2beowo6v0"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://b4yy2beowo6v0"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_npo0l"]
+[ext_resource type="Texture2D" uid="uid://caxflkm8ro8fj" path="res://Inventory/Assets/sashimi.png" id="2_rww47"]
 
 [resource]
 script = ExtResource("1_npo0l")
 name = "Sashimi"
+texture = ExtResource("2_rww47")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1

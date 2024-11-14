@@ -3,7 +3,8 @@ extends InventoryController
 signal selected_indexes_updated
 
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
-@export var selected_slots : Array[int] = []
+@export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")
+@export var selected_slot : Vector2 = Vector2(-1, -1)
 
 func _ready() -> void:
 	generate_inventory_grid()
@@ -42,13 +43,8 @@ func generate_inventory_grid() -> void:
 			slot.slot_right_clicked.connect(_on_slot_right_clicked)
 			add_child(slot)
 
-func _on_inventory_item_slot_clicked(index: int) -> void:
-	var selected_position = selected_slots.find(index)
-	if selected_position == -1:
-		selected_slots.append(index)
-	else:
-		selected_slots.remove_at(selected_position)
-	
+func _on_inventory_item_slot_clicked(index: Vector2) -> void:
+	selected_slot = index
 	selected_indexes_updated.emit()
 
 # This algorithm is sorta a reverse a-star search.
@@ -85,22 +81,71 @@ func get_surrounding_ingredients(starting_index: Vector2, neighbors_already_visi
 	print("get_surrounding_ingredients for ", starting_index, " is: ", result)
 	return result
 
-func _on_slot_right_clicked(index: Vector2) -> void:
+func _on_slot_right_clicked(index: Vector2, node_postiion: Vector2) -> void:
 	var selected_station_item = get_item(index)
-	var selected_indexes = get_selected_items()
+	var station_type = selected_station_item.type if selected_station_item is InventoryItem else selected_station_item.root_node.type
+	if station_type != InventoryItem.ItemType.STATION:
+		return
+	
+	var station_name = selected_station_item.name if selected_station_item is InventoryItem else selected_station_item.root_node.name
 	var surrounding_ingredients = get_surrounding_ingredients(index)
-	#for each_selected in selected_indexes:
-		#var each_item = get_item(each_selected)
-		#print("Selected items[%d]: %s" % [each_selected, each_item.name])
-		#selected_items.append(each_item)
-	#
-	#var output = StationController.perform(selected_station_item.name, selected_items)
-	#if output.size() != 0:
-		#for each_selected in selected_indexes:
-			#take_item_index(each_selected)
-		#
-		#for each_output in output:
-			#add_item(each_output)
+	var surrounding_inv_items : Array[InventoryItem] = []
+	for each_ingred_pos in surrounding_ingredients:
+		surrounding_inv_items.append(inventory.items[each_ingred_pos])
+	
+	var matching_recipes = StationController.get_all_matching_recipes(station_name, surrounding_inv_items)
+	build_context_menu(matching_recipes, surrounding_ingredients, StationController.get_station(station_name), node_postiion)
+
+func build_context_menu(
+	recipes: Array[Recipe], 
+	ingredients: Array[Vector2], 
+	station: Station, 
+	new_position: Vector2
+) -> void:
+	if has_node("../RecipeContextMenu"):
+		$"../RecipeContextMenu".queue_free()
+	
+	var context_menu = recipe_context_menu.instantiate()
+	var context_menu_item_list = context_menu.get_node("RecipeList")
+	context_menu.recipes = recipes
+	context_menu.neighbors = ingredients
+	context_menu.station = station
+	context_menu.recipe_selected.connect(_on_recipe_selected)
+
+	if recipes.size() == 0:
+		context_menu_item_list.add_item("No recipes possible")
+
+	for each_recipe in recipes:
+		context_menu_item_list.add_item(each_recipe.output[0].name)
+
+	context_menu.global_position = new_position
+	context_menu.z_index = 2
+	get_parent().add_child(context_menu)
+
+func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Station):
+	print("_on_recipe_selected ", recipe.output[0].name, " ", neighbors, " ", Actions.Actions.keys()[station.action])
+	var recipe_items_to_find = recipe.input.duplicate()
+	var items_removed : Array[InventoryItem] = []
+	for each_neighbor in neighbors:
+		var each_item = get_item(each_neighbor)
+		var found = -1
+		for index in range(recipe_items_to_find.size()):
+			if recipe_items_to_find[index].equals(each_item, true):
+				found = index
+
+		if found != -1:
+			var found_item = recipe_items_to_find.pop_at(found)
+			items_removed.append(found_item)
+			take_item_index(each_neighbor)
+	
+	for each_output in recipe.output:
+		var each_item = each_output.duplicate()
+		var combined = StationController.combine_multipliers(items_removed)
+		each_item.modifiers.multiply(combined).multiply(station.modifier)
+		add_item(each_item)
+	
+	if has_node("../RecipeContextMenu"):
+		$"../RecipeContextMenu".queue_free()
 
 func clear_inventory_grid() -> void:
 	for child in get_children():
@@ -109,12 +154,5 @@ func clear_inventory_grid() -> void:
 		
 		child.queue_free()
 
-func get_selected_items() -> Array[int]:
-	var selected_index : Array[int] = []
-	for index in range(inventory.width * inventory.height):
-		var slot = get_child(index)
-		if slot.selected:
-			selected_index.append(index)
-	
-	print("get_selected_items: ", selected_index)
-	return selected_index
+func get_selected_item() -> Vector2:
+	return selected_slot

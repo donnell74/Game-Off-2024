@@ -37,10 +37,8 @@ func add_item(item: InventoryItem) -> void:
 			index = Vector2(pos_x, pos_y)
 			if not inventory.items.has(index):
 				break
-			
-			index += 1
 
-	print("Adding item to inventory: %s at index: %s" % [item.name, index.to_string()])
+	print("Adding item to inventory: %s at index: %s" % [item.name, index])
 	inventory.items[index] = item
 	inventory.inventory_updated.emit()
 
@@ -68,7 +66,7 @@ func take_item(search_name: String) -> Resource:
 	
 	return null
 
-func take_item_index(item_index: int) -> Resource:
+func take_item_index(item_index: Vector2) -> Resource:
 	if not inventory.items.has(item_index):
 		return null
 
