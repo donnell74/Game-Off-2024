@@ -164,6 +164,9 @@ func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 				else:
 					mapNode.change_visit_state(MapNode.VisitState.NOT_VISITABLE)
 			else:
+				if not map_node_data.has(_get_map_node_name(pathIndex, pathLengthIndex)):
+					continue
+				
 				var node_data = map_node_data[_get_map_node_name(pathIndex, pathLengthIndex)]
 				mapNode.global_position.x = node_data["global_position_x"]
 				mapNode.global_position.y = node_data["global_position_y"]
@@ -234,6 +237,9 @@ func add_map_lines() -> void:
 	var nodes_to_visit = rootNodes.duplicate()
 	while nodes_to_visit.size() > 0:
 		var each_node = nodes_to_visit.pop_front()
+		if not each_node:
+			continue
+		
 		if each_node.y_map_pos == pathLength - 1:
 			%MapContainer.add_child(create_line_node(each_node, %Boss))
 		else:
