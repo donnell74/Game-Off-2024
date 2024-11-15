@@ -62,13 +62,8 @@ func show_map() -> void:
 	visible = true
 	%MapCamera.enabled = true
 	var pathLengthIndex = 0
-	var visitableRootNodes = rootNodes.filter(filter_by_visitable)
-	var mapNode : MapNode
-	if visitableRootNodes.size() == 1:
-		mapNode = visitableRootNodes[0]
-	else:
-		mapNode = rootNodes[pathCount / 2]
-	var nextNodes : Array[MapNode] = []
+	var mapNode = rootNodes[pathCount / 2]
+	var nextNodes : Array[MapNode] = rootNodes.duplicate()
 	while mapNode.visitState != MapNode.VisitState.VISITABLE:
 		pathLengthIndex += 1
 		nextNodes.append_array(mapNode.next_neighbors)

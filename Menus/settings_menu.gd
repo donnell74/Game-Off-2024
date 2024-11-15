@@ -6,6 +6,7 @@ func _ready() -> void:
 	%MusicHSlider.value = Settings.music_volume
 	%SfxHSlider.value = Settings.sfx_volume
 	%SeedTextEdit.text = "%d" % Settings._seed
+	%SkipCutscenesCheckBox.button_pressed = Settings.skip_cutscenes
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Settings"):
@@ -30,8 +31,13 @@ func _on_seed_text_edit_text_changed() -> void:
 	if %SeedTextEdit.text.is_valid_int():
 		Settings.set_seed(%SeedTextEdit.text.to_int())
 
+func _on_skip_cutscenes_check_box_toggled(toggled_on: bool) -> void:
+	Settings.set_skip_cutscenes(toggled_on)
+
 func _on_close_button_pressed() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.SETTINGS)
+	SaveLoad.save_settings()
 
 func _on_quit_to_main_menu_button_pressed() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.MAIN_MENU)
+	SaveLoad.save_settings()

@@ -17,7 +17,9 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			visible = false
 
 func _on_start_new_run_button_pressed() -> void:
-	Dialogic.start("introduction")
+	if not Settings.skip_cutscenes:
+		Dialogic.start("introduction")
+
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
 
 func _on_settings_button_pressed() -> void:
