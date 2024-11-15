@@ -10,6 +10,7 @@ anchors_preset = 0
 script = ExtResource("1_gj0ou")
 
 [node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 1
 anchors_preset = 8

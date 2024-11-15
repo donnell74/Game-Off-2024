@@ -1,7 +1,5 @@
 extends InventoryController
 
-signal selected_indexes_updated
-
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
 @export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")
 @export var selected_slot : Vector2 = Vector2(-1, -1)
@@ -44,42 +42,31 @@ func generate_inventory_grid() -> void:
 			add_child(slot)
 
 func _on_inventory_item_slot_clicked(index: Vector2) -> void:
+	if %InventoryItemDraggable.visible:
+		var drag_item = get_item(%InventoryItemDraggable.original_index)
+		if drag_item is InventoryItemSlotRef:
+			drag_item = drag_item.root_node
+		
+		if can_place_item(index, drag_item):
+			var og_item : InventoryItem = take_entire_item(%InventoryItemDraggable.original_index)
+			add_item_at_index(drag_item, index)
+			%InventoryItemDraggable.visible = false
+			selected_slot = Vector2(-1, -1)
+		else:
+			# TODO: Add animation to indicate failure
+			print("Unable to place at index: ", index, " Item: ", drag_item)
+		return
+		
 	selected_slot = index
-	selected_indexes_updated.emit()
-
-# This algorithm is sorta a reverse a-star search.
-# Starting with node clicked, go to all neighbors
-# if neighbor is a station, recursively call this function, appending all ingredients from the call
-# if neighbor is an ingredient, add to result
-func get_surrounding_ingredients(starting_index: Vector2, neighbors_already_visited: Array[Vector2] = []) -> Array[Vector2]:
-	var result : Array[Vector2] = []
-	var neighbors = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
+	var item_at_index = get_item(index)
+	if item_at_index is InventoryItemSlotRef:
+		item_at_index = item_at_index.root_node
 	
-	for each_neighbor in neighbors:
-		var each_neighbor_pos = starting_index + each_neighbor
-		if neighbors_already_visited.has(each_neighbor_pos):
-			continue
-		
-		neighbors_already_visited.append(each_neighbor_pos)
-		var inventory_slot = get_item(each_neighbor_pos)
-		if not inventory_slot:
-			continue
-		
-		if inventory_slot is InventoryItemSlotRef and inventory_slot.root_node_type == InventoryItem.ItemType.STATION:
-			var starting_index_item = get_item(starting_index)
-			if starting_index_item is InventoryItemSlotRef and starting_index_item.root_node.name != inventory_slot.root_node.name:
-				continue
-			
-			if starting_index_item is InventoryItem and starting_index_item.name != inventory_slot.root_node.name:
-				continue
-			
-			result.append_array(get_surrounding_ingredients(each_neighbor_pos, neighbors_already_visited))
-		
-		if inventory_slot is InventoryItem and inventory_slot.type == InventoryItem.ItemType.ITEM:
-			result.append(starting_index + each_neighbor)
+	%InventoryItemDraggable.visible = true
+	%InventoryItemDraggable.original_index = index
+	%InventoryItemDraggable.item = item_at_index
 	
-	print("get_surrounding_ingredients for ", starting_index, " is: ", result)
-	return result
+	%InventoryItemDraggable.update()
 
 func _on_slot_right_clicked(index: Vector2, node_postiion: Vector2) -> void:
 	var selected_station_item = get_item(index)

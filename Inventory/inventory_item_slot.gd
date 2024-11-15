@@ -13,11 +13,12 @@ func _input(event: InputEvent) -> void:
 	if mouseOver and event is InputEventMouseButton and event.is_pressed():
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				selected = !selected
-				%Background.modulate = selected_color if selected else unselected_color
+				if get_parent().get_selected_item().is_equal_approx(Vector2(-1, -1)):
+					%Icon.texture = null
 				inventory_item_slot_clicked.emit(index)
 			MOUSE_BUTTON_RIGHT:
 				slot_right_clicked.emit(index, global_position)
+	
 
 func _on_mouse_entered() -> void:
 	mouseOver = true
