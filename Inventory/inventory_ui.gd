@@ -11,6 +11,10 @@ func switch_focus_to_feed_button() -> void:
 	%FeedButton.grab_focus()
 
 func _ready() -> void:
+	if not get_tree().root.has_node("/root/Main"):
+		# Debugging set ups
+		%InventoryCanvas.visible = true
+	
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	%InventoryGridContainer.set_inventory(PlayerInventoryController.inventory)
 	switch_focus_to_feed_button()

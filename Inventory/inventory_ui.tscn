@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnurxmck8x2nv"]
+[gd_scene load_steps=4 format=3 uid="uid://cnurxmck8x2nv"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_ui.gd" id="1_f8nx2"]
 [ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_6we01"]
+[ext_resource type="PackedScene" uid="uid://bs83kbxgwhjkf" path="res://Inventory/inventory_item_draggable.tscn" id="3_x1kes"]
 
 [node name="InventoryUi" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ script = ExtResource("1_f8nx2")
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="Background" type="ColorRect" parent="InventoryCanvas"]
 anchors_preset = 8
@@ -60,6 +62,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="InventoryGridContainer" parent="InventoryCanvas" instance=ExtResource("2_6we01")]
 unique_name_in_owner = true
+
+[node name="InventoryItemDraggable" parent="InventoryCanvas" instance=ExtResource("3_x1kes")]
+unique_name_in_owner = true
+visible = false
 
 [connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/RecipeBookButton" to="." method="_on_recipe_book_button_pressed"]
 [connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/FeedButton" to="." method="_on_feed_button_pressed"]

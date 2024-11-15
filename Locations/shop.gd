@@ -99,10 +99,11 @@ func _on_continue_button_pressed() -> void:
 	location_simulation_done.emit()
 	LocationEvents.end_of_day.emit()
 
-func _on_player_inventory_grid_container_selected_indexes_updated() -> void:
-	print("_on_player_inventory_grid_container_selected_indexes_updated: ", %PlayerInventoryGridContainer.selected_slots)	
-	%CostValueLabel.text = "%d" % %PlayerInventoryGridContainer.get_item(%PlayerInventoryGridContainer.selected_slot).value
-
-func _on_shop_inventory_grid_container_selected_indexes_updated() -> void:
-	print("_on_shop_inventory_grid_container_selected_indexes_updated: ", %ShopInventoryGridContainer.selected_slots)	
-	%CostValueLabel.text = "%d" % %ShopInventoryGridContainer.get_item(%ShopInventoryGridContainer.selected_slot).value
+# TODO Rebuild with context menu
+#func _on_player_inventory_grid_container_selected_indexes_updated() -> void:
+	#print("_on_player_inventory_grid_container_selected_indexes_updated: ", %PlayerInventoryGridContainer.selected_slots)
+	#%CostValueLabel.text = "%d" % %PlayerInventoryGridContainer.get_item(%PlayerInventoryGridContainer.selected_slot).value
+#
+#func _on_shop_inventory_grid_container_selected_indexes_updated() -> void:
+	#print("_on_shop_inventory_grid_container_selected_indexes_updated: ", %ShopInventoryGridContainer.selected_slots)
+	#%CostValueLabel.text = "%d" % %ShopInventoryGridContainer.get_item(%ShopInventoryGridContainer.selected_slot).value
