@@ -35,7 +35,12 @@ func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
 func save() -> Dictionary:
 	var save_map = {
 		"name": name,
-		"texture": var_to_str(texture) if texture else "",
+		"texture": texture.resource_path if texture else "",
+		"rarity": rarity,
+		"type": type,
+		"value": value,
+		"inventory_height": inventory_height,
+		"inventory_width": inventory_width,
 		"modifiers": modifiers.save()
 	}
 	return save_map
@@ -43,6 +48,11 @@ func save() -> Dictionary:
 static func from_values(from: Dictionary) -> InventoryItem:
 	var each_item = InventoryItem.new()
 	each_item.name = from["name"]
+	each_item.rarity = from["rarity"]
+	each_item.type = from["type"]
+	each_item.value = from["value"]
+	each_item.inventory_height = from["inventory_height"]
+	each_item.inventory_width = from["inventory_width"]
 	if from["texture"]:
 		each_item.texture = load(from["texture"])
 
