@@ -18,7 +18,9 @@ func _ready() -> void:
 	animation.loop = true
 
 	# Play the animation
-	$AnimationPlayer.play("background")
+	if not Settings.skip_cutscenes:
+		$AnimationPlayer.play("background")
+
 	LocationEvents.advance_day.connect(_on_advance_day)
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
@@ -45,7 +47,10 @@ func _on_advance_day() -> void:
 	location.simulate()
 	print("Party stats at end of activity: %s" % location.description)
 	print(PartyController)
-	$Timer.start(2)
+	if Settings.skip_cutscenes:
+		_on_timer_timeout()
+	else:
+		$Timer.start(2)
 
 func _on_timer_timeout() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)

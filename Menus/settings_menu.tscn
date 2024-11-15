@@ -83,6 +83,14 @@ layout_mode = 2
 text = "-1"
 context_menu_enabled = false
 
+[node name="SkipCutscenesLabel" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "Skip Cutscenes"
+
+[node name="SkipCutscenesCheckBox" type="CheckBox" parent="CanvasLayer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="CloseButton" type="Button" parent="CanvasLayer"]
 offset_left = 639.0
 offset_top = 536.0
@@ -101,5 +109,6 @@ text = "Quit to Main Menu"
 [connection signal="value_changed" from="CanvasLayer/GridContainer/MusicHSlider" to="." method="_on_music_h_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/GridContainer/SfxHSlider" to="." method="_on_sfx_h_slider_value_changed"]
 [connection signal="text_changed" from="CanvasLayer/GridContainer/SeedTextEdit" to="." method="_on_seed_text_edit_text_changed"]
+[connection signal="toggled" from="CanvasLayer/GridContainer/SkipCutscenesCheckBox" to="." method="_on_skip_cutscenes_check_box_toggled"]
 [connection signal="pressed" from="CanvasLayer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]

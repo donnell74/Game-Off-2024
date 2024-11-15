@@ -1,7 +1,33 @@
 extends Node
 
 const SAVE_PATH = "user://savegame.save"
+const SETTINGS_SAVE_PATH = "user://savesettings.save"
 const PATH_FROM_ROOT_KEY = "path_from_root"
+
+func save_settings() -> void:
+	print("Saving settings - Starting")
+	var save_file = FileAccess.open(SETTINGS_SAVE_PATH, FileAccess.WRITE)
+	var json_string = JSON.stringify(Settings.save())
+	save_file.store_line(json_string)
+	print("Saving settings - finished")
+
+func load_settings() -> void:
+	if not FileAccess.file_exists(SETTINGS_SAVE_PATH):
+		print("No save file, starting fresh settings save")
+		return
+
+	var save_file = FileAccess.open(SETTINGS_SAVE_PATH, FileAccess.READ)
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+		var json = JSON.new()
+
+		# Check if there is any error while parsing the JSON string, skip in case of failure.
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("Loading Save JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
+
+		Settings.load(json.data)
 
 func save_game() -> void:
 	print("Saving game - Starting")
