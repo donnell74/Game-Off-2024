@@ -55,11 +55,19 @@ func _on_focus_changed(control: Control) -> void:
 		currentlyFocusedMapNode = control
 		currentlyFocusedMapNode.find_child("SelectedIndicator").visible = true
 
+func filter_by_visitable(node: MapNode) -> bool:
+	return node.visitState == MapNode.VisitState.VISITABLE
+
 func show_map() -> void:
 	visible = true
 	%MapCamera.enabled = true
 	var pathLengthIndex = 0
-	var mapNode = find_child(_get_map_node_name(pathCount / 2, pathLengthIndex), true, false)
+	var visitableRootNodes = rootNodes.filter(filter_by_visitable)
+	var mapNode : MapNode
+	if visitableRootNodes.size() == 1:
+		mapNode = visitableRootNodes[0]
+	else:
+		mapNode = rootNodes[pathCount / 2]
 	var nextNodes : Array[MapNode] = []
 	while mapNode.visitState != MapNode.VisitState.VISITABLE:
 		pathLengthIndex += 1
@@ -352,6 +360,11 @@ func _on_location_simulation_done() -> void:
 	else:
 		for nextMapNode in mapNode.next_neighbors:
 			nextMapNode.change_visit_state(MapNode.VisitState.VISITABLE)
+		
+		if currentlyLoadedMapNode.y == 0:
+			for rootMapNodes in rootNodes:
+				if rootMapNodes.x_map_pos != currentlyLoadedMapNode.x:
+					rootMapNodes.change_visit_state(MapNode.VisitState.NOT_VISITABLE)
 
 func save_map_node_data() -> Dictionary:
 	var save_data: Dictionary = {}
