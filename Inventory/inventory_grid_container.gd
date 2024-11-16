@@ -48,7 +48,7 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 			drag_item = drag_item.root_node
 		
 		if can_place_item(index, drag_item):
-			var og_item : InventoryItem = take_entire_item(%InventoryItemDraggable.original_index)
+			take_entire_item(%InventoryItemDraggable.original_index)
 			add_item_at_index(drag_item, index)
 			%InventoryItemDraggable.visible = false
 			selected_slot = Vector2(-1, -1)

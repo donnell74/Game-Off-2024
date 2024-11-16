@@ -1,6 +1,7 @@
 extends Node
 
 @export var recipe_book: RecipeBook
+@warning_ignore("unused_signal")
 signal recipe_cooked(recipe: Recipe)
 
 

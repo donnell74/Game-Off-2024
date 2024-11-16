@@ -17,7 +17,7 @@ func save() -> Dictionary:
 
 func load(load_data: Variant) -> void:
 	var regex = RegEx.new()
-	var pattern = regex.compile("\\((?<pos_x>\\d+), (?<pos_y>\\d+)\\)")
+	regex.compile("\\((?<pos_x>\\d+), (?<pos_y>\\d+)\\)")
 	for each_item_key in load_data["inventory"]["items"]:
 		var item_data = load_data["inventory"]["items"][each_item_key]
 		var result = regex.search(each_item_key)

@@ -8,7 +8,7 @@ func update() -> void:
 	if item:
 		%Icon.texture = item.texture
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var mouse_pos = get_viewport().get_mouse_position()
 	if mouse_pos:
 		global_position = mouse_pos + offset
