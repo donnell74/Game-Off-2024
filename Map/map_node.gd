@@ -1,7 +1,7 @@
 extends Control
 class_name MapNode
 
-signal map_node_clicked(x_map_pos: int, y_map_pos: int)
+signal map_node_clicked(mapNode: MapNode)
 
 enum VisitState {
 	NOT_VISITABLE,
@@ -27,7 +27,7 @@ func _input(event: InputEvent) -> void:
 			print("Location Not Visitable yet, not emitting")
 			return
 
-		map_node_clicked.emit(x_map_pos, y_map_pos)
+		map_node_clicked.emit(self)
 
 func _on_mouse_entered() -> void:
 	mouseOver = true

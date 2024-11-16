@@ -1,6 +1,5 @@
 extends Control
 
-@export var mapPathResource : Resource = preload("res://Map/map_path.gd")
 @export var mapNodeScene : Control
 @export var pathLineTemplateScene : Node
 @export var possibleLocations : Array[Location] = []
@@ -9,14 +8,13 @@ extends Control
 @export var pathLength : int = 10
 @export var dungeonPercent : int = 50
 @export var resourcePercent : int = 50
-@export var map : Map = preload("res://Map/map.gd").new()
 @export var pathHorizontalPadding = 250
 @export var pathVerticalPadding = 150
 @export var bottomLeftMapPosition : Vector2i
 @export var cameraMovementSpeed = 1000.0
 @export var locationScene = preload("res://Locations/location.tscn")
 @export var shopScene = preload("res://Locations/shop.tscn")
-@export var currentlyLoadedMapNode = Vector2.ZERO
+@export var currentlyLoadedMapNode : MapNode = null
 @export var currentlyFocusedMapNode : Control
 @export var selectedBoss : Location
 @export var minMergedNodes : int = 3
@@ -84,7 +82,7 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("ui_accept"):
-		_on_map_node_clicked(currentlyFocusedMapNode.x_map_pos, currentlyFocusedMapNode.y_map_pos)
+		_on_map_node_clicked(currentlyFocusedMapNode)
 
 func _process(delta: float) -> void:
 	var movement = Vector2.ZERO
@@ -100,10 +98,6 @@ func _process(delta: float) -> void:
 	%MapCamera.position += movement.normalized() * cameraMovementSpeed * delta
 
 func generate_map(map_node_data: Dictionary = {}) -> void:
-	if map.paths.size() == 0:
-		for pathIndex in range(pathCount):
-			map.paths.append(create_map_path())
-
 	selectedBoss = possibleBosses[Settings.random().randi_range(0, possibleBosses.size() - 1)]
 	%Boss.find_child("Icon").texture = preload("res://Map/Assets/monster.png")
 	%Boss.global_position = _get_map_node_positiion(pathCount / 2, pathLength + 2)
@@ -131,16 +125,6 @@ func set_focus_neighbors() -> void:
 			if pathLengthIndex == pathLength - 1:
 				rootMapNode.set_focus_neighbor(SIDE_TOP, %Boss.get_path())
 
-func create_map_path() -> MapPath:
-	var mapPath = mapPathResource.new()
-	var rng = Settings.random()
-	for lengthIndex in range(pathLength):
-		var each_location = possibleLocations[
-			rng.randi_range(0, possibleLocations.size() - 1)].duplicate()
-		mapPath.locations.append(each_location)
-	
-	return mapPath
-
 func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 	if !mapNodeScene:
 		print("Unable to run add_map_to_ui")
@@ -153,22 +137,26 @@ func add_map_to_ui(map_node_data: Dictionary = {}) -> void:
 	# loop through paths, horizontal padding based on index
 	# Add map node for each location on path, vertical padded based on index
 	# Create a line from last node to current node
-	var lastMapNode
+	var lastMapNode = null
+	rootNodes = []
 	for pathIndex in range(pathCount):
 		for pathLengthIndex in range(pathLength):
 			var mapNode = create_map_node(pathIndex, pathLengthIndex)
 			%MapContainer.add_child(mapNode)
-			if pathLengthIndex == 0:
-				rootNodes.append(mapNode)
 			
 			if map_node_data.size() == 0:
 				if pathLengthIndex == 0:
 					mapNode.change_visit_state(MapNode.VisitState.VISITABLE)
+					rootNodes.append(mapNode)
 				else:
 					mapNode.change_visit_state(MapNode.VisitState.NOT_VISITABLE)
 			else:
 				if not map_node_data.has(_get_map_node_name(pathIndex, pathLengthIndex)):
+					mapNode.queue_free()
 					continue
+				
+				if pathLengthIndex == 0:
+					rootNodes.append(mapNode)
 				
 				var node_data = map_node_data[_get_map_node_name(pathIndex, pathLengthIndex)]
 				mapNode.global_position.x = node_data["global_position_x"]
@@ -272,7 +260,7 @@ func add_map_lines() -> void:
 
 func create_map_node(pathIndex: int, pathLengthIndex: int) -> Control:
 	var mapNode = mapNodeScene.duplicate()
-	var location = map.paths[pathIndex].locations[pathLengthIndex]
+	var location = possibleLocations[Settings.random().randi_range(0, possibleLocations.size() - 1)].duplicate()
 	var icon = mapNode.find_child("Icon")
 	icon.texture = get_map_node_texture(location.type)
 	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
@@ -316,34 +304,29 @@ func get_map_node_texture(type: Location.Type) -> Texture2D:
 		_:
 			return preload("res://Map/Assets/monster.png")
 
-func _on_map_node_clicked(x_map_pos: int, y_map_pos: int) -> void:
-	print("_on_map_node_clicked for MapNode (%d, %d)" % [x_map_pos, y_map_pos])
+func _on_map_node_clicked(mapNode: MapNode) -> void:
+	
+	print("_on_map_node_clicked for MapNode (%d, %d)" % [mapNode.x_map_pos, mapNode.y_map_pos])
 	if currentlyFocusedMapNode.visitState != MapNode.VisitState.VISITABLE:
 		print("MapNode is not visitable")
 		return
 
 	hide_map()
 	
-	var location
-	if x_map_pos == -1 and y_map_pos == -1:
-		location = selectedBoss
-	else:
-		location = map.paths[x_map_pos].locations[y_map_pos]
-
-	currentlyLoadedMapNode = Vector2(x_map_pos, y_map_pos)
-	print("Location for MapNode (%d, %d): %s" % [x_map_pos, y_map_pos, location.description])
+	currentlyLoadedMapNode = mapNode
+	print("Location for MapNode (%d, %d): %s" % [mapNode.x_map_pos, mapNode.y_map_pos, mapNode.location.description])
 
 	var scene_to_load
-	match location.type:
+	match mapNode.location.type:
 		Location.Type.TOWN:
 			scene_to_load = shopScene.instantiate()
 		_:
 			scene_to_load = locationScene.instantiate()
 
-	scene_to_load.location = location
+	scene_to_load.location = mapNode.location
 	scene_to_load.location_simulation_done.connect(_on_location_simulation_done)
 	get_tree().root.add_child(scene_to_load)
-	if location.type == Location.Type.TOWN:
+	if mapNode.location.type == Location.Type.TOWN:
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.SHOP)
 
 func _get_map_node_name(x_map_pos: int, y_map_pos: int) -> String:
@@ -356,9 +339,8 @@ func _on_location_simulation_done() -> void:
 	if has_node("/root/Shop"):
 		$"/root/Shop".queue_free()
 	
-	if currentlyLoadedMapNode == Vector2(-1, -1):
+	if currentlyLoadedMapNode.x_map_pos == -1 and currentlyFocusedMapNode.y_map_pos == -1:
 		# Level complete
-		map = Map.new()
 		rootNodes = []
 		generate_map()
 		PartyController.level_up()
@@ -367,19 +349,18 @@ func _on_location_simulation_done() -> void:
 		return
 	
 	# The MapNode is not owned by the map /shrug
-	var mapNode = find_child(_get_map_node_name(currentlyLoadedMapNode.x, currentlyLoadedMapNode.y), true, false)
-	mapNode.find_child("CompletedIndicator").visible = true
-	mapNode.change_visit_state(MapNode.VisitState.VISTED)
+	currentlyLoadedMapNode.find_child("CompletedIndicator").visible = true
+	currentlyLoadedMapNode.change_visit_state(MapNode.VisitState.VISTED)
 	# Make the next MapNode on the path visitable
-	if currentlyLoadedMapNode.y == pathLength - 1:
+	if currentlyLoadedMapNode.y_map_pos == pathLength - 1:
 		%Boss.change_visit_state(MapNode.VisitState.VISITABLE)
 	else:
-		for nextMapNode in mapNode.next_neighbors:
+		for nextMapNode in currentlyLoadedMapNode.next_neighbors:
 			nextMapNode.change_visit_state(MapNode.VisitState.VISITABLE)
 		
-		if currentlyLoadedMapNode.y == 0:
+		if currentlyLoadedMapNode.y_map_pos == 0:
 			for rootMapNodes in rootNodes:
-				if rootMapNodes.x_map_pos != currentlyLoadedMapNode.x:
+				if rootMapNodes.x_map_pos != currentlyLoadedMapNode.x_map_pos:
 					rootMapNodes.change_visit_state(MapNode.VisitState.NOT_VISITABLE)
 
 func save_map_node_data() -> Dictionary:
@@ -403,7 +384,6 @@ func save_map_node_data() -> Dictionary:
 func save() -> Dictionary:
 	var save_dict = {
 		SaveLoad.PATH_FROM_ROOT_KEY: get_path(),
-		"map": map.save(),
 		"map_node_data": save_map_node_data(),
 		"boss": {
 			"visitState": %Boss.visitState,
@@ -414,8 +394,6 @@ func save() -> Dictionary:
 	return save_dict
 
 func load(load_data: Dictionary) -> void:
-	map.paths = []
-	map.load(load_data["map"])
 	selectedBoss = Location.new()
 	selectedBoss.load(load_data["boss"]["location"])
 	%Boss.visitState = load_data["boss"]["visitState"]

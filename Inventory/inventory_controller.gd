@@ -87,7 +87,7 @@ func take_item(search_name: String) -> Resource:
 # Almost the same code as get_surrounding_ingredients but returning the root node and deleting
 # the refs
 func take_entire_item(starting_index: Vector2) -> InventoryItem:
-	var result : InventoryItem
+	var result : InventoryItem = null
 	var neighbors = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 	var neighbors_already_visited : Array[Vector2] = []
 	var nodes_left_to_vist : Array[Vector2] = [starting_index]

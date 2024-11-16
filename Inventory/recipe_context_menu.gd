@@ -11,7 +11,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and !mouseOver:
 		queue_free()
 
-func _on_recipe_list_item_clicked(index: int, at_position: Vector2, _mouse_button_index: int) -> void:
+func _on_recipe_list_item_clicked(index: int, _at_position: Vector2, _mouse_button_index: int) -> void:
 	if recipes.size() == 0:
 		queue_free()
 		return
