@@ -33,7 +33,10 @@ func set_sfx_volume(new_volume: float) -> void:
 
 func set_seed(new_seed: int) -> void:
 	_seed = new_seed
-	_random.seed = _seed
+	if _seed == -1:
+		_random.randomize()
+	else:
+		_random.seed = _seed
 
 func set_skip_cutscenes(new: bool) -> void:
 	skip_cutscenes = new
