@@ -44,4 +44,6 @@ x_map_pos = -1
 y_map_pos = -1
 visitState = 0
 
+[connection signal="map_node_clicked" from="Boss" to="." method="_on_map_node_clicked"]
+
 [editable path="Boss"]
