@@ -358,6 +358,8 @@ func _on_location_simulation_done() -> void:
 	
 	if currentlyLoadedMapNode == Vector2(-1, -1):
 		# Level complete
+		map = Map.new()
+		rootNodes = []
 		generate_map()
 		PartyController.level_up()
 		SaveLoad.save_game()
