@@ -219,6 +219,9 @@ func merge_random_nodes() -> void:
 				if target_node.x_map_pos == neighbor_node.x_map_pos:
 					print("Merging (%d, %d) and (%d, %d) has same x_map_pos" % [target_node.x_map_pos,
 					  target_node.y_map_pos, neighbor_node.x_map_pos, neighbor_node.y_map_pos])
+				if same_neighbors(target_node, neighbor_node):
+					print("We already merged (%d, %d) and (%d, %d).  Trying again" % [target_node.x_map_pos,
+					  target_node.y_map_pos, neighbor_node.x_map_pos, neighbor_node.y_map_pos])
 				else:
 					print("Merging (%d, %d) and (%d, %d) to same next_neighbors" % [target_node.x_map_pos,
 					  target_node.y_map_pos, neighbor_node.x_map_pos, neighbor_node.y_map_pos])
@@ -235,6 +238,22 @@ func merge_random_nodes() -> void:
 			
 			# set next level
 			current_level = next_level
+
+func same_neighbors(left: MapNode, right: MapNode) -> bool:
+	if left.next_neighbors.size() != right.next_neighbors.size():
+		return false
+	
+	for left_neighbor in left.next_neighbors:
+		var found = false
+		for right_neighbor in right.next_neighbors:
+			if left_neighbor == right_neighbor:
+				found = true
+				break
+		
+		if not found:
+			return false
+	
+	return true
 
 func add_map_lines() -> void:
 	var nodes_to_visit = rootNodes.duplicate()
