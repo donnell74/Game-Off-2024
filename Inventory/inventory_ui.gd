@@ -18,6 +18,11 @@ func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	%InventoryGridContainer.set_inventory(PlayerInventoryController.inventory)
 	switch_focus_to_feed_button()
+	PlayerInventoryController.item_dropped_inventory_full.connect(_on_item_dropped_inventory_full)
+
+func _on_item_dropped_inventory_full(item: InventoryItem) -> void:
+	print("InventoryUi - _on_item_dropped_inventory_full")
+	Dialogic.start("inventory_full")
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.INVENTORY:
