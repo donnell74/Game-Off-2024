@@ -84,16 +84,18 @@ func _on_continue_button_pressed() -> void:
 	LocationEvents.end_of_day.emit()
 
 func _on_player_inventory_grid_container_shop_mode_item_clicked(index: Vector2) -> void:
-	%BuySaleContextMenu.visible = true
 	selected_item_index = index
 	selected_item = %PlayerInventoryGridContainer.get_item(index)
-	%BuySaleContextMenu.get_node("Label").text = "Do you want to sell %s for %d gold?" % [selected_item.name, selected_item.value]
+	if selected_item:
+		%BuySaleContextMenu.visible = true
+		%BuySaleContextMenu.get_node("Label").text = "Do you want to sell %s for %d gold?" % [selected_item.name, selected_item.value]
 
 func _on_shop_inventory_grid_container_shop_mode_item_clicked(index: Vector2) -> void:
-	%BuySaleContextMenu.visible = true
 	selected_item_index = index
 	selected_item = %ShopInventoryGridContainer.get_item(index)
-	%BuySaleContextMenu.get_node("Label").text = "Do you want to buy %s for %d gold?" % [selected_item.name, selected_item.value]
+	if selected_item:
+		%BuySaleContextMenu.visible = true
+		%BuySaleContextMenu.get_node("Label").text = "Do you want to buy %s for %d gold?" % [selected_item.name, selected_item.value]
 
 func _on_no_button_pressed() -> void:
 	%BuySaleContextMenu.visible = false

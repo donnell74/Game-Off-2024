@@ -39,6 +39,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "introduction": "res://Timelines/introduction.dtl",
+"inventory_full": "res://Timelines/inventory_full.dtl",
 "party_stat_depleted": "res://Timelines/party_stat_depleted.dtl"
 }
 

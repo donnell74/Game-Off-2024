@@ -1,6 +1,8 @@
 extends Control
 class_name InventoryController
 
+signal item_dropped_inventory_full(item: InventoryItem)
+
 @export var inventory : Inventory = preload("res://Inventory/player_inventory.tres")
 @export var inventory_item_resource : Resource
 @export var percentage_items_drop_on_death : float = 0.25
@@ -42,6 +44,11 @@ func add_item(item: InventoryItem) -> void:
 			index = Vector2(pos_x, pos_y)
 			if not inventory.items.has(index):
 				break
+
+	if index.is_equal_approx(Vector2(inventory.width - 1, inventory.height -1)):
+		print("Unable to add item to inventory because it is full")
+		item_dropped_inventory_full.emit(item)
+		return
 
 	add_item_at_index(item, index)
 
