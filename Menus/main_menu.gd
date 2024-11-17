@@ -17,6 +17,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			visible = false
 
 func _on_start_new_run_button_pressed() -> void:
+	$"/root/Main/Map".generate_map()
 	if not Settings.skip_cutscenes:
 		Dialogic.start("introduction")
 
