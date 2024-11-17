@@ -1,6 +1,7 @@
 extends InventoryController
 
 signal shop_mode_item_clicked(index: Vector2)
+signal cancel_item_drag
 
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
 @export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")
@@ -9,6 +10,13 @@ signal shop_mode_item_clicked(index: Vector2)
 
 func _ready() -> void:
 	generate_inventory_grid()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if not selected_slot.is_equal_approx(Vector2(-1, -1)):
+			selected_slot = Vector2(-1, -1)
+			%InventoryItemDraggable.visible = false
+			generate_inventory_grid()
 
 func set_inventory(newInventory: Inventory) -> void:
 	if inventory and inventory.inventory_updated.is_connected(generate_inventory_grid):
