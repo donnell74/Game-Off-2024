@@ -103,6 +103,7 @@ func _process(delta: float) -> void:
 
 func generate_map(map_node_data: Dictionary = {}) -> void:
 	currentlyFocusedMapNode = null
+	currentlyLoadedMapNode = null
 	selectedBoss = possibleBosses[Settings.random().randi_range(0, possibleBosses.size() - 1)]
 	%Boss.find_child("Icon").texture = preload("res://Map/Assets/monster.png")
 	%Boss.global_position = _get_map_node_positiion(pathCount / 2, pathLength + 2)

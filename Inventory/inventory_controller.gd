@@ -3,8 +3,10 @@ class_name InventoryController
 
 @export var inventory : Inventory = preload("res://Inventory/player_inventory.tres")
 @export var inventory_item_resource : Resource
+@export var percentage_items_drop_on_death : float = 0.25
 
 func _ready() -> void:
+	PartyController.party_stat_depleted.connect(death_drop)
 	fill_refs()
 
 func fill_refs() -> void:
@@ -126,6 +128,29 @@ func take_item_index(item_index: Vector2) -> Resource:
 	inventory.items.erase(item_index)
 	inventory.inventory_updated.emit()
 	return item
+
+func count_items() -> int:
+	var item_count = 0
+	for index in inventory.items:
+		var each_item = inventory.items[index]
+		if each_item is InventoryItem:
+			item_count += 1
+
+	return item_count
+
+func death_drop(_stat: PartyController.Stats) -> void:
+	var item_count = count_items()
+	var items_left_to_drop = floor(item_count * percentage_items_drop_on_death)
+	var max_iterations = 100 # fall back in the case the inventory is only stations
+	while items_left_to_drop > 0 and max_iterations > 0:
+		var inventory_indexes = inventory.items.keys()
+		var index_to_drop = Settings.random().randi_range(0, inventory_indexes.size() - 1)
+		var item_to_drop = inventory.items[inventory_indexes[index_to_drop]]
+		if item_to_drop is InventoryItem and item_to_drop.type == InventoryItem.ItemType.ITEM:
+			take_entire_item(inventory_indexes[index_to_drop])
+			items_left_to_drop -= 1
+		
+		max_iterations -= 1
 
 # This algorithm is sorta a reverse a-star search.
 # Starting with node clicked, go to all neighbors

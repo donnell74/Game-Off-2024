@@ -5,6 +5,9 @@
 [resource]
 script = ExtResource("1_w0vee")
 name = "Greg"
+base_health = 80.0
+base_stamina = 110.0
+base_strength = 100.0
 health = 80.0
 stamina = 110.0
 strength = 100.0

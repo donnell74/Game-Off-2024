@@ -31,12 +31,14 @@ func set_sfx_volume(new_volume: float) -> void:
 		2, linear_to_db(sfx_volume)
 	)
 
-func set_seed(new_seed: int) -> void:
-	_seed = new_seed
-	if _seed == -1:
+func set_seed(new_seed: int, save_new_seed: bool = true) -> void:
+	if save_new_seed:
+		_seed = new_seed
+	
+	if new_seed == -1:
 		_random.randomize()
 	else:
-		_random.seed = _seed
+		_random.seed = new_seed
 
 func set_skip_cutscenes(new: bool) -> void:
 	skip_cutscenes = new

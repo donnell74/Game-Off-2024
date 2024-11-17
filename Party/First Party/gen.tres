@@ -5,6 +5,9 @@
 [resource]
 script = ExtResource("1_yloa3")
 name = "Gen"
+base_health = 100.0
+base_stamina = 120.0
+base_strength = 100.0
 health = 100.0
 stamina = 120.0
 strength = 100.0
