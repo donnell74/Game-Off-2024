@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://cmtnkp4vee3uy"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://cmtnkp4vee3uy"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_i7gjn"]
+[ext_resource type="Texture2D" uid="uid://brtxbsxtm3i7d" path="res://Inventory/Assets/rice.png" id="2_cla0x"]
 
 [resource]
 script = ExtResource("1_i7gjn")
 name = "Rice"
+texture = ExtResource("2_cla0x")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1
