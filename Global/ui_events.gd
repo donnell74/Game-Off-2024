@@ -9,7 +9,8 @@ enum UiScene {
 	MAIN_MENU,
 	SETTINGS,
 	SHOP,
-	RECIPE_BOOK
+	RECIPE_BOOK,
+	GAME_WON
 }
 
 

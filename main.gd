@@ -2,11 +2,20 @@ extends Node2D
 
 @export var startingScene = UiEvents.UiScene.CAMPFIRE
 @export var useSavedGame = false
+@export var gameWon = false
 
 func _ready() -> void:
 	UiEvents.active_ui_changed.emit(startingScene)
 	LocationEvents.end_of_day.connect(SaveLoad.save_game)
 	PartyController.party_stat_depleted.connect(_on_party_stat_depleted)
+	RecipeBookController.recipe_cooked.connect(_on_recipe_cooked)
+
+func _on_recipe_cooked(recipe: Recipe) -> void:
+	print("Main - _on_recipe_cooked: ", Recipe.Tiers.keys()[recipe.tier])
+	if recipe.tier == Recipe.Tiers.GOLDEN:
+		gameWon = true
+		Dialogic.start("game_won")
+		UiEvents.active_ui_changed.emit(UiEvents.UiScene.GAME_WON)
 
 func _on_party_stat_depleted(stat: PartyController.Stats) -> void:
 	print("Campfire - _on_party_stat_depleted: ", PartyController.Stats.keys()[stat])

@@ -27,10 +27,9 @@ func _on_item_dropped_inventory_full(_item: InventoryItem) -> void:
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.INVENTORY:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
-		#if %InventoryCanvas.visible:
-			#%InventoryItemList.grab_focus()
-	if newActive == UiEvents.UiScene.RECIPE_BOOK:
-		%InventoryCanvas.visible = false
+		return
+
+	%InventoryCanvas.visible = false
 
 func _on_close_button_pressed() -> void:
 	print("Inventory close button clicked, hiding inventory ui")
