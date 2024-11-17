@@ -23,10 +23,10 @@ offset_right = 1119.0
 offset_bottom = 630.0
 horizontal_scroll_mode = 0
 
-[node name="GridContainer" type="GridContainer" parent="InventoryCanvas/ScrollContainer"]
+[node name="RecipeGridContainer" type="GridContainer" parent="InventoryCanvas/ScrollContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(10.97, 0)
 layout_mode = 2
-columns = 5
 
 [node name="CloseButton" type="Button" parent="InventoryCanvas"]
 offset_left = 926.0

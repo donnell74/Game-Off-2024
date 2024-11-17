@@ -20,7 +20,7 @@ func _ready() -> void:
 	switch_focus_to_feed_button()
 	PlayerInventoryController.item_dropped_inventory_full.connect(_on_item_dropped_inventory_full)
 
-func _on_item_dropped_inventory_full(item: InventoryItem) -> void:
+func _on_item_dropped_inventory_full(_item: InventoryItem) -> void:
 	print("InventoryUi - _on_item_dropped_inventory_full")
 	Dialogic.start("inventory_full")
 

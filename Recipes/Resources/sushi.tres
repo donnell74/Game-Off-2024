@@ -12,3 +12,4 @@ input = Array[ExtResource("1_4h7pr")]([ExtResource("2_gsush"), ExtResource("3_be
 output = Array[ExtResource("1_4h7pr")]([ExtResource("4_qk1jg")])
 action = 5
 times_cooked = 0
+tier = 3
