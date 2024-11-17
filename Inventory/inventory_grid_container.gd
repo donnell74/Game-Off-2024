@@ -1,8 +1,11 @@
 extends InventoryController
 
+signal shop_mode_item_clicked(index: Vector2)
+
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
 @export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")
 @export var selected_slot : Vector2 = Vector2(-1, -1)
+@export var shop_mode : bool = false
 
 func _ready() -> void:
 	generate_inventory_grid()
@@ -27,6 +30,7 @@ func generate_inventory_grid() -> void:
 		for pos_x in range(inventory.width):
 			var index = Vector2(pos_x, pos_y)
 			var slot = slot_scene.instantiate()
+			slot.shop_mode = shop_mode
 			slot.name = "InventoryItemSlot - %s" % index
 			slot.index = index
 			var item_for_slot = get_item(index)
@@ -42,34 +46,44 @@ func generate_inventory_grid() -> void:
 			add_child(slot)
 
 func _on_inventory_item_slot_clicked(index: Vector2) -> void:
-	if %InventoryItemDraggable.visible:
-		var drag_item = get_item(%InventoryItemDraggable.original_index)
-		if drag_item is InventoryItemSlotRef:
-			drag_item = drag_item.root_node
+	if not shop_mode:
+		if %InventoryItemDraggable.visible:
+			var drag_item = get_item(%InventoryItemDraggable.original_index)
+			if drag_item is InventoryItemSlotRef:
+				drag_item = drag_item.root_node
+			
+			if can_place_item(index, drag_item):
+				take_entire_item(%InventoryItemDraggable.original_index)
+				add_item_at_index(drag_item, index)
+				%InventoryItemDraggable.visible = false
+				selected_slot = Vector2(-1, -1)
+				return
+			else:
+				# TODO: Add animation to indicate failure
+				print("Unable to place at index: ", index, " Item: ", drag_item)
+				return
 		
-		if can_place_item(index, drag_item):
-			take_entire_item(%InventoryItemDraggable.original_index)
-			add_item_at_index(drag_item, index)
-			%InventoryItemDraggable.visible = false
-			selected_slot = Vector2(-1, -1)
-		else:
-			# TODO: Add animation to indicate failure
-			print("Unable to place at index: ", index, " Item: ", drag_item)
-		return
+		selected_slot = index
+		var item_at_index = get_item(index)
+		if item_at_index is InventoryItemSlotRef:
+			item_at_index = item_at_index.root_node
 		
-	selected_slot = index
-	var item_at_index = get_item(index)
-	if item_at_index is InventoryItemSlotRef:
-		item_at_index = item_at_index.root_node
-	
-	%InventoryItemDraggable.visible = true
-	%InventoryItemDraggable.original_index = index
-	%InventoryItemDraggable.item = item_at_index
-	
-	%InventoryItemDraggable.update()
+		%InventoryItemDraggable.visible = true
+		%InventoryItemDraggable.original_index = index
+		%InventoryItemDraggable.item = item_at_index
+		
+		%InventoryItemDraggable.update()
+	else:
+		shop_mode_item_clicked.emit(index)
 
 func _on_slot_right_clicked(index: Vector2, node_postiion: Vector2) -> void:
+	if shop_mode:
+		return
+
 	var selected_station_item = get_item(index)
+	if not selected_station_item:
+		return
+	
 	var station_type = selected_station_item.type if selected_station_item is InventoryItem else selected_station_item.root_node.type
 	if station_type != InventoryItem.ItemType.STATION:
 		return
