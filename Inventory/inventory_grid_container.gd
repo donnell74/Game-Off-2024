@@ -117,7 +117,10 @@ func build_context_menu(
 		context_menu_item_list.add_item("No recipes possible")
 
 	for each_recipe in recipes:
-		context_menu_item_list.add_item(each_recipe.output[0].name)
+		if each_recipe.times_cooked == 0:
+			context_menu_item_list.add_item("?")
+		else:
+			context_menu_item_list.add_item(each_recipe.output[0].name)
 
 	context_menu.global_position = new_position
 	context_menu.z_index = 2
@@ -144,6 +147,8 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		var combined = StationController.combine_multipliers(items_removed)
 		each_item.modifiers.multiply(combined).multiply(station.modifier)
 		add_item(each_item)
+	
+	RecipeBookController.recipe_cooked.emit(recipe)
 	
 	if has_node("../RecipeContextMenu"):
 		$"../RecipeContextMenu".queue_free()
