@@ -5,6 +5,7 @@ signal location_simulation_done
 @export var location : Location
 
 var selected_item : InventoryItem
+var selected_item_index : Vector2 = Vector2(-1, -1)
 
 func _ready() -> void:
 	# For run single scene support
@@ -50,30 +51,13 @@ func update_ui() -> void:
 	# Shop expects items for sale to be in afternoon reward items
 	var index = 0
 	for each_item in location.afternoonActivities[0].rewardItems:
-		shopInventory.items[index] = each_item
+		shopInventory.items[Vector2(0, index)] = each_item # TODO: Handle more than 10 items
 	
 	%ShopInventoryGridContainer.set_inventory(shopInventory)
 
 func _on_advance_day() -> void:
 	print("Shop - _on_advance_day")
 	show_ui()
-
-func _on_buy_sell_button_pressed() -> void:
-	if %PlayerInventoryGridContainer.visible:
-		var selected_items = %PlayerInventoryGridContainer.get_selected_items()
-		for selected_item_index in selected_items:
-			var item_to_sell = %PlayerInventoryGridContainer.take_item_index(selected_item_index)
-			%ShopInventoryGridContainer.add_item(item_to_sell)
-			PartyController.increment_currency(item_to_sell.value)
-	else:
-		var selected_items = %ShopInventoryGridContainer.get_selected_items()
-		for selected_item_index in selected_items:
-			var item_to_buy = %ShopInventoryGridContainer.take_item_index(selected_item_index)
-			%PlayerInventoryGridContainer.add_item(item_to_buy)
-			PartyController.decrement_currency(item_to_buy.value)
-	
-	%CostValueLabel.text = "0"
-
 
 func _on_buy_menu_button_pressed() -> void:
 	%BuyMenuButton.disabled = true
@@ -99,11 +83,28 @@ func _on_continue_button_pressed() -> void:
 	location_simulation_done.emit()
 	LocationEvents.end_of_day.emit()
 
-# TODO Rebuild with context menu
-#func _on_player_inventory_grid_container_selected_indexes_updated() -> void:
-	#print("_on_player_inventory_grid_container_selected_indexes_updated: ", %PlayerInventoryGridContainer.selected_slots)
-	#%CostValueLabel.text = "%d" % %PlayerInventoryGridContainer.get_item(%PlayerInventoryGridContainer.selected_slot).value
-#
-#func _on_shop_inventory_grid_container_selected_indexes_updated() -> void:
-	#print("_on_shop_inventory_grid_container_selected_indexes_updated: ", %ShopInventoryGridContainer.selected_slots)
-	#%CostValueLabel.text = "%d" % %ShopInventoryGridContainer.get_item(%ShopInventoryGridContainer.selected_slot).value
+func _on_player_inventory_grid_container_shop_mode_item_clicked(index: Vector2) -> void:
+	%BuySaleContextMenu.visible = true
+	selected_item_index = index
+	selected_item = %PlayerInventoryGridContainer.get_item(index)
+	%BuySaleContextMenu.get_node("Label").text = "Do you want to sell %s for %d gold?" % [selected_item.name, selected_item.value]
+
+func _on_shop_inventory_grid_container_shop_mode_item_clicked(index: Vector2) -> void:
+	%BuySaleContextMenu.visible = true
+	selected_item_index = index
+	selected_item = %ShopInventoryGridContainer.get_item(index)
+	%BuySaleContextMenu.get_node("Label").text = "Do you want to buy %s for %d gold?" % [selected_item.name, selected_item.value]
+
+func _on_no_button_pressed() -> void:
+	%BuySaleContextMenu.visible = false
+
+func _on_yes_button_pressed() -> void:
+	%BuySaleContextMenu.visible = false
+	if %PlayerInventoryGridContainer.visible:
+		var item_to_sell = %PlayerInventoryGridContainer.take_item_index(selected_item_index)
+		%ShopInventoryGridContainer.add_item(item_to_sell)
+		PartyController.increment_currency(item_to_sell.value)
+	else:
+		var item_to_buy = %ShopInventoryGridContainer.take_item_index(selected_item_index)
+		%PlayerInventoryGridContainer.add_item(item_to_buy)
+		PartyController.decrement_currency(item_to_buy.value)
