@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=13 format=3 uid="uid://cg8dfx000up56"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=16 format=3 uid="uid://cg8dfx000up56"]
 
 [ext_resource type="Resource" uid="uid://bob22ywvwvnvi" path="res://Inventory/Items/Stations/knife.tres" id="1_fwewe"]
 [ext_resource type="Script" path="res://Inventory/inventory.gd" id="2_gwfnm"]
@@ -7,11 +7,14 @@
 [ext_resource type="Resource" uid="uid://bdgy2r6xf7cjh" path="res://Inventory/Items/milk.tres" id="4_a0d0i"]
 [ext_resource type="Resource" uid="uid://blivvph2lqcof" path="res://Inventory/Items/Stations/boiling_pot.tres" id="6_goylx"]
 [ext_resource type="Resource" uid="uid://b1ac4yj1nddo2" path="res://Inventory/Items/berries.tres" id="7_1jeqw"]
+[ext_resource type="Resource" uid="uid://bt07xvaixi73m" path="res://Inventory/Items/monster_fish.tres" id="7_38jcb"]
 [ext_resource type="Resource" uid="uid://bd3dc2n271ge4" path="res://Inventory/Items/Stations/masher.tres" id="7_rvfjl"]
 [ext_resource type="Resource" uid="uid://ceui3p0ucojg2" path="res://Inventory/Items/Stations/mixing_bowl.tres" id="8_tac5v"]
 [ext_resource type="Resource" uid="uid://c5py8agaw4syw" path="res://Inventory/Items/Stations/peeler.tres" id="9_blmsd"]
 [ext_resource type="Resource" uid="uid://du826wdoaxnhe" path="res://Inventory/Items/Stations/sauce_pan.tres" id="10_atvxi"]
 [ext_resource type="Resource" uid="uid://dnxki7cqb1jk5" path="res://Inventory/Items/fish.tres" id="11_65cke"]
+[ext_resource type="Resource" uid="uid://cmtnkp4vee3uy" path="res://Inventory/Items/rice.tres" id="13_tbwkl"]
+[ext_resource type="Resource" uid="uid://ctcqpasnuj6k0" path="res://Inventory/Items/seaweed.tres" id="14_hbc3n"]
 
 [resource]
 script = ExtResource("2_gwfnm")
@@ -27,7 +30,9 @@ Vector2(3, 0): ExtResource("7_rvfjl"),
 Vector2(3, 2): ExtResource("11_65cke"),
 Vector2(4, 0): ExtResource("8_tac5v"),
 Vector2(4, 2): ExtResource("4_a0d0i"),
-Vector2(5, 2): ExtResource("2_hab74"),
+Vector2(5, 2): ExtResource("7_38jcb"),
 Vector2(6, 0): ExtResource("9_blmsd"),
-Vector2(7, 0): ExtResource("10_atvxi")
+Vector2(7, 0): ExtResource("10_atvxi"),
+Vector2(9, 2): ExtResource("13_tbwkl"),
+Vector2(9, 3): ExtResource("14_hbc3n")
 }

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://c6m7hx8lgdio"]
+
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_n34uu"]
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_qu40m"]
+[ext_resource type="Texture2D" uid="uid://cicqbrrqyahr8" path="res://Inventory/Assets/sushi_with_monster_masago.png" id="3_7xmtg"]
+
+[sub_resource type="Resource" id="Resource_3svfk"]
+script = ExtResource("1_n34uu")
+health = 2.0
+stamina = 2.0
+strength = 2.0
+
+[resource]
+script = ExtResource("1_qu40m")
+name = "Sushi With Monster Masago"
+texture = ExtResource("3_7xmtg")
+modifiers = SubResource("Resource_3svfk")
+rarity = 4.0
+value = 130
+type = 0
+inventory_width = 1
+inventory_height = 1

@@ -70,6 +70,10 @@ func add_item_at_index(item: InventoryItem, item_position: Vector2) -> void:
 	inventory.inventory_updated.emit()
 
 func can_place_item(index: Vector2, item: InventoryItem) -> bool:
+	if not item:
+		print("can_place_item with null item")
+		return false
+
 	for inv_x in item.inventory_width:
 		for inv_y in item.inventory_height:
 			if inventory.items.has(index + Vector2(inv_x, inv_y)):
