@@ -21,6 +21,7 @@ extends Control
 @export var maxMergedNodes : int = 8
 @export var rootNodes : Array[MapNode] = []
 @export var mergeChance: float = 0.05
+@export var zoom_change : Vector2 = Vector2(0.2, 0.2)
 
 const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
@@ -83,6 +84,10 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("ui_accept"):
 		_on_map_node_clicked(currentlyFocusedMapNode)
+	if event.is_action_pressed("Zoom In"):
+		%MapCamera.zoom += zoom_change
+	if event.is_action_pressed("Zoom Out"):
+		%MapCamera.zoom -= zoom_change
 
 func _process(delta: float) -> void:
 	var movement = Vector2.ZERO
