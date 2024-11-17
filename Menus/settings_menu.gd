@@ -1,5 +1,7 @@
 extends Control
 
+@export var can_show_settings : bool = true
+
 func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	%MasterHSlider.value = Settings.master_volume
@@ -9,14 +11,21 @@ func _ready() -> void:
 	%SkipCutscenesCheckBox.button_pressed = Settings.skip_cutscenes
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Toggle Settings"):
+	if can_show_settings and event.is_action_pressed("Toggle Settings"):
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.SETTINGS)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
-	if newActive == UiEvents.UiScene.SETTINGS:
-		%CanvasLayer.visible = !%CanvasLayer.visible
-	else:
-		%CanvasLayer.visible = false
+	can_show_settings = false
+	match newActive:
+		UiEvents.UiScene.SETTINGS:
+			%CanvasLayer.visible = not %CanvasLayer.visible
+			can_show_settings = true
+		UiEvents.UiScene.CAMPFIRE, UiEvents.UiScene.MAP:
+			can_show_settings = true
+			%CanvasLayer.visible = false
+		_:
+			%CanvasLayer.visible = false
+
 
 func _on_master_h_slider_value_changed(value: float) -> void:
 	Settings.set_master_volume(value)
