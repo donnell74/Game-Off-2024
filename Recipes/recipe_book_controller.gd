@@ -4,7 +4,6 @@ extends Node
 @warning_ignore("unused_signal")
 signal recipe_cooked(recipe: Recipe)
 
-
 func save() -> Dictionary:
 	return {
 		SaveLoad.PATH_FROM_ROOT_KEY: get_path(),

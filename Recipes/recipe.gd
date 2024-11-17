@@ -1,10 +1,21 @@
 extends Resource
 class_name Recipe
 
+enum Tiers {
+	BASIC,
+	COMMON,
+	UNCOMMON,
+	RARE,
+	EPIC,
+	LEGENDARY,
+	GOLDEN
+}
+
 @export var input: Array[InventoryItem]
 @export var output: Array[InventoryItem]
 @export var action: Actions.Actions
 @export var times_cooked: int = 0
+@export var tier: Tiers = Tiers.BASIC
 
 func save() -> Dictionary:
 	var input_list = []
