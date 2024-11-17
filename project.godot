@@ -38,7 +38,8 @@ directories/dch_directory={
 "chef": "res://Timelines/chef.dch"
 }
 directories/dtl_directory={
-"introduction": "res://Timelines/introduction.dtl"
+"introduction": "res://Timelines/introduction.dtl",
+"party_stat_depleted": "res://Timelines/party_stat_depleted.dtl"
 }
 
 [editor_plugins]

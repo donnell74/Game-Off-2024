@@ -6,7 +6,6 @@ func _ready() -> void:
 	
 	populatePartyStats()
 
-
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.CAMPFIRE:
@@ -20,6 +19,9 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[locationNode.location.currentTimeOfDay]
 				else:
 					%TimeOfDayInfo.text = Location.TimeOfDay.keys()[Location.TimeOfDay.BREAKFAST]
+			else:
+				%LocationInfo.text = "Campfire"
+				%TimeOfDayInfo.text = Location.TimeOfDay.keys()[0]
 		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
 			pass # overlay, do nothing
 		_:

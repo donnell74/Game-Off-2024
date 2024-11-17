@@ -5,6 +5,9 @@
 [resource]
 script = ExtResource("1_2dxci")
 name = "Liz"
+base_health = 110.0
+base_stamina = 100.0
+base_strength = 100.0
 health = 110.0
 stamina = 100.0
 strength = 100.0

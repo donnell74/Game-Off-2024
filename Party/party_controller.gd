@@ -8,8 +8,10 @@ enum Stats {
 
 signal party_stats_changed
 signal currency_changed
+signal party_stat_depleted(stat: Stats)
 
 @export var party: Party = preload("res://Party/First Party/first_party.tres")
+@export var level_up_modifier: float = 0.3
 
 func get_total_party_health() -> float:
 	var total_health = 0.0
@@ -39,9 +41,18 @@ func get_max_party_level() -> int:
 	
 	return max_level
 
+func reset_party_stats() -> void:
+	for each_member in party.members:
+		each_member.health = each_member.base_health
+		each_member.stamina = each_member.base_stamina
+		each_member.strength = each_member.base_strength
+
 func level_up() -> void:
 	for each_member in party.members:
 		each_member.level += 1
+		each_member.base_health *= level_up_modifier
+		each_member.base_stamina *= level_up_modifier
+		each_member.base_strength *= level_up_modifier
 
 func get_party_currency() -> int:
 	return party.currency
@@ -82,16 +93,29 @@ func apply_party_damage(stat: Stats, amount: float) -> void:
 		damagePerIteration = min(damagePerIteration, amount)
 		var rng = RandomNumberGenerator.new()
 		var damagedMember = party.members[rng.randi_range(0, party.members.size() - 1)]
-		print("Damaging member: %s for stat: %s for ammount: %d" % [damagedMember.name, Stats.keys()[stat], amount])
+		var extra = 0
+		print("Damaging member: %s for stat: %s for ammount: %d" % [damagedMember.name, Stats.keys()[stat], damagePerIteration])
 		match stat:
 			Stats.STRENGTH:
-				damagedMember.decrement_strength(damagePerIteration)
+				extra = damagedMember.decrement_strength(damagePerIteration)
 			Stats.STAMINA:
-				damagedMember.decrement_stamina(damagePerIteration)
+				extra = damagedMember.decrement_stamina(damagePerIteration)
 			Stats.HEALTH:
-				damagedMember.decrement_health(damagePerIteration)
+				extra = damagedMember.decrement_health(damagePerIteration)
 		
-		amount -= damagePerIteration
+		if extra > 0:
+			if get_total_party_health() == 0:
+				party_stat_depleted.emit(Stats.HEALTH)
+				amount = -1
+			if get_total_party_stamina() == 0:
+				party_stat_depleted.emit(Stats.STAMINA)
+				amount = -1
+			if get_total_party_strength() == 0:
+				party_stat_depleted.emit(Stats.STRENGTH)
+				amount = -1 # basically return but don't forget the emit below
+		
+		amount = amount - (damagePerIteration - extra)
+	
 	party_stats_changed.emit()
 
 func _to_string() -> String:

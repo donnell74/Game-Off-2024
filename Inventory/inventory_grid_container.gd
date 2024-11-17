@@ -1,7 +1,6 @@
 extends InventoryController
 
 signal shop_mode_item_clicked(index: Vector2)
-signal cancel_item_drag
 
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
 @export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")

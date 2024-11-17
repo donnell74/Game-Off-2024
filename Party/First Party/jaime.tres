@@ -5,6 +5,9 @@
 [resource]
 script = ExtResource("1_y05oh")
 name = "Jaime"
+base_health = 100.0
+base_stamina = 100.0
+base_strength = 120.0
 health = 100.0
 stamina = 100.0
 strength = 120.0
