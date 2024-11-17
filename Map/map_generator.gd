@@ -28,7 +28,6 @@ const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	%MapCamera.enabled = false
-	generate_map()
 	# Start centered on the middle path
 	%MapCamera.global_position = bottomLeftMapPosition + Vector2i((pathCount / 2) * pathHorizontalPadding, pathVerticalPadding * 2)
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
@@ -103,6 +102,7 @@ func _process(delta: float) -> void:
 	%MapCamera.position += movement.normalized() * cameraMovementSpeed * delta
 
 func generate_map(map_node_data: Dictionary = {}) -> void:
+	currentlyFocusedMapNode = null
 	selectedBoss = possibleBosses[Settings.random().randi_range(0, possibleBosses.size() - 1)]
 	%Boss.find_child("Icon").texture = preload("res://Map/Assets/monster.png")
 	%Boss.global_position = _get_map_node_positiion(pathCount / 2, pathLength + 2)
