@@ -20,7 +20,6 @@ visible = false
 visible = false
 
 [node name="RecipeBookUI" parent="." instance=ExtResource("8_lg1d1")]
-visible = false
 
 [node name="Map" parent="." instance=ExtResource("3_cykj2")]
 visible = false

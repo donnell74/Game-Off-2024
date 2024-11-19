@@ -47,6 +47,8 @@ text = "Master Volume"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 32)
 layout_mode = 2
+focus_neighbor_top = NodePath("../../CloseButton")
+focus_neighbor_bottom = NodePath("../MusicHSlider")
 max_value = 1.0
 step = 0.001
 
@@ -58,6 +60,8 @@ text = "Music Volume"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 32)
 layout_mode = 2
+focus_neighbor_top = NodePath("../MasterHSlider")
+focus_neighbor_bottom = NodePath("../SfxHSlider")
 max_value = 1.0
 step = 0.001
 
@@ -69,6 +73,8 @@ text = "SFX Volume"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 32)
 layout_mode = 2
+focus_neighbor_top = NodePath("../MusicHSlider")
+focus_neighbor_bottom = NodePath("../SeedTextEdit")
 max_value = 1.0
 step = 0.001
 
@@ -80,6 +86,8 @@ text = "Seed"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+focus_neighbor_top = NodePath("../SfxHSlider")
+focus_neighbor_bottom = NodePath("../SkipCutscenesCheckBox")
 text = "-1"
 context_menu_enabled = false
 
@@ -90,19 +98,27 @@ text = "Skip Cutscenes"
 [node name="SkipCutscenesCheckBox" type="CheckBox" parent="CanvasLayer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../SeedTextEdit")
+focus_neighbor_bottom = NodePath("../../CloseButton")
 
 [node name="CloseButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
 offset_left = 639.0
 offset_top = 536.0
 offset_right = 689.0
 offset_bottom = 567.0
+focus_neighbor_left = NodePath("../QuitToMainMenuButton")
+focus_neighbor_top = NodePath("../GridContainer/SkipCutscenesCheckBox")
 text = "Close"
 
 [node name="QuitToMainMenuButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
 offset_left = 431.0
 offset_top = 536.0
 offset_right = 481.0
 offset_bottom = 567.0
+focus_neighbor_top = NodePath("../GridContainer/SkipCutscenesCheckBox")
+focus_neighbor_right = NodePath("../CloseButton")
 text = "Quit to Main Menu"
 
 [connection signal="value_changed" from="CanvasLayer/GridContainer/MasterHSlider" to="." method="_on_master_h_slider_value_changed"]

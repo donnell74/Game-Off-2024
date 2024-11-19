@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var recipes_per_row : int = 5
+@export var scroll_step : float = 0.01
 
 var recipe_tier_containers : Dictionary = {}
 
@@ -12,11 +13,18 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Recipe Book"):
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK)
+	if event.is_action_pressed("Pan Down"):
+		%ScrollContainer.get_v_scroll_bar().ratio += scroll_step
+	if event.is_action_pressed("Pan Up"):
+		%ScrollContainer.get_v_scroll_bar().ratio -= scroll_step
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.RECIPE_BOOK:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
 		update_recipes()
+		if %InventoryCanvas.visible:
+			%CloseButton.grab_focus()
+
 	elif newActive == UiEvents.UiScene.INVENTORY:
 		%InventoryCanvas.visible = false
 

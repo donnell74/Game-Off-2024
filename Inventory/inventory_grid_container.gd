@@ -1,14 +1,38 @@
 extends InventoryController
 
 signal shop_mode_item_clicked(index: Vector2)
+signal inventory_slot_selected(index: Vector2)
 
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
 @export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")
 @export var selected_slot : Vector2 = Vector2(-1, -1)
+@export var selected_slot_position : Vector2
 @export var shop_mode : bool = false
+@export var last_right_clicked_slot : Control
+
+const SLOT_PATH = "InventoryCanvas/InventoryGridContainer/"
+var generate_semaphor : bool = false
+var inventory_dictionary : Dictionary = {}
 
 func _ready() -> void:
-	generate_inventory_grid()
+	get_viewport().gui_focus_changed.connect(_on_focus_changed)
+	_do_generate_inventory_grid()
+
+func _on_focus_changed(control: Control) -> void:
+	print("InventoryGridContainer - Focus changed to: ", control.name)
+	if control == self:
+		print("InventoryGridContainer - Focus changed to me! ")
+		find_child(_get_slot_name(0, 0), true, false).grab_focus()
+	else:
+		if control.has_method("updated_selected"):
+			selected_slot = control.index
+			selected_slot_position = control.global_position
+		else:
+			# make sure we unselect when leaving the inventory grid
+			selected_slot = Vector2(-1, -1)
+			selected_slot_position = Vector2(0, 0)
+		
+		inventory_slot_selected.emit(selected_slot)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -16,6 +40,14 @@ func _input(event: InputEvent) -> void:
 			selected_slot = Vector2(-1, -1)
 			%InventoryItemDraggable.visible = false
 			generate_inventory_grid()
+	
+	if event.is_action_pressed("ui_accept"):
+		_on_inventory_item_slot_clicked(selected_slot)
+	
+	if event.is_action_pressed("Action Selected"):
+		if not selected_slot.is_equal_approx(Vector2(-1, -1)):
+			_on_slot_right_clicked(selected_slot, selected_slot_position)
+
 
 func set_inventory(newInventory: Inventory) -> void:
 	if inventory and inventory.inventory_updated.is_connected(generate_inventory_grid):
@@ -28,29 +60,70 @@ func set_inventory(newInventory: Inventory) -> void:
 
 func generate_inventory_grid() -> void:
 	print("generate_inventory_grid with inventory: ", inventory.items)
-	clear_inventory_grid()
-	if not inventory:
-		return
+	clear_inventory_slots()
+	update_inventory_slots()
 
-	$".".columns = inventory.width
+func update_inventory_slots() -> void:
 	for pos_y in range(inventory.height):
 		for pos_x in range(inventory.width):
 			var index = Vector2(pos_x, pos_y)
-			var slot = slot_scene.instantiate()
-			slot.shop_mode = shop_mode
-			slot.name = "InventoryItemSlot - %s" % index
-			slot.index = index
 			var item_for_slot = get_item(index)
+			var slot = inventory_dictionary[index]
 			if not item_for_slot is InventoryItemSlotRef:
 				if item_for_slot and item_for_slot.texture:
 					var icon = slot.get_node("Icon")
 					icon.texture = item_for_slot.texture
 					icon.scale = Vector2(item_for_slot.inventory_width, item_for_slot.inventory_height)
 					icon.z_index = 1
-			
+
+func _do_generate_inventory_grid() -> void:
+	if not inventory:
+		return
+
+	generate_semaphor = false
+	$".".columns = inventory.width
+	for pos_y in range(inventory.height):
+		for pos_x in range(inventory.width):
+			var index = Vector2(pos_x, pos_y)
+			var slot = slot_scene.instantiate()
+			slot.shop_mode = shop_mode
+			slot.name = _get_slot_name(pos_x, pos_y)
+			slot.index = index
+			slot.set_focus_mode(FocusMode.FOCUS_ALL)
+			slot.set_inventory_slot_clicked_signal(self.inventory_slot_selected)
 			slot.inventory_item_slot_clicked.connect(_on_inventory_item_slot_clicked)
 			slot.slot_right_clicked.connect(_on_slot_right_clicked)
 			add_child(slot)
+			inventory_dictionary[index] = slot
+			
+	set_focus_neighbors()
+
+func _get_slot_name(pos_x: int, pos_y: int) -> String:
+	return "InventorySlot%dx%d" % [pos_x, pos_y]
+
+func set_focus_neighbors() -> void:
+	for pos_y in range(inventory.height):
+		for pos_x in range(inventory.width):
+			#              (pos_x, pos_y - 1)
+			#                     ^
+			# (pos_x - 1, pos_y) < > (pos_x + 1, pos_y)
+			#                     V
+			#              (pos_x, pos_y + 1)
+			var rootSlot = find_child(_get_slot_name(pos_x, pos_y), true, false)
+			if pos_x != 0:
+				var neighbor = find_child(_get_slot_name(pos_x - 1, pos_y), true, false)
+				rootSlot.set_focus_neighbor(SIDE_LEFT, neighbor.get_path())
+			if pos_x != inventory.width - 1:
+				var neighbor = find_child(_get_slot_name(pos_x + 1, pos_y), true, false)
+				rootSlot.set_focus_neighbor(SIDE_RIGHT, neighbor.get_path())
+			if pos_y != inventory.height - 1:
+				var neighbor = find_child(_get_slot_name(pos_x, pos_y + 1), true, false)
+				rootSlot.set_focus_neighbor(SIDE_BOTTOM, neighbor.get_path())
+			if pos_y != 0:
+				var neighbor = find_child(_get_slot_name(pos_x, pos_y - 1), true, false)
+				rootSlot.set_focus_neighbor(SIDE_TOP, neighbor.get_path())
+			if pos_y == inventory.height - 1:
+				rootSlot.set_focus_neighbor(SIDE_BOTTOM, %CloseButton.get_path())
 
 func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 	if not shop_mode:
@@ -70,8 +143,11 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 				print("Unable to place at index: ", index, " Item: ", drag_item)
 				return
 		
-		selected_slot = index
 		var item_at_index = get_item(index)
+		if not item_at_index:
+			return
+
+		selected_slot = index
 		if item_at_index is InventoryItemSlotRef:
 			item_at_index = item_at_index.root_node
 		
@@ -102,6 +178,7 @@ func _on_slot_right_clicked(index: Vector2, node_postiion: Vector2) -> void:
 		surrounding_inv_items.append(inventory.items[each_ingred_pos])
 	
 	var matching_recipes = StationController.get_all_matching_recipes(station_name, surrounding_inv_items)
+	last_right_clicked_slot = find_child(_get_slot_name(index.x, index.y), true, false)
 	build_context_menu(matching_recipes, surrounding_ingredients, StationController.get_station(station_name), node_postiion)
 
 func build_context_menu(
@@ -132,11 +209,21 @@ func build_context_menu(
 	context_menu.global_position = new_position
 	context_menu.z_index = 2
 	get_parent().add_child(context_menu)
+	context_menu_item_list.grab_focus()
+	context_menu_item_list.select(0)
 
 func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Station):
+	if last_right_clicked_slot:
+		# call deferred so it is after we regenerate ui
+		last_right_clicked_slot.grab_focus()
+		
+	if not recipe:
+		return
+
 	print("_on_recipe_selected ", recipe.output[0].name, " ", neighbors, " ", Actions.Actions.keys()[station.action])
 	var recipe_items_to_find = recipe.input.duplicate()
 	var items_removed : Array[InventoryItem] = []
+
 	for each_neighbor in neighbors:
 		var each_item = get_item(each_neighbor)
 		var found = -1
@@ -155,17 +242,18 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		each_item.modifiers.multiply(combined).multiply(station.modifier)
 		add_item(each_item)
 	
-	RecipeBookController.recipe_cooked.emit(recipe)
+	selected_slot = Vector2(-1, -1)
+	%InventoryItemDraggable.visible = false
 	
+	RecipeBookController.recipe_cooked.emit(recipe)
 	if has_node("../RecipeContextMenu"):
 		$"../RecipeContextMenu".queue_free()
 
-func clear_inventory_grid() -> void:
-	for child in get_children():
-		if child.inventory_item_slot_clicked.is_connected(_on_inventory_item_slot_clicked):
-			child.inventory_item_slot_clicked.disconnect(_on_inventory_item_slot_clicked)
-		
-		child.queue_free()
+func clear_inventory_slots() -> void:
+	for slot in get_children():
+		var icon = slot.get_node("Icon")
+		icon.texture = null
+		icon.scale = Vector2(1,1)
 
 func get_selected_item() -> Vector2:
 	return selected_slot
