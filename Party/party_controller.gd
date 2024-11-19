@@ -80,11 +80,11 @@ func apply_to_each_member(stat: Stats, amount: float) -> void:
 	for member in party.members:
 		match stat:
 			Stats.STRENGTH:
-				member.multiply_strength(amount)
+				member.apply_strength_modifier(amount)
 			Stats.STAMINA:
-				member.multiply_stamina(amount)
+				member.apply_stamina_modifier(amount)
 			Stats.HEALTH:
-				member.multiply_health(amount)
+				member.apply_health_modifier(amount)
 	party_stats_changed.emit()
 
 func apply_party_damage(stat: Stats, amount: float) -> void:
