@@ -86,6 +86,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Zoom In"):
 		%MapCamera.zoom += zoom_change
 	if event.is_action_pressed("Zoom Out"):
+		if %MapCamera.zoom == 0:
+			return
+
 		%MapCamera.zoom -= zoom_change
 
 func _process(delta: float) -> void:

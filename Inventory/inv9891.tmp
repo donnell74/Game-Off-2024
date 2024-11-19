@@ -38,8 +38,9 @@ columns = 3
 [node name="RecipeBookButton" type="Button" parent="InventoryCanvas/ButtonGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../../InventoryGridContainer")
+focus_neighbor_top = NodePath("../CloseButton")
 focus_neighbor_right = NodePath("../CloseButton")
+focus_neighbor_bottom = NodePath("../../InventoryGridContainer")
 text = "Recipe Book"
 metadata/_edit_use_anchors_ = true
 
@@ -47,13 +48,12 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../RecipeBookButton")
-focus_neighbor_top = NodePath("../../InventoryGridContainer")
+focus_neighbor_bottom = NodePath("../../InventoryGridContainer")
 text = "Close"
 metadata/_edit_use_anchors_ = true
 
 [node name="InventoryGridContainer" parent="InventoryCanvas" instance=ExtResource("2_6we01")]
 unique_name_in_owner = true
-focus_mode = 2
 
 [node name="InventoryItemDraggable" parent="InventoryCanvas" instance=ExtResource("3_x1kes")]
 unique_name_in_owner = true

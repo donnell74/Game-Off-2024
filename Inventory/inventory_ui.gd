@@ -7,9 +7,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Inventory"):
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
 
-func switch_focus_to_feed_button() -> void:
-	%FeedButton.grab_focus()
-
 func _ready() -> void:
 	if not get_tree().root.has_node("/root/Main"):
 		# Debugging set ups
@@ -17,7 +14,7 @@ func _ready() -> void:
 	
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	%InventoryGridContainer.set_inventory(PlayerInventoryController.inventory)
-	switch_focus_to_feed_button()
+	%CloseButton.grab_focus()
 	PlayerInventoryController.item_dropped_inventory_full.connect(_on_item_dropped_inventory_full)
 
 func _on_item_dropped_inventory_full(_item: InventoryItem) -> void:
@@ -27,6 +24,9 @@ func _on_item_dropped_inventory_full(_item: InventoryItem) -> void:
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.INVENTORY:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
+		if %InventoryCanvas.visible:
+			%CloseButton.grab_focus()
+
 		return
 
 	%InventoryCanvas.visible = false

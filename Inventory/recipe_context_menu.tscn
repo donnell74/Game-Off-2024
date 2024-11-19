@@ -18,6 +18,7 @@ grow_vertical = 2
 color = Color(0.662452, 0.662452, 0.662452, 1)
 
 [node name="RecipeList" type="ItemList" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -20,7 +20,16 @@ func _input(event: InputEvent) -> void:
 				inventory_item_slot_clicked.emit(index)
 			MOUSE_BUTTON_RIGHT:
 				slot_right_clicked.emit(index, global_position)
-	
+
+func updated_selected(slot_index: Vector2) -> void:
+	selected = slot_index.is_equal_approx(index)
+	if selected:
+		%Background.modulate = selected_color
+	else:
+		%Background.modulate = unselected_color
+
+func set_inventory_slot_clicked_signal(clicked_signal: Signal) -> void:
+	clicked_signal.connect(updated_selected)
 
 func _on_mouse_entered() -> void:
 	mouseOver = true
