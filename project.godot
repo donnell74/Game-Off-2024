@@ -38,6 +38,7 @@ directories/dch_directory={
 "chef": "res://Timelines/chef.dch"
 }
 directories/dtl_directory={
+"full_bellies": "res://Timelines/full_bellies.dtl",
 "game_won": "res://Timelines/game_won.dtl",
 "introduction": "res://Timelines/introduction.dtl",
 "inventory_full": "res://Timelines/inventory_full.dtl",

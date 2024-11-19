@@ -10,12 +10,16 @@ signal inventory_slot_selected(index: Vector2)
 @export var selected_slot_position : Vector2
 @export var shop_mode : bool = false
 @export var last_right_clicked_slot : Control
+@export var last_feed_time_of_of_day : Location.TimeOfDay = Location.TimeOfDay.BREAKFAST
+@export var current_time_of_day : Location.TimeOfDay = -1
 
 const SLOT_PATH = "InventoryCanvas/InventoryGridContainer/"
 var generate_semaphor : bool = false
 var inventory_dictionary : Dictionary = {}
 
 func _ready() -> void:
+	LocationEvents.advance_day.connect(_on_advance_day)
+	LocationEvents.end_of_day.connect(_on_end_of_day)
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	_do_generate_inventory_grid()
 
@@ -273,6 +277,11 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 
 func _on_feed_selected() -> void:
 	print("_on_feed_selected")
+	if last_feed_time_of_of_day == current_time_of_day:
+		Dialogic.start("full_bellies")
+		return
+	
+	last_feed_time_of_of_day = current_time_of_day
 	if last_right_clicked_slot:
 		var item = PlayerInventoryController.take_item_index(last_right_clicked_slot.index)
 		print("Feeding selected item to party: %s" % item.name)
@@ -289,3 +298,9 @@ func clear_inventory_slots() -> void:
 
 func get_selected_item() -> Vector2:
 	return selected_slot
+
+func _on_advance_day() -> void:
+	current_time_of_day = (current_time_of_day + 1) as Location.TimeOfDay
+
+func _on_end_of_day() -> void:
+	last_feed_time_of_of_day = Location.TimeOfDay.BREAKFAST
