@@ -37,14 +37,14 @@ func decrement_strength(amount: float) -> float:
 	
 	return extra
 
-func multiply_strength(amount: float) -> void:
-	strength *= amount
+func apply_strength_modifier(amount: float) -> void:
+	strength += amount * base_strength
 
-func multiply_stamina(amount: float) -> void:
-	stamina *= amount
+func apply_stamina_modifier(amount: float) -> void:
+	stamina += amount * base_stamina
 
-func multiply_health(amount: float) -> void:
-	health *= amount
+func apply_health_modifier(amount: float) -> void:
+	health += amount * base_health
 
 func _to_string() -> String:
 	return "%s: Level: %d, Health: %d, Stamina: %d, Strength: %d" % \

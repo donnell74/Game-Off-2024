@@ -35,15 +35,6 @@ func _on_close_button_pressed() -> void:
 	print("Inventory close button clicked, hiding inventory ui")
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
 
-func _on_feed_button_pressed() -> void:
-	var selected_index = %InventoryGridContainer.get_selected_item()
-	if selected_index != Vector2(-1, -1):
-		var item = PlayerInventoryController.take_item_index(selected_index)
-		print("Feeding selected item to party: %s" % item.name)
-		PartyController.feed_party_item(item)
-	else:
-		print("Skipping feeding since no selected item")
-
 func _on_recipe_book_button_pressed() -> void:
 	print("Recipe button, clicked, showing recipe book")
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK)

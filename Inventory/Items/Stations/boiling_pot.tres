@@ -6,8 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_wbmes"]
 script = ExtResource("1_jrxbe")
-health = 1.1
-stamina = 1.1
+health = 2.0
+stamina = 2.0
 strength = 1.0
 
 [resource]

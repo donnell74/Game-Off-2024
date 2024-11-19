@@ -5,6 +5,7 @@ signal inventory_slot_selected(index: Vector2)
 
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
 @export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")
+@export var item_context_menu = preload("res://Inventory/item_context_menu.tscn")
 @export var selected_slot : Vector2 = Vector2(-1, -1)
 @export var selected_slot_position : Vector2
 @export var shop_mode : bool = false
@@ -159,18 +160,26 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 	else:
 		shop_mode_item_clicked.emit(index)
 
-func _on_slot_right_clicked(index: Vector2, node_postiion: Vector2) -> void:
+func _on_slot_right_clicked(index: Vector2, node_position: Vector2) -> void:
 	if shop_mode:
 		return
 
-	var selected_station_item = get_item(index)
-	if not selected_station_item:
+	var item = get_item(index)
+	if not item:
 		return
 	
-	var station_type = selected_station_item.type if selected_station_item is InventoryItem else selected_station_item.root_node.type
-	if station_type != InventoryItem.ItemType.STATION:
-		return
-	
+	var station_type = item.type if item is InventoryItem else item.root_node.type
+	last_right_clicked_slot = find_child(_get_slot_name(index.x, index.y), true, false)
+	match station_type:
+		InventoryItem.ItemType.STATION:
+			_handle_station_right_clicked(item, index, node_position)
+		InventoryItem.ItemType.ITEM:
+			_handle_item_right_clicked(node_position)
+
+func _handle_item_right_clicked(node_position: Vector2) -> void:
+	build_item_context_menu(node_position)
+
+func _handle_station_right_clicked(selected_station_item: InventoryItem, index: Vector2, node_position: Vector2) -> void:
 	var station_name = selected_station_item.name if selected_station_item is InventoryItem else selected_station_item.root_node.name
 	var surrounding_ingredients = get_surrounding_ingredients(index)
 	var surrounding_inv_items : Array[InventoryItem] = []
@@ -178,10 +187,23 @@ func _on_slot_right_clicked(index: Vector2, node_postiion: Vector2) -> void:
 		surrounding_inv_items.append(inventory.items[each_ingred_pos])
 	
 	var matching_recipes = StationController.get_all_matching_recipes(station_name, surrounding_inv_items)
-	last_right_clicked_slot = find_child(_get_slot_name(index.x, index.y), true, false)
-	build_context_menu(matching_recipes, surrounding_ingredients, StationController.get_station(station_name), node_postiion)
+	build_recipe_context_menu(matching_recipes, surrounding_ingredients, StationController.get_station(station_name), node_position)
 
-func build_context_menu(
+func build_item_context_menu(new_position: Vector2) -> void:
+	if has_node("../ItemContextMenu"):
+		$"../ItemContextMenu".queue_free()
+	
+	var context_menu = item_context_menu.instantiate()
+	var context_menu_item_list = context_menu.get_node("ActionList")
+	context_menu.feed_selected.connect(_on_feed_selected)
+
+	context_menu.global_position = new_position
+	context_menu.z_index = 2
+	get_parent().add_child(context_menu)
+	context_menu_item_list.grab_focus()
+	context_menu_item_list.select(0)
+
+func build_recipe_context_menu(
 	recipes: Array[Recipe], 
 	ingredients: Array[Vector2], 
 	station: Station, 
@@ -248,6 +270,16 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 	RecipeBookController.recipe_cooked.emit(recipe)
 	if has_node("../RecipeContextMenu"):
 		$"../RecipeContextMenu".queue_free()
+
+func _on_feed_selected() -> void:
+	print("_on_feed_selected")
+	if last_right_clicked_slot:
+		var item = PlayerInventoryController.take_item_index(last_right_clicked_slot.index)
+		print("Feeding selected item to party: %s" % item.name)
+		PartyController.feed_party_item(item)
+	else:
+		print("Skipping feeding since no selected item")
+
 
 func clear_inventory_slots() -> void:
 	for slot in get_children():
