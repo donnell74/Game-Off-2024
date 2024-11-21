@@ -76,7 +76,14 @@ func can_place_item(index: Vector2, item: InventoryItem) -> bool:
 
 	for inv_x in item.inventory_width:
 		for inv_y in item.inventory_height:
-			if inventory.items.has(index + Vector2(inv_x, inv_y)):
+			var this_index = index + Vector2(inv_x, inv_y)
+			if inventory.items.has(this_index):
+				return false
+			
+			if this_index.x >= inventory.width:
+				return false
+			
+			if this_index.y >= inventory.height:
 				return false
 	
 	return true
