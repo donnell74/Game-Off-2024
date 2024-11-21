@@ -81,7 +81,8 @@ func _input(event: InputEvent) -> void:
 	if !visible:
 		return
 	
-	if event.is_action_pressed("ui_accept"):
+	# is_action_released so it doesn't release on the campfire scene
+	if event.is_action_released("ui_accept"):
 		_on_map_node_clicked(currentlyFocusedMapNode)
 	if event.is_action_pressed("Zoom In"):
 		%MapCamera.zoom += zoom_change
