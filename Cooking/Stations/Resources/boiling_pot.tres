@@ -4,14 +4,14 @@
 [ext_resource type="Script" path="res://Cooking/Stations/station.gd" id="1_e0f8l"]
 [ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="2_xx2l4"]
 
-[sub_resource type="Resource" id="Resource_2lnmd"]
+[sub_resource type="Resource" id="Resource_yx6ww"]
 script = ExtResource("2_xx2l4")
-health = 1.1
-stamina = 1.0
+health = 2.0
+stamina = 1.1
 strength = 1.1
 
 [resource]
 script = ExtResource("1_e0f8l")
 inventory_item = ExtResource("1_8oy8k")
 action = 3
-modifier = SubResource("Resource_2lnmd")
+modifier = SubResource("Resource_yx6ww")

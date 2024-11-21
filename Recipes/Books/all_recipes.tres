@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RecipeBook" load_steps=19 format=3 uid="uid://dcp6b88d2jkfq"]
+[gd_resource type="Resource" script_class="RecipeBook" load_steps=20 format=3 uid="uid://dcp6b88d2jkfq"]
 
 [ext_resource type="Script" path="res://Recipes/recipe.gd" id="1_ur3ht"]
 [ext_resource type="Resource" uid="uid://b8303ice1yq1r" path="res://Recipes/Resources/diced_potatoes.tres" id="2_jxltx"]
@@ -18,7 +18,8 @@
 [ext_resource type="Resource" uid="uid://ds710po5srr0g" path="res://Recipes/Resources/sushi.tres" id="15_c5ete"]
 [ext_resource type="Resource" uid="uid://jfl70kab7tjl" path="res://Recipes/Resources/monster_masago.tres" id="16_hj5qu"]
 [ext_resource type="Resource" uid="uid://dh8rywjb1jcee" path="res://Recipes/Resources/sushi_with_moster_masago.tres" id="17_myh1b"]
+[ext_resource type="Resource" uid="uid://c8wbkcmuieh27" path="res://Recipes/Resources/boiled_rice.tres" id="18_7ive2"]
 
 [resource]
 script = ExtResource("2_q0vo7")
-recipes = Array[ExtResource("1_ur3ht")]([ExtResource("2_jxltx"), ExtResource("3_2wfum"), ExtResource("4_gcc0x"), ExtResource("5_8f33i"), ExtResource("6_xqoqp"), ExtResource("7_w6ekv"), ExtResource("8_yo6sv"), ExtResource("9_xpg1k"), ExtResource("10_mc0ap"), ExtResource("11_p8r2b"), ExtResource("12_r5pdi"), ExtResource("13_yawuo"), ExtResource("14_ju870"), ExtResource("15_c5ete"), ExtResource("16_hj5qu"), ExtResource("17_myh1b")])
+recipes = Array[ExtResource("1_ur3ht")]([ExtResource("2_jxltx"), ExtResource("3_2wfum"), ExtResource("4_gcc0x"), ExtResource("5_8f33i"), ExtResource("6_xqoqp"), ExtResource("7_w6ekv"), ExtResource("8_yo6sv"), ExtResource("9_xpg1k"), ExtResource("10_mc0ap"), ExtResource("11_p8r2b"), ExtResource("12_r5pdi"), ExtResource("13_yawuo"), ExtResource("14_ju870"), ExtResource("15_c5ete"), ExtResource("16_hj5qu"), ExtResource("17_myh1b"), ExtResource("18_7ive2")])

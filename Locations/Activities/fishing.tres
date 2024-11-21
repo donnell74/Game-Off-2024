@@ -13,5 +13,5 @@ minRewardItems = 1
 maxRewardItems = 3
 rewardCurrency = 0
 healthCost = 0.0
-staminaCost = 0.0
+staminaCost = 60.0
 strengthCost = 0.0

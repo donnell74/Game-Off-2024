@@ -13,4 +13,4 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_gfao6")
-all_stations = Array[ExtResource("2_2wicr")]([ExtResource("3_v2bbd"), ExtResource("4_4kf3r"), ExtResource("5_1hyud"), ExtResource("6_jv5og"), ExtResource("7_rkmut"), ExtResource("8_fp4uo")])
+all_stations = Array[ExtResource("2_2wicr")]([ExtResource("5_1hyud"), ExtResource("3_v2bbd"), ExtResource("6_jv5og"), ExtResource("4_4kf3r"), ExtResource("7_rkmut"), ExtResource("8_fp4uo")])
