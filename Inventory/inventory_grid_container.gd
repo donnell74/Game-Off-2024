@@ -128,7 +128,10 @@ func set_focus_neighbors() -> void:
 				var neighbor = find_child(_get_slot_name(pos_x, pos_y - 1), true, false)
 				rootSlot.set_focus_neighbor(SIDE_TOP, neighbor.get_path())
 			if pos_y == inventory.height - 1:
-				rootSlot.set_focus_neighbor(SIDE_BOTTOM, %CloseButton.get_path())
+				if shop_mode:
+					rootSlot.set_focus_neighbor(SIDE_BOTTOM, %ContinueButton.get_path())
+				else:
+					rootSlot.set_focus_neighbor(SIDE_BOTTOM, %CloseButton.get_path())
 
 func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 	if not shop_mode:
