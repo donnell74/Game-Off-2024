@@ -3,6 +3,8 @@ extends Node2D
 func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	PartyController.party_stats_changed.connect(populatePartyStats)
+	Dialogic.timeline_started.connect(_on_dialogic_timeline_started)
+	Dialogic.timeline_ended.connect(_on_dialogic_timeline_stopped)
 	
 	populatePartyStats()
 
@@ -28,8 +30,15 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			%AmbienceSound.stop()
 			visible = false
 
+func _on_dialogic_timeline_started() -> void:
+	%ContinueDayButton.disabled = true
+
+func _on_dialogic_timeline_stopped() -> void:
+	%ContinueDayButton.disabled = false
+
 func _on_continue_day_button_pressed() -> void:
 	print("Campfire - _on_continue_day_button_pressed")
+	
 	if has_node("/root/Location"):
 		LocationEvents.advance_day.emit()
 	else:
