@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bmvaedpd7h8r1"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://bmvaedpd7h8r1"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_cq5r1"]
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_sd14x"]
 [ext_resource type="Texture2D" uid="uid://bac0kluccqp0w" path="res://Inventory/Assets/potato.png" id="2_shjle"]
+
+[sub_resource type="Resource" id="Resource_57wfr"]
+script = ExtResource("1_sd14x")
+health = 0.1
+stamina = 0.1
+strength = 0.1
 
 [resource]
 script = ExtResource("1_cq5r1")
 name = "Potato"
 texture = ExtResource("2_shjle")
+modifiers = SubResource("Resource_57wfr")
 rarity = 1.0
 value = 10
 type = 0

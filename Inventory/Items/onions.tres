@@ -1,7 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://bi47dt7ky5lr5"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://bi47dt7ky5lr5"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_fcm18"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_xn7jt"]
+
+[sub_resource type="Resource" id="Resource_0cfaq"]
+script = ExtResource("1_fcm18")
+health = 0.1
+stamina = 0.1
+strength = 0.1
 
 [resource]
 script = ExtResource("1_xn7jt")
 name = "Onions"
+modifiers = SubResource("Resource_0cfaq")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1

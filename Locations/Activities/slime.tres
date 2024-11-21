@@ -11,6 +11,6 @@ rewardItems = Array[ExtResource("1_xj7xe")]([ExtResource("2_cvgj7")])
 minRewardItems = 1
 maxRewardItems = 3
 rewardCurrency = 0
-healthCost = 1.0
+healthCost = 40.0
 staminaCost = 0.0
 strengthCost = 0.0
