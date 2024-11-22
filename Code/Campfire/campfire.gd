@@ -5,8 +5,15 @@ func _ready() -> void:
 	PartyController.party_stats_changed.connect(populatePartyStats)
 	Dialogic.timeline_started.connect(_on_dialogic_timeline_started)
 	Dialogic.timeline_ended.connect(_on_dialogic_timeline_stopped)
+	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	
 	populatePartyStats()
+
+func _on_focus_changed(control: Control) -> void:
+	print("Campfire - _on_focus_changed - ", control)
+	if not control and visible:
+		print("Campfire - I am visible and no one has focus, taking focus")
+		%ContinueDayButton.grab_focus()
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
@@ -25,7 +32,11 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 				%LocationInfo.text = "Campfire"
 				%TimeOfDayInfo.text = Location.TimeOfDay.keys()[0]
 		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
-			pass # overlay, do nothing
+			var control_with_focus = get_viewport().gui_get_focus_owner()
+			print("Campfire - control_with_focus: ", control_with_focus)
+			if not control_with_focus and visible:
+				%ContinueDayButton.grab_focus()
+			# overlay, do nothing
 		_:
 			%AmbienceSound.stop()
 			visible = false

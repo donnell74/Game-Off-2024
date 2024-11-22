@@ -33,6 +33,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 
 func _on_close_button_pressed() -> void:
 	print("Inventory close button clicked, hiding inventory ui")
+	%CloseButton.release_focus()
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.INVENTORY)
 
 func _on_recipe_book_button_pressed() -> void:

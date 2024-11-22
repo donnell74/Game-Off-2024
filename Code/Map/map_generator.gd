@@ -22,6 +22,7 @@ extends Control
 @export var rootNodes : Array[MapNode] = []
 @export var mergeChance: float = 0.05
 @export var zoom_change : Vector2 = Vector2(0.2, 0.2)
+@export var enabled : bool = true
 
 const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
@@ -37,7 +38,12 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		UiEvents.UiScene.MAP:
 			show_map()
 		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
-			pass # overlay, don't hide
+			if visible:
+				enabled = !enabled
+			
+				if enabled:
+					show_map()
+			# overlay, don't hide
 		_:
 			hide_map()
 
@@ -78,7 +84,7 @@ func hide_map() -> void:
 	%MapCamera.enabled = false
 
 func _input(event: InputEvent) -> void:
-	if !visible:
+	if not visible or not enabled:
 		return
 	
 	# is_action_released so it doesn't release on the campfire scene
@@ -93,6 +99,9 @@ func _input(event: InputEvent) -> void:
 		%MapCamera.zoom -= zoom_change
 
 func _process(delta: float) -> void:
+	if not enabled:
+		return
+	
 	var movement = Vector2.ZERO
 	if Input.is_action_pressed("Pan Up"):
 		movement.y = -1

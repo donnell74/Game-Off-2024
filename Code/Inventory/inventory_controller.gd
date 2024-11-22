@@ -211,7 +211,10 @@ func clear_inventory() -> void:
 func _to_string() -> String:
 	var inventory_string = "["
 	for each_item in inventory.items:
-		inventory_string += "%s, " % inventory.items[each_item].name
+		if inventory.items[each_item] is InventoryItemSlotRef:
+			inventory_string += "%s, " % inventory.items[each_item].root_node.name
+		else:
+			inventory_string += "%s, " % inventory.items[each_item].name
 	
 	inventory_string = inventory_string.substr(0, inventory_string.length() - 2) + "]"
 	return inventory_string
