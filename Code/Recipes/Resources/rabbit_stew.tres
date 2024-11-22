@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=8 format=3 uid="uid://oqmlfs6sy0vt"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_k3m72"]
+[ext_resource type="Script" path="res://Recipes/recipe.gd" id="2_b7t7i"]
+[ext_resource type="Resource" uid="uid://dwsb0xekdkfa2" path="res://Inventory/Items/rabbit_meat.tres" id="2_txhw8"]
+[ext_resource type="Resource" uid="uid://dwwavbcbrow2e" path="res://Inventory/Items/diced_potatoes.tres" id="3_78l1l"]
+[ext_resource type="Resource" uid="uid://ddmh2dgmpdakk" path="res://Inventory/Items/melted_butter.tres" id="4_ofs62"]
+[ext_resource type="Resource" uid="uid://cmtnkp4vee3uy" path="res://Inventory/Items/rice.tres" id="5_gcspb"]
+[ext_resource type="Resource" uid="uid://bp1e1i0skx0tq" path="res://Inventory/Items/rabbit_stew.tres" id="6_dwd55"]
+
+[resource]
+script = ExtResource("2_b7t7i")
+input = Array[ExtResource("1_k3m72")]([ExtResource("2_txhw8"), ExtResource("3_78l1l"), ExtResource("4_ofs62"), ExtResource("5_gcspb")])
+output = Array[ExtResource("1_k3m72")]([ExtResource("6_dwd55"), ExtResource("6_dwd55")])
+action = 3
+times_cooked = 0
+tier = 4

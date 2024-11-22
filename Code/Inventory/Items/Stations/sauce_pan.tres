@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://du826wdoaxnhe"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_g0cd6"]
+[ext_resource type="Texture2D" uid="uid://vje703b2wxs5" path="res://Inventory/Assets/sauce_pan.png" id="3_ebgpf"]
+
+[resource]
+script = ExtResource("1_g0cd6")
+name = "Sauce Pan"
+texture = ExtResource("3_ebgpf")
+rarity = 1.0
+value = 10
+type = 1
+inventory_width = 2
+inventory_height = 2

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5ujdt6n2wthj"]
+
+[ext_resource type="Script" path="res://Recipes/recipe_book_controller.gd" id="1_6qj6f"]
+[ext_resource type="Resource" uid="uid://dcp6b88d2jkfq" path="res://Recipes/Books/all_recipes.tres" id="2_peofx"]
+
+[node name="RecipeBookController" type="Node2D" groups=["persist"]]
+script = ExtResource("1_6qj6f")
+recipe_book = ExtResource("2_peofx")

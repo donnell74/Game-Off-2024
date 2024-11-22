@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp8jfh62cnyfu"]
+
+[ext_resource type="Script" path="res://Menus/game_won.gd" id="1_m2q40"]
+
+[node name="GameWon" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_m2q40")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1154.0
+offset_bottom = 644.0
+color = Color(0.36154, 0.223412, 0.0939332, 1)
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -226.0
+offset_top = -195.0
+offset_right = 230.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "You Won!"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.0
+offset_top = 149.0
+offset_right = 171.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 100
+columns = 2
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "Continue Run"
+
+[node name="QuitToMainMenuButton" type="Button" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "Quit to Main Menu"
+
+[connection signal="pressed" from="CanvasLayer/GridContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GridContainer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]

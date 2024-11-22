@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bffxnblycg4s3"
+path="res://.godot/imported/CampAmbience.mp3-985537264275ab4423890ebad08ff44a.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Inventory SFX Bundle/CampAmbience.mp3"
+dest_files=["res://.godot/imported/CampAmbience.mp3-985537264275ab4423890ebad08ff44a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

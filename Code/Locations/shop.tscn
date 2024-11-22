@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmo63pfwqd4sd"]
+
+[ext_resource type="Script" path="res://Locations/shop.gd" id="1_6ddx6"]
+[ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_n0al8"]
+[ext_resource type="PackedScene" uid="uid://3eackcsg606g" path="res://Locations/buy_sale_context_menu.tscn" id="2_y8uoq"]
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ddx6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.286017, 0.157599, 0.0767587, 1)
+
+[node name="CurrencyGridContainer" type="GridContainer" parent="CanvasLayer"]
+offset_left = 886.0
+offset_top = 56.0
+offset_right = 1074.0
+offset_bottom = 96.0
+columns = 2
+
+[node name="CurrencyLabel" type="Label" parent="CanvasLayer/CurrencyGridContainer"]
+layout_mode = 2
+text = "Party Currency:"
+
+[node name="CurrencyAmountLabel" type="Label" parent="CanvasLayer/CurrencyGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "9999999"
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 915.0
+offset_top = 566.0
+offset_right = 1085.0
+offset_bottom = 597.0
+text = "Continue to next day"
+
+[node name="InventoriesContainer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 83.0
+offset_top = 93.0
+offset_right = 1071.0
+offset_bottom = 506.0
+
+[node name="MenuButtonsGrid" type="GridContainer" parent="CanvasLayer/InventoriesContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 2
+
+[node name="BuyMenuButton" type="Button" parent="CanvasLayer/InventoriesContainer/MenuButtonsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Buy"
+
+[node name="SaleMenuButton" type="Button" parent="CanvasLayer/InventoriesContainer/MenuButtonsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sale"
+
+[node name="PlayerInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+offset_left = 5.0
+offset_top = 30.0
+offset_right = 5.0
+offset_bottom = 30.0
+shop_mode = true
+
+[node name="ShopInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 5.0
+offset_top = 30.0
+offset_right = 5.0
+offset_bottom = 30.0
+shop_mode = true
+
+[node name="BuySaleContextMenu" parent="CanvasLayer" instance=ExtResource("2_y8uoq")]
+unique_name_in_owner = true
+visible = false
+z_index = 3
+offset_left = 380.0
+offset_top = 216.0
+offset_right = -349.0
+offset_bottom = -229.0
+
+[node name="NoButton" parent="CanvasLayer/BuySaleContextMenu" index="3"]
+offset_left = 264.0
+offset_right = 307.0
+
+[connection signal="pressed" from="CanvasLayer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/BuyMenuButton" to="." method="_on_buy_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/SaleMenuButton" to="." method="_on_sale_menu_button_pressed"]
+[connection signal="shop_mode_item_clicked" from="CanvasLayer/InventoriesContainer/PlayerInventoryGridContainer" to="." method="_on_player_inventory_grid_container_shop_mode_item_clicked"]
+[connection signal="shop_mode_item_clicked" from="CanvasLayer/InventoriesContainer/ShopInventoryGridContainer" to="." method="_on_shop_inventory_grid_container_shop_mode_item_clicked"]
+[connection signal="pressed" from="CanvasLayer/BuySaleContextMenu/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/BuySaleContextMenu/NoButton" to="." method="_on_no_button_pressed"]
+
+[editable path="CanvasLayer/BuySaleContextMenu"]

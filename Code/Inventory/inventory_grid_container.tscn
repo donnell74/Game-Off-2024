@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7t4h4vmmoc1q"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_grid_container.gd" id="1_h48c3"]
+
+[node name="InventoryGridContainer" type="GridContainer"]
+offset_left = 175.0
+offset_top = 138.0
+offset_right = 975.0
+offset_bottom = 454.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+script = ExtResource("1_h48c3")
+width = 12

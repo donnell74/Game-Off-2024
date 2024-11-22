@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=6 format=3 uid="uid://cr1mbw6x5e00m"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_arr6y"]
+[ext_resource type="Resource" uid="uid://dnxki7cqb1jk5" path="res://Inventory/Items/fish.tres" id="2_06pf2"]
+[ext_resource type="Script" path="res://Recipes/recipe.gd" id="2_ca5au"]
+[ext_resource type="Resource" uid="uid://dxj8seqeeuxp7" path="res://Inventory/Items/butter.tres" id="3_jphgo"]
+[ext_resource type="Resource" uid="uid://c7vl3h6kimc23" path="res://Inventory/Items/roasted_salmon.tres" id="4_4xcp4"]
+
+[resource]
+script = ExtResource("2_ca5au")
+input = Array[ExtResource("1_arr6y")]([ExtResource("2_06pf2"), ExtResource("3_jphgo")])
+output = Array[ExtResource("1_arr6y")]([ExtResource("4_4xcp4")])
+action = 4
+times_cooked = 0
+tier = 1

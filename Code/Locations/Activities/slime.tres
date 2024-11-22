@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Activity" load_steps=4 format=3 uid="uid://1a8nxff48qdq"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_xj7xe"]
+[ext_resource type="Resource" uid="uid://bmvaedpd7h8r1" path="res://Inventory/Items/potato.tres" id="2_cvgj7"]
+[ext_resource type="Script" path="res://Locations/activity.gd" id="2_rn1u5"]
+
+[resource]
+script = ExtResource("2_rn1u5")
+description = "A pack of wild slimes attacked"
+rewardItems = Array[ExtResource("1_xj7xe")]([ExtResource("2_cvgj7")])
+minRewardItems = 1
+maxRewardItems = 3
+rewardCurrency = 0
+healthCost = 40.0
+staminaCost = 0.0
+strengthCost = 0.0
