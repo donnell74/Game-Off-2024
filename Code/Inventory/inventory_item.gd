@@ -17,6 +17,9 @@ enum ItemType {
 @export var inventory_height : int = 1
 
 func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
+	if not other:
+		return false
+	
 	if name != other.name:
 		return false
 	
