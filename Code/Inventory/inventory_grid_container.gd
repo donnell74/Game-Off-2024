@@ -185,7 +185,7 @@ func _on_slot_right_clicked(index: Vector2, node_position: Vector2) -> void:
 func _handle_item_right_clicked(node_position: Vector2) -> void:
 	build_item_context_menu(node_position)
 
-func _handle_station_right_clicked(selected_station_item: InventoryItem, index: Vector2, node_position: Vector2) -> void:
+func _handle_station_right_clicked(selected_station_item: Resource, index: Vector2, node_position: Vector2) -> void:
 	var station_name = selected_station_item.name if selected_station_item is InventoryItem else selected_station_item.root_node.name
 	var surrounding_ingredients = get_surrounding_ingredients(index)
 	var surrounding_inv_items : Array[InventoryItem] = []
@@ -271,6 +271,9 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 	
 	for each_output in recipe.output:
 		var each_item = each_output.duplicate()
+		if not each_item.modifiers:
+			each_item.modifiers = ItemModifier.new()
+		
 		var combined = StationController.combine_multipliers(items_removed)
 		each_item.modifiers.multiply(combined).multiply(station.modifier)
 		add_item(each_item)
