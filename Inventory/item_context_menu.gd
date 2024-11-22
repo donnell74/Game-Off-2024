@@ -9,10 +9,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and !mouseOver:
 		queue_free()
 	
-	if event.is_action_pressed("ui_cancel") and visible:
+	if event.is_action_released("ui_cancel") and visible:
 		_on_action_list_item_clicked(-1, Vector2(), 0)
 	
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_released("ui_accept"):
 		if %ActionList.get_selected_items().size() > 0:
 			_on_action_list_item_clicked(%ActionList.get_selected_items()[0], Vector2(), 0)
 

@@ -11,11 +11,11 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and !mouseOver:
 		queue_free()
 	
-	if event.is_action_pressed("ui_cancel") and visible:
+	if event.is_action_released("ui_cancel") and visible:
 		print("closing recipe context")
 		recipe_selected.emit(null, neighbors, station)
 	
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_released("ui_accept"):
 		if %RecipeList.get_selected_items().size() > 0:
 			_on_recipe_list_item_clicked(%RecipeList.get_selected_items()[0], Vector2(), 0)
 		else:
