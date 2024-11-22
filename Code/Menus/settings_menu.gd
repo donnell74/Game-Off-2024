@@ -27,9 +27,11 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		UiEvents.UiScene.CAMPFIRE, UiEvents.UiScene.MAP:
 			can_show_settings = true
 			%CanvasLayer.visible = false
+		UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
+			# Overlays
+			can_show_settings = !can_show_settings
 		_:
 			%CanvasLayer.visible = false
-
 
 func _on_master_h_slider_value_changed(value: float) -> void:
 	Settings.set_master_volume(value)
