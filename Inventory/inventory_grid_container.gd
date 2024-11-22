@@ -144,7 +144,6 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 				take_entire_item(%InventoryItemDraggable.original_index)
 				add_item_at_index(drag_item, index)
 				%InventoryItemDraggable.visible = false
-				selected_slot = Vector2(-1, -1)
 				return
 			else:
 				# TODO: Add animation to indicate failure
@@ -247,7 +246,6 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		# call deferred so it is after we regenerate ui
 		last_right_clicked_slot.grab_focus()
 		
-	selected_slot = Vector2(-1, -1)
 	%InventoryItemDraggable.visible = false
 	if not recipe:
 		if has_node("../RecipeContextMenu"):

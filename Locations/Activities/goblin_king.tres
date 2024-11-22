@@ -15,4 +15,4 @@ maxRewardItems = 7
 rewardCurrency = 0
 healthCost = 350.0
 staminaCost = 100.0
-strengthCost = 100.0
+strengthCost = 20.0
