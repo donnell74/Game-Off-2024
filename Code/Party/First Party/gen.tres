@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PartyMember" load_steps=2 format=3 uid="uid://bgm6fh3rq05sb"]
+
+[ext_resource type="Script" path="res://Party/party_member.gd" id="1_yloa3"]
+
+[resource]
+script = ExtResource("1_yloa3")
+name = "Gen"
+base_health = 100.0
+base_stamina = 120.0
+base_strength = 100.0
+health = 100.0
+stamina = 120.0
+strength = 100.0
+level = 1

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://bt07xvaixi73m"]
+
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_abq23"]
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_vmiiq"]
+
+[sub_resource type="Resource" id="Resource_jan7e"]
+script = ExtResource("1_abq23")
+health = 0.25
+stamina = 0.25
+strength = 0.25
+
+[sub_resource type="Resource" id="Resource_ltje5"]
+metadata/__load_path__ = "res://Map/Assets/fishing.png"
+
+[resource]
+script = ExtResource("1_vmiiq")
+name = "Monster Fish"
+texture = SubResource("Resource_ltje5")
+modifiers = SubResource("Resource_jan7e")
+rarity = 3.0
+value = 60
+type = 0
+inventory_width = 2
+inventory_height = 2

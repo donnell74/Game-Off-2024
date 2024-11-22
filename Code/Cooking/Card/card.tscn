@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4lvb75fcwdoy"]
+
+[ext_resource type="Script" path="res://Cooking/Card/card.gd" id="1_tdr6d"]
+
+[node name="Card" type="Control"]
+custom_minimum_size = Vector2(160, 229)
+layout_mode = 3
+anchors_preset = 0
+focus_mode = 2
+script = ExtResource("1_tdr6d")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 229.0
+color = Color(0.262471, 0.131284, 0.00630041, 1)
+
+[node name="MainBackground" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 219.0
+color = Color(0.991599, 0.6979, 0.46299, 1)
+
+[node name="ImageTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 31.0
+offset_top = 29.0
+offset_right = 136.0
+offset_bottom = 112.0
+
+[node name="DescriptionText" type="TextEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 15.0
+offset_top = 128.0
+offset_right = 145.0
+offset_bottom = 213.0
+text = "Description of card here"
+editable = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+wrap_mode = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

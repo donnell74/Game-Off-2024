@@ -1,0 +1,130 @@
+[gd_scene load_steps=2 format=3 uid="uid://clxg1guhakryv"]
+
+[ext_resource type="Script" path="res://Menus/settings_menu.gd" id="1_07us8"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_07us8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.0
+offset_top = -277.0
+offset_right = 235.0
+offset_bottom = 277.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.177579, 0.335685, 0.241739, 1)
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -202.0
+offset_right = 156.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 30
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterHSlider" type="HSlider" parent="CanvasLayer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../CloseButton")
+focus_neighbor_bottom = NodePath("../MusicHSlider")
+max_value = 1.0
+step = 0.001
+
+[node name="MusicLabel" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicHSlider" type="HSlider" parent="CanvasLayer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+focus_neighbor_top = NodePath("../MasterHSlider")
+focus_neighbor_bottom = NodePath("../SfxHSlider")
+max_value = 1.0
+step = 0.001
+
+[node name="MusicLabel2" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SfxHSlider" type="HSlider" parent="CanvasLayer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+focus_neighbor_top = NodePath("../MusicHSlider")
+focus_neighbor_bottom = NodePath("../SeedTextEdit")
+max_value = 1.0
+step = 0.001
+
+[node name="SeedLabel" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "Seed"
+
+[node name="SeedTextEdit" type="TextEdit" parent="CanvasLayer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_neighbor_top = NodePath("../SfxHSlider")
+focus_neighbor_bottom = NodePath("../SkipCutscenesCheckBox")
+text = "-1"
+context_menu_enabled = false
+
+[node name="SkipCutscenesLabel" type="Label" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+text = "Skip Cutscenes"
+
+[node name="SkipCutscenesCheckBox" type="CheckBox" parent="CanvasLayer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../SeedTextEdit")
+focus_neighbor_bottom = NodePath("../../CloseButton")
+
+[node name="CloseButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 639.0
+offset_top = 536.0
+offset_right = 689.0
+offset_bottom = 567.0
+focus_neighbor_left = NodePath("../QuitToMainMenuButton")
+focus_neighbor_top = NodePath("../GridContainer/SkipCutscenesCheckBox")
+text = "Close"
+
+[node name="QuitToMainMenuButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 431.0
+offset_top = 536.0
+offset_right = 481.0
+offset_bottom = 567.0
+focus_neighbor_top = NodePath("../GridContainer/SkipCutscenesCheckBox")
+focus_neighbor_right = NodePath("../CloseButton")
+text = "Quit to Main Menu"
+
+[connection signal="value_changed" from="CanvasLayer/GridContainer/MasterHSlider" to="." method="_on_master_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/GridContainer/MusicHSlider" to="." method="_on_music_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/GridContainer/SfxHSlider" to="." method="_on_sfx_h_slider_value_changed"]
+[connection signal="text_changed" from="CanvasLayer/GridContainer/SeedTextEdit" to="." method="_on_seed_text_edit_text_changed"]
+[connection signal="toggled" from="CanvasLayer/GridContainer/SkipCutscenesCheckBox" to="." method="_on_skip_cutscenes_check_box_toggled"]
+[connection signal="pressed" from="CanvasLayer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]

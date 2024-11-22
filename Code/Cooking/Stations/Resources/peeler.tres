@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Station" load_steps=5 format=3 uid="uid://dm5v3huynidnj"]
+
+[ext_resource type="Script" path="res://Cooking/Stations/station.gd" id="1_2kelm"]
+[ext_resource type="Resource" uid="uid://c5py8agaw4syw" path="res://Inventory/Items/Stations/peeler.tres" id="1_15epc"]
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="2_2c3i3"]
+
+[sub_resource type="Resource" id="Resource_hjfyu"]
+script = ExtResource("2_2c3i3")
+health = 1.1
+stamina = 2.0
+strength = 1.1
+
+[resource]
+script = ExtResource("1_2kelm")
+inventory_item = ExtResource("1_15epc")
+action = 2
+modifier = SubResource("Resource_hjfyu")

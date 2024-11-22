@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Location" load_steps=5 format=3 uid="uid://6yu2tnvetura"]
+
+[ext_resource type="Script" path="res://Locations/activity.gd" id="1_ygp4x"]
+[ext_resource type="Resource" uid="uid://caod5vsc22v66" path="res://Locations/Activities/foraging.tres" id="2_huoeg"]
+[ext_resource type="Script" path="res://Locations/location.gd" id="2_wr12j"]
+[ext_resource type="Texture2D" uid="uid://x8afrg73tq5q" path="res://DownloadAssets/Need to replace/foraging.jpeg" id="3_4sht7"]
+
+[resource]
+script = ExtResource("2_wr12j")
+description = "Foraging"
+backgroundTexture = ExtResource("3_4sht7")
+type = 4
+morningActivities = Array[ExtResource("1_ygp4x")]([ExtResource("2_huoeg")])
+afternoonActivities = Array[ExtResource("1_ygp4x")]([ExtResource("2_huoeg")])
+eveningActivities = Array[ExtResource("1_ygp4x")]([ExtResource("2_huoeg")])
+currentTimeOfDay = 0

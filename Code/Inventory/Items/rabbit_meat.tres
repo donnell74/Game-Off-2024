@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=4 format=3 uid="uid://dwsb0xekdkfa2"]
+
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_arcch"]
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_ww2oa"]
+
+[sub_resource type="Resource" id="Resource_3nj6d"]
+script = ExtResource("1_arcch")
+health = 0.1
+stamina = 0.1
+strength = 0.1
+
+[resource]
+script = ExtResource("1_ww2oa")
+name = "Rabbit Meat"
+modifiers = SubResource("Resource_3nj6d")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1

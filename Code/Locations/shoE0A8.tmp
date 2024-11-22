@@ -1,0 +1,134 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmo63pfwqd4sd"]
+
+[ext_resource type="Script" path="res://Locations/shop.gd" id="1_6ddx6"]
+[ext_resource type="PackedScene" uid="uid://o54ba27sc13" path="res://Inventory/inventory_item_list.tscn" id="2_hkaxy"]
+[ext_resource type="Resource" uid="uid://t8w2wc3ir3bf" path="res://Locations/Town/town_no_station.tres" id="2_w76ta"]
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ddx6")
+location = ExtResource("2_w76ta")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.286017, 0.157599, 0.0767587, 1)
+
+[node name="CurrencyGridContainer" type="GridContainer" parent="CanvasLayer"]
+offset_left = 886.0
+offset_top = 56.0
+offset_right = 1074.0
+offset_bottom = 96.0
+columns = 2
+
+[node name="CurrencyLabel" type="Label" parent="CanvasLayer/CurrencyGridContainer"]
+layout_mode = 2
+text = "Party Currency:"
+
+[node name="CurrencyAmountLabel" type="Label" parent="CanvasLayer/CurrencyGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "9999999"
+
+[node name="ItemGridContainer" type="GridContainer" parent="CanvasLayer"]
+offset_left = 145.0
+offset_top = 516.0
+offset_right = 530.0
+offset_bottom = 707.0
+columns = 2
+
+[node name="ItemNameLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
+layout_mode = 2
+text = "Item:"
+
+[node name="ItemNameValueLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Item name"
+
+[node name="CostLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
+layout_mode = 2
+text = "Cost: 
+"
+
+[node name="CostValueLabel" type="Label" parent="CanvasLayer/ItemGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+
+[node name="AmountSelectGridContainer" type="GridContainer" parent="CanvasLayer/ItemGridContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="MinusButton" type="Button" parent="CanvasLayer/ItemGridContainer/AmountSelectGridContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="Amount" type="Label" parent="CanvasLayer/ItemGridContainer/AmountSelectGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+
+[node name="PlusButton" type="Button" parent="CanvasLayer/ItemGridContainer/AmountSelectGridContainer"]
+layout_mode = 2
+text = "+"
+
+[node name="BuySellButton" type="Button" parent="CanvasLayer/ItemGridContainer"]
+layout_mode = 2
+text = "Buy/Sell"
+
+[node name="InventoriesContainer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 83.0
+offset_top = 93.0
+offset_right = 1071.0
+offset_bottom = 506.0
+
+[node name="MenuButtonsGrid" type="GridContainer" parent="CanvasLayer/InventoriesContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 2
+
+[node name="BuyMenuButton" type="Button" parent="CanvasLayer/InventoriesContainer/MenuButtonsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Buy"
+
+[node name="SaleMenuButton" type="Button" parent="CanvasLayer/InventoriesContainer/MenuButtonsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sale"
+
+[node name="PlayerInventoryItemList" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_hkaxy")]
+unique_name_in_owner = true
+visible = false
+offset_left = -2.0
+offset_top = 30.0
+offset_right = 1017.0
+offset_bottom = 447.0
+
+[node name="ShopInventoryItemList" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_hkaxy")]
+unique_name_in_owner = true
+offset_left = -2.0
+offset_top = 30.0
+offset_right = 1017.0
+offset_bottom = 447.0
+
+[connection signal="pressed" from="CanvasLayer/ItemGridContainer/AmountSelectGridContainer/MinusButton" to="." method="_on_minus_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ItemGridContainer/AmountSelectGridContainer/PlusButton" to="." method="_on_plus_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ItemGridContainer/BuySellButton" to="." method="_on_buy_sell_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/BuyMenuButton" to="." method="_on_buy_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/SaleMenuButton" to="." method="_on_sale_menu_button_pressed"]

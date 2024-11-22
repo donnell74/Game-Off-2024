@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgeh6d51p2nk7"]
+
+[ext_resource type="Script" path="res://Recipes/recipe_card.gd" id="1_a4gu2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36pw4"]
+size = Vector2(179, 214.875)
+
+[node name="RecipeCard" type="Control"]
+custom_minimum_size = Vector2(216, 252)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 216.0
+offset_bottom = 252.0
+mouse_filter = 2
+script = ExtResource("1_a4gu2")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 192.0
+offset_bottom = 228.0
+mouse_filter = 2
+color = Color(0.262471, 0.131284, 0.00630041, 1)
+
+[node name="ImageTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 192.0
+offset_bottom = 156.0
+mouse_filter = 2
+
+[node name="DescriptionText" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = 161.0
+offset_right = 192.0
+offset_bottom = 228.0
+text = "Recipe Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AdditonalDetails" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="AdditonalDetails"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 192.0
+offset_bottom = 37.0
+mouse_filter = 1
+text = "Ingredients"
+horizontal_alignment = 1
+
+[node name="IngredientsList" type="ItemList" parent="AdditonalDetails"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 38.0
+offset_right = 192.0
+offset_bottom = 229.0
+mouse_filter = 1
+allow_search = false
+item_count = 1
+item_0/text = "asdf"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(12, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(90.5, 108.563)
+shape = SubResource("RectangleShape2D_36pw4")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

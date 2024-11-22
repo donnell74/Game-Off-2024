@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://jyyseysv4beh"]
-
-[ext_resource type="Script" path="res://Saving/save_load.gd" id="1_ggfra"]
-
-[node name="SaveLoad" type="Node2D"]
-script = ExtResource("1_ggfra")
