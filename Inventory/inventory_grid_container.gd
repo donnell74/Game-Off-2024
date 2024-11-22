@@ -203,6 +203,7 @@ func build_item_context_menu(new_position: Vector2) -> void:
 	var context_menu = item_context_menu.instantiate()
 	var context_menu_item_list = context_menu.get_node("ActionList")
 	context_menu.feed_selected.connect(_on_feed_selected)
+	context_menu.closed.connect(_on_item_context_menu_closed)
 
 	context_menu.global_position = new_position
 	context_menu.z_index = 2
@@ -246,7 +247,12 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		# call deferred so it is after we regenerate ui
 		last_right_clicked_slot.grab_focus()
 		
+	selected_slot = Vector2(-1, -1)
+	%InventoryItemDraggable.visible = false
 	if not recipe:
+		if has_node("../RecipeContextMenu"):
+			$"../RecipeContextMenu".queue_free()
+		
 		return
 
 	print("_on_recipe_selected ", recipe.output[0].name, " ", neighbors, " ", Actions.Actions.keys()[station.action])
@@ -270,13 +276,14 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		var combined = StationController.combine_multipliers(items_removed)
 		each_item.modifiers.multiply(combined).multiply(station.modifier)
 		add_item(each_item)
-	
-	selected_slot = Vector2(-1, -1)
-	%InventoryItemDraggable.visible = false
-	
+		
 	RecipeBookController.recipe_cooked.emit(recipe)
 	if has_node("../RecipeContextMenu"):
 		$"../RecipeContextMenu".queue_free()
+
+func _on_item_context_menu_closed() -> void:
+	if last_right_clicked_slot:
+		last_right_clicked_slot.grab_focus()
 
 func _on_feed_selected() -> void:
 	print("_on_feed_selected")
@@ -289,6 +296,7 @@ func _on_feed_selected() -> void:
 		var item = PlayerInventoryController.take_item_index(last_right_clicked_slot.index)
 		print("Feeding selected item to party: %s" % item.name)
 		PartyController.feed_party_item(item)
+		last_right_clicked_slot.grab_focus()
 	else:
 		print("Skipping feeding since no selected item")
 
