@@ -8,7 +8,8 @@ func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 
 func _on_focus_changed(control: Control) -> void:
-	if control is Button:
+	# Only play sound if the foucs is for one of MainMenu's children
+	if control is Button and control.get_parent() == %GridContainer:
 		%ButtonHoverSound.pitch_scale = Settings.random().randf_range(0.5, 1.0)
 		%ButtonHoverSound.play()
 
