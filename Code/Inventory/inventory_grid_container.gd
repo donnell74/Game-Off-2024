@@ -290,6 +290,7 @@ func _on_feed_selected() -> void:
 	print("_on_feed_selected")
 	if last_feed_time_of_of_day == current_time_of_day:
 		Dialogic.start("full_bellies")
+		Dialogic.timeline_ended.connect(_on_full_bellies_timeline_ended)
 		return
 	
 	last_feed_time_of_of_day = current_time_of_day
@@ -301,6 +302,9 @@ func _on_feed_selected() -> void:
 	else:
 		print("Skipping feeding since no selected item")
 
+func _on_full_bellies_timeline_ended() -> void:
+	last_right_clicked_slot.grab_focus()
+	Dialogic.timeline_ended.disconnect(_on_full_bellies_timeline_ended)
 
 func clear_inventory_slots() -> void:
 	for slot in get_children():
