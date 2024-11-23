@@ -31,12 +31,14 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			else:
 				%LocationInfo.text = "Campfire"
 				%TimeOfDayInfo.text = Location.TimeOfDay.keys()[0]
-		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
+		UiEvents.UiScene.SETTINGS_CLOSED, UiEvents.UiScene.INVENTORY_CLOSED, UiEvents.UiScene.RECIPE_BOOK_CLOSED:
 			var control_with_focus = get_viewport().gui_get_focus_owner()
 			print("Campfire - control_with_focus: ", control_with_focus)
 			if not control_with_focus and visible:
 				%ContinueDayButton.grab_focus()
 			# overlay, do nothing
+		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN:
+			pass # keep the music going and let the overlay show on top of the campfire scene
 		_:
 			%AmbienceSound.stop()
 			visible = false

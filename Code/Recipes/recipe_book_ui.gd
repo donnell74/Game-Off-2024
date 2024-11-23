@@ -10,23 +10,30 @@ func _ready() -> void:
 	RecipeBookController.recipe_cooked.connect(_on_recipe_cooked)
 	update_recipes()
 
+func _toggle_recipe_book() -> void:
+	%RecipeBookCanvas.visible = !%RecipeBookCanvas.visible
+	if %RecipeBookCanvas.visible:
+		update_recipes()
+		%CloseButton.grab_focus()
+		UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK_OPEN)
+	else:
+		UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK_CLOSED)
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Recipe Book"):
-		UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK)
+		_toggle_recipe_book()
 	if event.is_action_pressed("Pan Down"):
 		%ScrollContainer.get_v_scroll_bar().ratio += scroll_step
 	if event.is_action_pressed("Pan Up"):
 		%ScrollContainer.get_v_scroll_bar().ratio -= scroll_step
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
-	if newActive == UiEvents.UiScene.RECIPE_BOOK:
-		%InventoryCanvas.visible = !%InventoryCanvas.visible
-		update_recipes()
-		if %InventoryCanvas.visible:
-			%CloseButton.grab_focus()
-
-	elif newActive == UiEvents.UiScene.INVENTORY:
-		%InventoryCanvas.visible = false
+	match newActive:
+		UiEvents.UiScene.RECIPE_BOOK_OPEN:
+			if not %RecipeBookCanvas.visible:
+				_toggle_recipe_book()
+		_:
+			%RecipeBookCanvas.visible = false
 
 func update_recipes(type: String = "ALL"):
 	var recipe_card_scene: PackedScene = preload("res://Recipes/recipe_card.tscn")
@@ -70,12 +77,10 @@ func _on_recipe_cooked(recipe: Recipe):
 
 
 func _on_close_button_pressed() -> void:
-	UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK)
-
+	_toggle_recipe_book()
 
 func _on_show_unlocked_button_pressed() -> void:
 	update_recipes("UNLOCKED")
-
 
 func _on_show_all_button_button_down() -> void:
 	update_recipes()

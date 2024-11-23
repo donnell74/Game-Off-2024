@@ -13,7 +13,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.GAME_WON:
 			%CanvasLayer.visible = true
-		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
+		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN:
 			pass # don't hide if settings are opened on main menu
 		_:
 			%CanvasLayer.visible = false
