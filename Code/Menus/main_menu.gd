@@ -5,6 +5,13 @@ extends Control
 
 func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+	get_viewport().gui_focus_changed.connect(_on_focus_changed)
+
+func _on_focus_changed(control: Control) -> void:
+	# Only play sound if the foucs is for one of MainMenu's children
+	if control is Button and control.get_parent() == %GridContainer:
+		%ButtonHoverSound.pitch_scale = Settings.random().randf_range(0.5, 1.0)
+		%ButtonHoverSound.play()
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
@@ -22,6 +29,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			visible = false
 
 func _on_start_new_run_button_pressed() -> void:
+	%ButtonSelectedSound.play()
 	$"/root/Main/Map".generate_map()
 	if not Settings.skip_cutscenes:
 		Dialogic.start("introduction")

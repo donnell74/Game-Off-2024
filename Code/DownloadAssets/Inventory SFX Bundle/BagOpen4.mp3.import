@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cm6x5rm6ron4s"
+path="res://.godot/imported/BagOpen4.mp3-1e41b6673108e021d55ec30968205c32.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Inventory SFX Bundle/BagOpen4.mp3"
+dest_files=["res://.godot/imported/BagOpen4.mp3-1e41b6673108e021d55ec30968205c32.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

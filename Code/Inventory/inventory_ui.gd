@@ -25,7 +25,10 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	if newActive == UiEvents.UiScene.INVENTORY:
 		%InventoryCanvas.visible = !%InventoryCanvas.visible
 		if %InventoryCanvas.visible:
+			%InventoryOpenSound.play()
 			%CloseButton.grab_focus()
+		else:
+			%InventoryClosedSound.play()
 
 		return
 

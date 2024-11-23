@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cm56kd0ryjcvo"]
+[gd_scene load_steps=4 format=3 uid="uid://cm56kd0ryjcvo"]
 
 [ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_a7vni"]
+[ext_resource type="AudioStream" uid="uid://b4shpuliu0eix" path="res://DownloadAssets/Inventory SFX Bundle/Button8.mp3" id="2_s1uu7"]
+[ext_resource type="AudioStream" uid="uid://chiu712tb7kby" path="res://DownloadAssets/Inventory SFX Bundle/Hover5.mp3" id="3_ganxf"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -31,6 +33,7 @@ theme_override_font_sizes/font_size = 100
 text = "Savory Secrets"
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -56,6 +59,18 @@ text = "Start New Run"
 [node name="SettingsButton" type="Button" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
 text = "Settings"
+
+[node name="ButtonSelectedSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_s1uu7")
+bus = &"SFX"
+
+[node name="ButtonHoverSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_ganxf")
+volume_db = -10.0
+pitch_scale = 0.5
+bus = &"SFX"
 
 [connection signal="pressed" from="CanvasLayer/GridContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/GridContainer/StartNewRunButton" to="." method="_on_start_new_run_button_pressed"]

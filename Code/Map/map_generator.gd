@@ -56,6 +56,9 @@ func _on_focus_changed(control: Control) -> void:
 		# Make the old one not selected
 		if currentlyFocusedMapNode:
 			currentlyFocusedMapNode.find_child("SelectedIndicator").visible = false
+
+		%MapMovementSound.pitch_scale = Settings.random().randf_range(1.5, 4.0)
+		%MapMovementSound.play()
 		currentlyFocusedMapNode = control
 		currentlyFocusedMapNode.find_child("SelectedIndicator").visible = true
 

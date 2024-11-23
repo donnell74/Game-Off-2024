@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh2lobbodbpsk"]
+[gd_scene load_steps=5 format=3 uid="uid://bh2lobbodbpsk"]
 
 [ext_resource type="Script" path="res://Campfire/campfire.gd" id="1_ip6u0"]
 [ext_resource type="Texture2D" uid="uid://r8wj8ob2oyfo" path="res://Campfire/Assets/Campire.png" id="2_lpw6w"]
 [ext_resource type="AudioStream" uid="uid://bffxnblycg4s3" path="res://DownloadAssets/Inventory SFX Bundle/CampAmbience.mp3" id="3_qb6jm"]
+[ext_resource type="AudioStream" uid="uid://3ibrir2bi533" path="res://DownloadAssets/Inventory SFX Bundle/Button7.mp3" id="4_b6pl7"]
 
 [node name="Campfire" type="Node2D"]
 script = ExtResource("1_ip6u0")
@@ -74,5 +75,9 @@ unique_name_in_owner = true
 stream = ExtResource("3_qb6jm")
 bus = &"SFX"
 parameters/looping = false
+
+[node name="ButtonClickedSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_b6pl7")
 
 [connection signal="pressed" from="ContinueDayButton" to="." method="_on_continue_day_button_pressed"]
