@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://chiu712tb7kby"
+path="res://.godot/imported/Hover5.mp3-7e627eb34badfc1c66c9dcbd300a6f26.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Inventory SFX Bundle/Hover5.mp3"
+dest_files=["res://.godot/imported/Hover5.mp3-7e627eb34badfc1c66c9dcbd300a6f26.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

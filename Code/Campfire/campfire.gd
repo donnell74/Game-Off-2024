@@ -49,6 +49,7 @@ func _on_dialogic_timeline_stopped() -> void:
 
 func _on_continue_day_button_pressed() -> void:
 	print("Campfire - _on_continue_day_button_pressed")
+	%ButtonClickedSound.play()
 	
 	if has_node("/root/Location"):
 		LocationEvents.advance_day.emit()
