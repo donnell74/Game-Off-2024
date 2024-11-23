@@ -37,13 +37,14 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.MAP:
 			show_map()
-		UiEvents.UiScene.SETTINGS, UiEvents.UiScene.INVENTORY, UiEvents.UiScene.RECIPE_BOOK:
+		UiEvents.UiScene.SETTINGS_CLOSED, UiEvents.UiScene.INVENTORY_CLOSED, UiEvents.UiScene.RECIPE_BOOK_CLOSED:
 			if visible:
-				enabled = !enabled
-			
-				if enabled:
-					show_map()
+				enabled = true
+				show_map()
 			# overlay, don't hide
+		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN:
+			enabled = false
+			# Overlay, don't hide
 		_:
 			hide_map()
 
