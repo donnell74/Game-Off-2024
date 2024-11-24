@@ -88,6 +88,9 @@ func apply_to_each_member(stat: Stats, amount: float) -> void:
 	party_stats_changed.emit()
 
 func apply_party_damage(stat: Stats, amount: float) -> void:
+	if Settings.has_cheat_code(Settings.CHEAT_CODES.SUPERMAN):
+		return
+	
 	var damagePerIteration = get_max_party_level() # so we spread out the damage but don't iterate 1 by 1
 	while amount > 0.0:
 		damagePerIteration = min(damagePerIteration, amount)

@@ -26,7 +26,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			else:
 				release_focus()
 			# don't hide if settings are opened on main menu
-		UiEvents.UiScene.SETTINGS_OPEN:
+		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.DISABLE_HOTKEYS, UiEvents.UiScene.ENABLE_HOTKEYS:
 			pass
 		_:
 			%CanvasLayer.visible = false

@@ -4,6 +4,10 @@ extends Node
 @warning_ignore("unused_signal")
 signal recipe_cooked(recipe: Recipe)
 
+func cheat() -> void:
+	for each_recipe in recipe_book.recipes:
+		each_recipe.times_cooked = 1
+
 func save() -> Dictionary:
 	return {
 		SaveLoad.PATH_FROM_ROOT_KEY: get_path(),

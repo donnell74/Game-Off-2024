@@ -5,8 +5,14 @@ extends Node
 @export var sfx_volume : float = 0.5
 @export var _seed : int = 123456
 @export var skip_cutscenes : bool = false
+@export var cheat_codes : Array[CHEAT_CODES] = []
 
 var _random : RandomNumberGenerator
+
+enum CHEAT_CODES {
+	MASTERCHEF,
+	SUPERMAN
+}
 
 func _ready() -> void:
 	_random = RandomNumberGenerator.new()
@@ -45,6 +51,17 @@ func set_skip_cutscenes(new: bool) -> void:
 
 func random() -> RandomNumberGenerator:
 	return _random
+
+func add_cheat_code(code : CHEAT_CODES) -> void:
+	cheat_codes.append(code)
+	match code:
+		CHEAT_CODES.MASTERCHEF:
+			RecipeBookController.cheat()
+		_:
+			pass
+
+func has_cheat_code(code: CHEAT_CODES) -> bool:
+	return cheat_codes.has(code)
 
 func save() -> Dictionary:
 	return {
