@@ -42,7 +42,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 				enabled = true
 				show_map()
 			# overlay, don't hide
-		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN:
+		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN, UiEvents.UiScene.DISABLE_HOTKEYS, UiEvents.UiScene.ENABLE_HOTKEYS:
 			enabled = false
 			# Overlay, don't hide
 		_:

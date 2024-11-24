@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dldfss6ri8btr"]
+
+[node name="CheatCodeRow" type="Control"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_right = 89.0
+offset_bottom = 23.0
+text = "Cheat Code"
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+offset_left = 208.0
+offset_right = 252.0
+offset_bottom = 24.0
+button_pressed = true

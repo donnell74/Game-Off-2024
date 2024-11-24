@@ -37,7 +37,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			if not control_with_focus and visible:
 				%ContinueDayButton.grab_focus()
 			# overlay, do nothing
-		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN:
+		UiEvents.UiScene.SETTINGS_OPEN, UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN, UiEvents.UiScene.DISABLE_HOTKEYS, UiEvents.UiScene.ENABLE_HOTKEYS:
 			pass # keep the music going and let the overlay show on top of the campfire scene
 		_:
 			%AmbienceSound.stop()

@@ -6,9 +6,21 @@ extends Node2D
 
 func _ready() -> void:
 	UiEvents.active_ui_changed.emit(startingScene)
+	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	LocationEvents.end_of_day.connect(SaveLoad.save_game)
 	PartyController.party_stat_depleted.connect(_on_party_stat_depleted)
 	RecipeBookController.recipe_cooked.connect(_on_recipe_cooked)
+
+func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
+	match newActive:
+		UiEvents.UiScene.DISABLE_HOTKEYS:
+			for each_child in get_children():
+				each_child.set_process_input(false)
+		UiEvents.UiScene.ENABLE_HOTKEYS:
+			for each_child in get_children():
+				each_child.set_process_input(true)
+		_:
+			pass
 
 func _on_recipe_cooked(recipe: Recipe) -> void:
 	print("Main - _on_recipe_cooked: ", Recipe.Tiers.keys()[recipe.tier])

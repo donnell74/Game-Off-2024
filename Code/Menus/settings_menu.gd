@@ -2,6 +2,7 @@ extends Control
 
 @export var can_show_settings : bool = true
 @export var node_to_give_focus_on_close : Node
+@export var cheat_code_row : PackedScene = preload("res://Menus/cheat_code_row.tscn")
 
 func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
@@ -10,6 +11,8 @@ func _ready() -> void:
 	%SfxHSlider.value = Settings.sfx_volume
 	%SeedTextEdit.text = "%d" % Settings._seed
 	%SkipCutscenesCheckBox.button_pressed = Settings.skip_cutscenes
+	%SettingsControl.visible = true
+	%CheatCodesControl.visible = false
 
 func _input(event: InputEvent) -> void:
 	if can_show_settings and event.is_action_pressed("Toggle Settings"):
@@ -40,6 +43,8 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			can_show_settings = !can_show_settings
 		UiEvents.UiScene.INVENTORY_CLOSED, UiEvents.UiScene.RECIPE_BOOK_CLOSED, UiEvents.UiScene.SETTINGS_CLOSED:
 			can_show_settings = true
+		UiEvents.UiScene.DISABLE_HOTKEYS, UiEvents.UiScene.ENABLE_HOTKEYS:
+			can_show_settings = true
 		_:
 			%CanvasLayer.visible = false
 
@@ -67,3 +72,31 @@ func _on_quit_to_main_menu_button_pressed() -> void:
 	%QuitToMainMenuButton.release_focus()
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.MAIN_MENU)
 	SaveLoad.save_settings()
+
+func _on_cheat_code_button_pressed() -> void:
+	%SettingsControl.visible = false
+	%CheatCodesControl.visible = true
+
+func _on_enter_cheat_code_button_pressed() -> void:
+	if Settings.CHEAT_CODES.keys().has(%CheatCodeTextEdit.text):
+		var cheatCodeIndex = Settings.CHEAT_CODES[%CheatCodeTextEdit.text]
+		var cheatCodeRow = cheat_code_row.instantiate()
+		cheatCodeRow.get_node("Label").text = %CheatCodeTextEdit.text
+		%CheatCodesGridContainer.add_child(cheatCodeRow)
+		Settings.add_cheat_code(cheatCodeIndex)
+	else:
+		%InvalidLabel.visible = true
+		%InvalidLabelTimer.start()
+
+func _on_back_to_settings_button_pressed() -> void:
+	%SettingsControl.visible = true
+	%CheatCodesControl.visible = false
+
+func _on_invalid_label_timer_timeout() -> void:
+	%InvalidLabel.visible = false
+
+func _on_cheat_code_text_edit_focus_entered() -> void:
+	UiEvents.active_ui_changed.emit(UiEvents.UiScene.DISABLE_HOTKEYS)
+
+func _on_cheat_code_text_edit_focus_exited() -> void:
+	UiEvents.active_ui_changed.emit(UiEvents.UiScene.ENABLE_HOTKEYS)
