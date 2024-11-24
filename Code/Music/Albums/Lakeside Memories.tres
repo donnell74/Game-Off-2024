@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Album" load_steps=2 format=3 uid="uid://tg76h50it5sr"]
+
+[ext_resource type="Script" path="res://Music/album.gd" id="1_2yuuw"]
+
+[resource]
+script = ExtResource("1_2yuuw")
+title = "Lakeside Memories"
+artist = "Phat Phrog Studio"

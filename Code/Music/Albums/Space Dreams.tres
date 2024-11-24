@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Album" load_steps=2 format=3 uid="uid://4b574ielxkfw"]
+
+[ext_resource type="Script" path="res://Music/album.gd" id="1_81h48"]
+
+[resource]
+script = ExtResource("1_81h48")
+title = "Space Dreams"
+artist = "Phat Phrog Studio"

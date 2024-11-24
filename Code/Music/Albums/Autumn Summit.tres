@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Album" load_steps=3 format=3 uid="uid://d4ipy4mo411we"]
+
+[ext_resource type="Texture2D" uid="uid://bnn78tq84ced3" path="res://DownloadAssets/Soundtrack/Autumn Summit - LOFI Music Collection/Autumn Summit Album Art.png" id="1_2uqhf"]
+[ext_resource type="Script" path="res://Music/album.gd" id="1_cfht2"]
+
+[resource]
+script = ExtResource("1_cfht2")
+title = "Autumn Summit"
+artist = "Phat Phrog Studio"
+art = ExtResource("1_2uqhf")

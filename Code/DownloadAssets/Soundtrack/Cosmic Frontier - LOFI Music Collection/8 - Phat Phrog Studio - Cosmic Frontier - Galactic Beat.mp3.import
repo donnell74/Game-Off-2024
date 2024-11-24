@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://nk1rlsicnekw"
+path="res://.godot/imported/8 - Phat Phrog Studio - Cosmic Frontier - Galactic Beat.mp3-aa9394b66c28d4cdb22a61fa8205084d.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Cosmic Frontier - LOFI Music Collection/8 - Phat Phrog Studio - Cosmic Frontier - Galactic Beat.mp3"
+dest_files=["res://.godot/imported/8 - Phat Phrog Studio - Cosmic Frontier - Galactic Beat.mp3-aa9394b66c28d4cdb22a61fa8205084d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

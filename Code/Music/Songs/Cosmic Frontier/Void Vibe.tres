@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Song" load_steps=4 format=3 uid="uid://csc0g2xc8qglo"]
+
+[ext_resource type="Resource" uid="uid://cmhi0ptmk7g7n" path="res://Music/Albums/Cosmic Frontier.tres" id="1_07hb2"]
+[ext_resource type="Script" path="res://Music/song.gd" id="1_w1jw7"]
+[ext_resource type="AudioStream" uid="uid://5yjirokcyxso" path="res://DownloadAssets/Soundtrack/Cosmic Frontier - LOFI Music Collection/7 - Phat Phrog Studio - Cosmic Frontier - Void Vibe.mp3" id="3_mdmnc"]
+
+[resource]
+script = ExtResource("1_w1jw7")
+stream = ExtResource("3_mdmnc")
+title = "Void Vibe"
+album = ExtResource("1_07hb2")

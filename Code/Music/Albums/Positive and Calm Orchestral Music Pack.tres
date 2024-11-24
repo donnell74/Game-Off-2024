@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Album" load_steps=2 format=3 uid="uid://b1lk6ichtu41s"]
+
+[ext_resource type="Script" path="res://Music/album.gd" id="1_ysl8w"]
+
+[resource]
+script = ExtResource("1_ysl8w")
+title = "Positive and Calm Orchestral Music Pack"
+artist = ""

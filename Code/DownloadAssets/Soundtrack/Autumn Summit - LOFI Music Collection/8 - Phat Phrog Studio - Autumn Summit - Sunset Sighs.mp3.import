@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://n8ldqkoqwwx"
+path="res://.godot/imported/8 - Phat Phrog Studio - Autumn Summit - Sunset Sighs.mp3-9d164440f47f5aa63cef061f125dfdc6.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Autumn Summit - LOFI Music Collection/8 - Phat Phrog Studio - Autumn Summit - Sunset Sighs.mp3"
+dest_files=["res://.godot/imported/8 - Phat Phrog Studio - Autumn Summit - Sunset Sighs.mp3-9d164440f47f5aa63cef061f125dfdc6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

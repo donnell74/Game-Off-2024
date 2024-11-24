@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dwc0f2sn6gpvk"
+path="res://.godot/imported/2 - Phat Phrog Studio - Cosmic Frontier - Moonscape.mp3-c8594fd9dff01baed894f9b133c6afaf.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Cosmic Frontier - LOFI Music Collection/2 - Phat Phrog Studio - Cosmic Frontier - Moonscape.mp3"
+dest_files=["res://.godot/imported/2 - Phat Phrog Studio - Cosmic Frontier - Moonscape.mp3-c8594fd9dff01baed894f9b133c6afaf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

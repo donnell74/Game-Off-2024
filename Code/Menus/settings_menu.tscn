@@ -9,6 +9,7 @@ script = ExtResource("1_07us8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 8
