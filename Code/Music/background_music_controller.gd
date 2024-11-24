@@ -10,6 +10,9 @@ func _ready() -> void:
 
 func _switch_track(index: int) -> void:
 	currently_playing_index = index
+	if currently_playing_index == soundtrack.size():
+		currently_playing_index = 0
+	
 	%BgMusicPlayer.stream = soundtrack[currently_playing_index].stream
 	%BgMusicPlayer.play()
 	_update_music_info()

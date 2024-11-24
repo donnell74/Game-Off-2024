@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://chaled6a34njp"]
+
+[ext_resource type="Texture2D" uid="uid://b8nlvxdhuue5u" path="res://DownloadAssets/Sprout Lands - UI Pack - Premium pack/UI Sprites/buttons/square/Small Square Buttons.png" id="1_vkeyv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyjse"]
+atlas = ExtResource("1_vkeyv")
+region = Rect2(0, 48, 16, 16)
+
+[resource]
+texture = SubResource("AtlasTexture_kyjse")
