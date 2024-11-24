@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bh2lobbodbpsk"]
+[gd_scene load_steps=6 format=3 uid="uid://bh2lobbodbpsk"]
 
 [ext_resource type="Script" path="res://Campfire/campfire.gd" id="1_ip6u0"]
 [ext_resource type="Texture2D" uid="uid://r8wj8ob2oyfo" path="res://Campfire/Assets/Campire.png" id="2_lpw6w"]
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="3_5t286"]
 [ext_resource type="AudioStream" uid="uid://bffxnblycg4s3" path="res://DownloadAssets/Inventory SFX Bundle/CampAmbience.mp3" id="3_qb6jm"]
 [ext_resource type="AudioStream" uid="uid://3ibrir2bi533" path="res://DownloadAssets/Inventory SFX Bundle/Button7.mp3" id="4_b6pl7"]
 
@@ -45,6 +46,7 @@ offset_bottom = 80.0
 
 [node name="TeamPartyInfo" type="Label" parent="PartyStatsGrid"]
 layout_mode = 2
+theme = ExtResource("3_5t286")
 text = "TeamPartyInfo"
 
 [node name="LocationGrid" type="GridContainer" parent="."]
@@ -55,20 +57,24 @@ offset_bottom = 90.0
 
 [node name="LocationLabel" type="Label" parent="LocationGrid"]
 layout_mode = 2
+theme = ExtResource("3_5t286")
 text = "Current Location"
 
 [node name="LocationInfo" type="Label" parent="LocationGrid"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("3_5t286")
 text = "Traveling"
 
 [node name="TimeOfDayLabel" type="Label" parent="LocationGrid"]
 layout_mode = 2
+theme = ExtResource("3_5t286")
 text = "Current Time of Day"
 
 [node name="TimeOfDayInfo" type="Label" parent="LocationGrid"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("3_5t286")
 
 [node name="AmbienceSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true

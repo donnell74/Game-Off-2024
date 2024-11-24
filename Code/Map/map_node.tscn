@@ -27,6 +27,7 @@ color = Color(0.630898, 0.494313, 3.85046e-07, 1)
 
 [node name="Background" type="TextureRect" parent="."]
 unique_name_in_owner = true
+modulate = Color(0.854902, 0.513726, 0.34902, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

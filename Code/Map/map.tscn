@@ -40,14 +40,14 @@ offset_right = 640.0
 offset_bottom = 400.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.750821, 0.690698, 0.659014, 1)
+color = Color(0.647059, 0.713726, 0.552941, 1)
 
 [node name="MapNodeTemplate" parent="." instance=ExtResource("4_aegn2")]
 visible = false
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
-default_color = Color(0.51578, 0.357592, 0.234679, 1)
+default_color = Color(0.854902, 0.513726, 0.34902, 1)
 
 [node name="MapContainer" type="Control" parent="."]
 unique_name_in_owner = true

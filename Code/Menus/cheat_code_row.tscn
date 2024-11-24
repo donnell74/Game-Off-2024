@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dldfss6ri8btr"]
+[gd_scene load_steps=2 format=3 uid="uid://dldfss6ri8btr"]
+
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="1_3diay"]
 
 [node name="CheatCodeRow" type="Control"]
 custom_minimum_size = Vector2(300, 30)
@@ -9,6 +11,7 @@ anchors_preset = 0
 layout_mode = 2
 offset_right = 89.0
 offset_bottom = 23.0
+theme = ExtResource("1_3diay")
 text = "Cheat Code"
 
 [node name="CheckButton" type="CheckButton" parent="."]

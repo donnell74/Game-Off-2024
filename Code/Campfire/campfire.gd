@@ -64,11 +64,14 @@ func populatePartyStats():
 	for label in %PartyStatsGrid.get_children():
 		%PartyStatsGrid.remove_child(label)
 		label.queue_free()
+
 	# Re-populate the party stats
 	var partyStatsLabel = Label.new()
+	partyStatsLabel.theme = preload("res://Themes/overall_theme.tres")
 	partyStatsLabel.text = PartyController.party_stats()
 	%PartyStatsGrid.add_child(partyStatsLabel)
 	for member in PartyController.party.members:
 		var teamMemberLabel = Label.new()
+		teamMemberLabel.theme = preload("res://Themes/overall_theme.tres")
 		teamMemberLabel.text = member.to_string()
 		%PartyStatsGrid.add_child(teamMemberLabel)

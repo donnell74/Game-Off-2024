@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgeh6d51p2nk7"]
+[gd_scene load_steps=4 format=3 uid="uid://cgeh6d51p2nk7"]
 
 [ext_resource type="Script" path="res://Recipes/recipe_card.gd" id="1_a4gu2"]
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="2_ruhjb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36pw4"]
 size = Vector2(179, 214.875)
@@ -21,7 +22,7 @@ offset_top = 12.0
 offset_right = 192.0
 offset_bottom = 228.0
 mouse_filter = 2
-color = Color(0.262471, 0.131284, 0.00630041, 1)
+color = Color(0.490812, 0.257239, 0.140108, 1)
 
 [node name="ImageTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -39,6 +40,7 @@ offset_left = 12.0
 offset_top = 161.0
 offset_right = 192.0
 offset_bottom = 228.0
+theme = ExtResource("2_ruhjb")
 text = "Recipe Name"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -56,6 +58,7 @@ offset_top = 12.0
 offset_right = 192.0
 offset_bottom = 37.0
 mouse_filter = 1
+theme = ExtResource("2_ruhjb")
 text = "Ingredients"
 horizontal_alignment = 1
 
