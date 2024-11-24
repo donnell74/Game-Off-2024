@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cismypygs2cig"]
+[gd_scene load_steps=7 format=3 uid="uid://cismypygs2cig"]
 
 [ext_resource type="Script" path="res://Locations/location_controller.gd" id="1_osbva"]
 [ext_resource type="Resource" uid="uid://sde5dvd0tsdi" path="res://Locations/Dungeon/slime_king_dungeon.tres" id="2_7llln"]
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="3_51vow"]
 
 [sub_resource type="Animation" id="Animation_xyfy4"]
 length = 0.001
@@ -52,7 +53,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.257177, 0.171193, 0.136212, 1)
+color = Color(0.854902, 0.513726, 0.34902, 1)
 
 [node name="Background" type="TextureRect" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -84,6 +85,7 @@ offset_right = 396.0
 offset_bottom = 51.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_51vow")
 theme_override_font_sizes/font_size = 75
 text = "Simulation Running ..."
 

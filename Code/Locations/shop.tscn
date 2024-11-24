@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmo63pfwqd4sd"]
+[gd_scene load_steps=5 format=3 uid="uid://dmo63pfwqd4sd"]
 
 [ext_resource type="Script" path="res://Locations/shop.gd" id="1_6ddx6"]
 [ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_n0al8"]
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="2_ouimn"]
 [ext_resource type="PackedScene" uid="uid://3eackcsg606g" path="res://Locations/buy_sale_context_menu.tscn" id="2_y8uoq"]
 
 [node name="Shop" type="Control"]
@@ -22,7 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.286017, 0.157599, 0.0767587, 1)
+color = Color(0.854902, 0.513726, 0.34902, 1)
 
 [node name="CurrencyGridContainer" type="GridContainer" parent="CanvasLayer"]
 offset_left = 886.0
@@ -33,11 +34,13 @@ columns = 2
 
 [node name="CurrencyLabel" type="Label" parent="CanvasLayer/CurrencyGridContainer"]
 layout_mode = 2
+theme = ExtResource("2_ouimn")
 text = "Party Currency:"
 
 [node name="CurrencyAmountLabel" type="Label" parent="CanvasLayer/CurrencyGridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("2_ouimn")
 text = "9999999"
 
 [node name="ContinueButton" type="Button" parent="CanvasLayer"]
@@ -100,6 +103,12 @@ offset_left = 380.0
 offset_top = 216.0
 offset_right = -349.0
 offset_bottom = -229.0
+
+[node name="ColorRect" parent="CanvasLayer/BuySaleContextMenu" index="0"]
+color = Color(0.92549, 0.87451, 0.8, 1)
+
+[node name="Label" parent="CanvasLayer/BuySaleContextMenu" index="1"]
+theme = ExtResource("2_ouimn")
 
 [node name="NoButton" parent="CanvasLayer/BuySaleContextMenu" index="3"]
 offset_left = 264.0

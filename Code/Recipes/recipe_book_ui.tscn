@@ -14,7 +14,7 @@ visible = false
 offset_right = 1100.0
 offset_bottom = 650.0
 scale = Vector2(1.05477, 1)
-color = Color(0.448371, 0.284249, 0.191908, 1)
+color = Color(0.854902, 0.513726, 0.34902, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="RecipeBookCanvas"]
