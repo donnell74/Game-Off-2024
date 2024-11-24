@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Song" load_steps=4 format=3 uid="uid://f4u0ugc3ik7m"]
+
+[ext_resource type="Script" path="res://Music/song.gd" id="1_36hkq"]
+[ext_resource type="Resource" uid="uid://cmhi0ptmk7g7n" path="res://Music/Albums/Cosmic Frontier.tres" id="1_avtt6"]
+[ext_resource type="AudioStream" uid="uid://b48ajofhak6cn" path="res://DownloadAssets/Soundtrack/Cosmic Frontier - LOFI Music Collection/3 - Phat Phrog Studio - Cosmic Frontier - Stardust Echo.mp3" id="3_130c1"]
+
+[resource]
+script = ExtResource("1_36hkq")
+stream = ExtResource("3_130c1")
+title = "Stardust Echo"
+album = ExtResource("1_avtt6")

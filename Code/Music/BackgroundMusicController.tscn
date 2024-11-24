@@ -1,0 +1,120 @@
+[gd_scene load_steps=21 format=3 uid="uid://bcj3wsm0vd4qb"]
+
+[ext_resource type="Script" path="res://Music/background_music_controller.gd" id="1_8v4pc"]
+[ext_resource type="Script" path="res://Music/song.gd" id="2_d0bbk"]
+[ext_resource type="Resource" uid="uid://bhkyt735e6j24" path="res://Music/Songs/Autumn Summit/Breezy Echoes.tres" id="3_wl36h"]
+[ext_resource type="Resource" uid="uid://cdgiue6kvsr1h" path="res://Music/Songs/Autumn Summit/Crimson Canopy.tres" id="4_yc7ru"]
+[ext_resource type="Resource" uid="uid://bqn1nuysxfurb" path="res://Music/Songs/Autumn Summit/Harvest Hues.tres" id="5_byxqn"]
+[ext_resource type="Resource" uid="uid://cxaafffcjjfcs" path="res://Music/Songs/Autumn Summit/Highland Aura.tres" id="6_c5m3j"]
+[ext_resource type="Resource" uid="uid://c043117rrarau" path="res://Music/Songs/Autumn Summit/Mountain Chill.tres" id="7_l2k6f"]
+[ext_resource type="Resource" uid="uid://bputeln6g3j4" path="res://Music/Songs/Autumn Summit/October Oasis.tres" id="8_ghoid"]
+[ext_resource type="Resource" uid="uid://b1dtqohkd2jom" path="res://Music/Songs/Autumn Summit/Painted Leaves.tres" id="9_r0ft4"]
+[ext_resource type="Resource" uid="uid://3xbnfpf0thfs" path="res://Music/Songs/Autumn Summit/Summit Sunrise.tres" id="10_7qbnu"]
+[ext_resource type="Resource" uid="uid://dan3rkhylofnt" path="res://Music/Songs/Autumn Summit/Sunset Sighs.tres" id="11_al2ee"]
+[ext_resource type="Resource" uid="uid://cjr3lbolomlk2" path="res://Music/Songs/Cosmic Frontier/Celestial Nebula.tres" id="12_e56ng"]
+[ext_resource type="Resource" uid="uid://cydpu2caoi3a" path="res://Music/Songs/Cosmic Frontier/Echoes of the Expanse.tres" id="13_l8rdw"]
+[ext_resource type="Resource" uid="uid://basaw3s62py84" path="res://Music/Songs/Cosmic Frontier/Galactic Beat.tres" id="14_ycdni"]
+[ext_resource type="Resource" uid="uid://pgcbjypyatyy" path="res://Music/Songs/Cosmic Frontier/Interstellar Eclipse.tres" id="15_xife5"]
+[ext_resource type="Resource" uid="uid://bpu60bg78q2hw" path="res://Music/Songs/Cosmic Frontier/Moonscape.tres" id="16_nuhpj"]
+[ext_resource type="Resource" uid="uid://cwupq60xn3hws" path="res://Music/Songs/Cosmic Frontier/New Discoverys.tres" id="17_4uwu1"]
+[ext_resource type="Resource" uid="uid://dij65yigjkrpm" path="res://Music/Songs/Cosmic Frontier/Orbiting Aurora.tres" id="18_0yjf5"]
+[ext_resource type="Resource" uid="uid://f4u0ugc3ik7m" path="res://Music/Songs/Cosmic Frontier/Stardust Echo.tres" id="19_d5csg"]
+[ext_resource type="Resource" uid="uid://csc0g2xc8qglo" path="res://Music/Songs/Cosmic Frontier/Void Vibe.tres" id="20_othrq"]
+
+[node name="BackgroundMusicController" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8v4pc")
+soundtrack = Array[ExtResource("2_d0bbk")]([ExtResource("3_wl36h"), ExtResource("4_yc7ru"), ExtResource("5_byxqn"), ExtResource("6_c5m3j"), ExtResource("7_l2k6f"), ExtResource("8_ghoid"), ExtResource("9_r0ft4"), ExtResource("10_7qbnu"), ExtResource("11_al2ee"), ExtResource("12_e56ng"), ExtResource("13_l8rdw"), ExtResource("14_ycdni"), ExtResource("15_xife5"), ExtResource("16_nuhpj"), ExtResource("17_4uwu1"), ExtResource("18_0yjf5"), ExtResource("19_d5csg"), ExtResource("20_othrq")])
+
+[node name="BgMusicPlayer" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+volume_db = -15.0
+bus = &"Music"
+
+[node name="SongCanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="SongCanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -100.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.204049, 0.300636, 0.184562, 1)
+
+[node name="AlbumArtShadow" type="ColorRect" parent="SongCanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -243.0
+offset_top = -91.0
+offset_right = -173.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.196078, 0.196078, 0.196078, 0.427451)
+
+[node name="AlbumTexture" type="TextureRect" parent="SongCanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -89.0
+offset_right = -176.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="InfoGrid" type="GridContainer" parent="SongCanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -95.0
+offset_right = -18.0
+offset_bottom = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SongTitleLabel" type="Label" parent="SongCanvasLayer/InfoGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Song Title"
+
+[node name="AlbumTitleLabel" type="Label" parent="SongCanvasLayer/InfoGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Album Title"
+
+[node name="ArtistLabel" type="Label" parent="SongCanvasLayer/InfoGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Artist"
+
+[node name="SongVisibleTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="SongVisibleTimer" to="." method="_on_song_visible_timer_timeout"]

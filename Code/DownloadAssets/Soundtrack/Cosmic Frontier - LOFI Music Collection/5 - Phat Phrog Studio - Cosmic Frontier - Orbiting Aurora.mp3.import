@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://depjq7xe1ph46"
+path="res://.godot/imported/5 - Phat Phrog Studio - Cosmic Frontier - Orbiting Aurora.mp3-b23d7e17de5125c031a7e94d2c9db91c.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Cosmic Frontier - LOFI Music Collection/5 - Phat Phrog Studio - Cosmic Frontier - Orbiting Aurora.mp3"
+dest_files=["res://.godot/imported/5 - Phat Phrog Studio - Cosmic Frontier - Orbiting Aurora.mp3-b23d7e17de5125c031a7e94d2c9db91c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

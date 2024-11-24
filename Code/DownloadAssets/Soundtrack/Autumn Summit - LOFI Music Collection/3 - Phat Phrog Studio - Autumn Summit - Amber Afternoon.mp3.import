@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ca6ch8c8yitqg"
+path="res://.godot/imported/3 - Phat Phrog Studio - Autumn Summit - Amber Afternoon.mp3-5e3ec229470373289f75ecbfa167cf68.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Autumn Summit - LOFI Music Collection/3 - Phat Phrog Studio - Autumn Summit - Amber Afternoon.mp3"
+dest_files=["res://.godot/imported/3 - Phat Phrog Studio - Autumn Summit - Amber Afternoon.mp3-5e3ec229470373289f75ecbfa167cf68.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

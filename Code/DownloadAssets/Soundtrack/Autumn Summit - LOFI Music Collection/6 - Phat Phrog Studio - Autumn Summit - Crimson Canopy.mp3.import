@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://kv6fh7go4yfv"
+path="res://.godot/imported/6 - Phat Phrog Studio - Autumn Summit - Crimson Canopy.mp3-ce6c377e00b043a111d5e7a390304afa.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Autumn Summit - LOFI Music Collection/6 - Phat Phrog Studio - Autumn Summit - Crimson Canopy.mp3"
+dest_files=["res://.godot/imported/6 - Phat Phrog Studio - Autumn Summit - Crimson Canopy.mp3-ce6c377e00b043a111d5e7a390304afa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Song" load_steps=4 format=3 uid="uid://c043117rrarau"]
+
+[ext_resource type="Resource" uid="uid://d4ipy4mo411we" path="res://Music/Albums/Autumn Summit.tres" id="1_r4irv"]
+[ext_resource type="Script" path="res://Music/song.gd" id="1_vjmxx"]
+[ext_resource type="AudioStream" uid="uid://dswoie2wv403f" path="res://DownloadAssets/Soundtrack/Autumn Summit - LOFI Music Collection/9 - Phat Phrog Studio - Autumn Summit - Mountain Chill.mp3" id="3_opwxp"]
+
+[resource]
+script = ExtResource("1_vjmxx")
+stream = ExtResource("3_opwxp")
+title = "Mountain Chill"
+album = ExtResource("1_r4irv")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4ipxcu0x0tkg"
+path="res://.godot/imported/5 - Phat Phrog Studio - Autumn Summit - Harvest Hues.mp3-585f7fecafa75ad87eeb34c116b3593e.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Autumn Summit - LOFI Music Collection/5 - Phat Phrog Studio - Autumn Summit - Harvest Hues.mp3"
+dest_files=["res://.godot/imported/5 - Phat Phrog Studio - Autumn Summit - Harvest Hues.mp3-585f7fecafa75ad87eeb34c116b3593e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

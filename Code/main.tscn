@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://plp1w1ebjlml"]
+[gd_scene load_steps=10 format=3 uid="uid://plp1w1ebjlml"]
 
 [ext_resource type="PackedScene" uid="uid://bh2lobbodbpsk" path="res://Campfire/campfire.tscn" id="1_0c8er"]
 [ext_resource type="Script" path="res://main.gd" id="1_t3g0l"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://clxg1guhakryv" path="res://Menus/settings_menu.tscn" id="7_2yds1"]
 [ext_resource type="PackedScene" uid="uid://bp8jfh62cnyfu" path="res://Menus/game_won.tscn" id="8_2pqua"]
 [ext_resource type="PackedScene" uid="uid://bvdkaj1eb6nme" path="res://Recipes/recipe_book_ui.tscn" id="8_lg1d1"]
+[ext_resource type="PackedScene" uid="uid://bcj3wsm0vd4qb" path="res://Music/BackgroundMusicController.tscn" id="9_bn142"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_t3g0l")
@@ -31,3 +32,5 @@ visible = false
 
 [node name="GameWon" parent="." instance=ExtResource("8_2pqua")]
 visible = false
+
+[node name="BackgroundMusicController" parent="." instance=ExtResource("9_bn142")]

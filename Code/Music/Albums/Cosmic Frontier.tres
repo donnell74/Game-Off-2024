@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Album" load_steps=3 format=3 uid="uid://cmhi0ptmk7g7n"]
+
+[ext_resource type="Script" path="res://Music/album.gd" id="1_1h47s"]
+[ext_resource type="Texture2D" uid="uid://cxx1fabgcavaa" path="res://DownloadAssets/Soundtrack/Cosmic Frontier - LOFI Music Collection/Cosmic Frontier Album Art.png" id="1_sptaf"]
+
+[resource]
+script = ExtResource("1_1h47s")
+title = "Cosmic Frontier"
+artist = "Phat Phrog Studio"
+art = ExtResource("1_sptaf")

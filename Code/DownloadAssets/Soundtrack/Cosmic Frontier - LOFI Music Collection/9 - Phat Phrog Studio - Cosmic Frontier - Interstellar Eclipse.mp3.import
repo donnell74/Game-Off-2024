@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://mluhoqae3d7"
+path="res://.godot/imported/9 - Phat Phrog Studio - Cosmic Frontier - Interstellar Eclipse.mp3-ac445d5d882a9e104b14d2194ab50149.mp3str"
+
+[deps]
+
+source_file="res://DownloadAssets/Soundtrack/Cosmic Frontier - LOFI Music Collection/9 - Phat Phrog Studio - Cosmic Frontier - Interstellar Eclipse.mp3"
+dest_files=["res://.godot/imported/9 - Phat Phrog Studio - Cosmic Frontier - Interstellar Eclipse.mp3-ac445d5d882a9e104b14d2194ab50149.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
