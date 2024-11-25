@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnurxmck8x2nv"]
+[gd_scene load_steps=7 format=3 uid="uid://cnurxmck8x2nv"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_ui.gd" id="1_f8nx2"]
 [ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_6we01"]
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="2_pejsm"]
 [ext_resource type="PackedScene" uid="uid://bs83kbxgwhjkf" path="res://Inventory/inventory_item_draggable.tscn" id="3_x1kes"]
 [ext_resource type="AudioStream" uid="uid://cm6x5rm6ron4s" path="res://DownloadAssets/Inventory SFX Bundle/BagOpen4.mp3" id="4_ps8wt"]
 [ext_resource type="AudioStream" uid="uid://dvdv1th2af6s7" path="res://DownloadAssets/Inventory SFX Bundle/BagClose3.mp3" id="5_7ih2f"]
@@ -41,6 +42,7 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../../InventoryGridContainer")
 focus_neighbor_right = NodePath("../CloseButton")
+theme = ExtResource("2_pejsm")
 text = "Recipe Book"
 metadata/_edit_use_anchors_ = true
 
@@ -49,6 +51,7 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../RecipeBookButton")
 focus_neighbor_top = NodePath("../../InventoryGridContainer")
+theme = ExtResource("2_pejsm")
 text = "Close"
 metadata/_edit_use_anchors_ = true
 
