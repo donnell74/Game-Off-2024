@@ -6,6 +6,7 @@ func _ready() -> void:
 	Dialogic.timeline_started.connect(_on_dialogic_timeline_started)
 	Dialogic.timeline_ended.connect(_on_dialogic_timeline_stopped)
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
+	%CampfireAnimationSprite.play("campfire_animation")
 	
 	populatePartyStats()
 
