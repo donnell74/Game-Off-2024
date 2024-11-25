@@ -1,15 +1,67 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh2lobbodbpsk"]
+[gd_scene load_steps=15 format=3 uid="uid://bh2lobbodbpsk"]
 
 [ext_resource type="Script" path="res://Campfire/campfire.gd" id="1_ip6u0"]
-[ext_resource type="Texture2D" uid="uid://r8wj8ob2oyfo" path="res://Campfire/Assets/Campire.png" id="2_lpw6w"]
+[ext_resource type="Texture2D" uid="uid://sgjx4ugxdga7" path="res://Campfire/Assets/stary sky.png" id="2_bog7q"]
+[ext_resource type="Texture2D" uid="uid://c0jybfswxsreu" path="res://Campfire/Assets/Campfire v2-Sheet.png" id="2_scvih"]
+[ext_resource type="Texture2D" uid="uid://7b01xasfd2ty" path="res://Campfire/Assets/forest.png" id="3_5smnw"]
 [ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="3_5t286"]
 [ext_resource type="AudioStream" uid="uid://bffxnblycg4s3" path="res://DownloadAssets/Inventory SFX Bundle/CampAmbience.mp3" id="3_qb6jm"]
 [ext_resource type="AudioStream" uid="uid://3ibrir2bi533" path="res://DownloadAssets/Inventory SFX Bundle/Button7.mp3" id="4_b6pl7"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_miy7q"]
+atlas = ExtResource("2_scvih")
+region = Rect2(0, 0, 120, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noxkv"]
+atlas = ExtResource("2_scvih")
+region = Rect2(120, 0, 120, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxlbv"]
+atlas = ExtResource("2_scvih")
+region = Rect2(240, 0, 120, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx5pb"]
+atlas = ExtResource("2_scvih")
+region = Rect2(360, 0, 120, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3iim"]
+atlas = ExtResource("2_scvih")
+region = Rect2(480, 0, 120, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n4j0s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miy7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noxkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxlbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kx5pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3iim")
+}],
+"loop": true,
+"name": &"campfire_animation",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_18y6j"]
+
 [node name="Campfire" type="Node2D"]
 script = ExtResource("1_ip6u0")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,8 +71,52 @@ offset_right = 1533.0
 offset_bottom = 714.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_lpw6w")
-expand_mode = 2
+color = Color(0.647059, 0.713726, 0.552941, 1)
+
+[node name="StarySkyBackground" type="TextureRect" parent="."]
+offset_left = -6.0
+offset_top = -11.0
+offset_right = 1159.0
+offset_bottom = 509.0
+texture = ExtResource("2_bog7q")
+
+[node name="ForestForeground" type="TextureRect" parent="."]
+offset_left = -4.0
+offset_top = 143.0
+offset_right = 1161.0
+offset_bottom = 663.0
+texture = ExtResource("3_5smnw")
+
+[node name="CampfireAnimationSprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(545.674, 422.6)
+scale = Vector2(1.9721, 1.968)
+sprite_frames = SubResource("SpriteFrames_n4j0s")
+animation = &"campfire_animation"
+frame = 1
+frame_progress = 0.513417
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="CampfireAnimationSprite"]
+z_index = -1
+position = Vector2(0.672466, 52.0326)
+amount = 50
+lifetime = 2.0
+speed_scale = 0.1
+randomness = 1.0
+lifetime_randomness = 0.45
+emission_shape = 4
+emission_points = PackedVector2Array()
+emission_colors = PackedColorArray()
+direction = Vector2(0, -1)
+spread = 15.0
+gravity = Vector2(0, -980)
+initial_velocity_max = 600.15
+angular_velocity_max = 25.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_max = 30.0
+color_ramp = SubResource("Gradient_18y6j")
 
 [node name="ContinueDayButton" type="Button" parent="."]
 unique_name_in_owner = true
@@ -29,10 +125,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 173.0
-offset_top = 460.0
-offset_right = 391.0
-offset_bottom = 515.0
+offset_left = 177.0
+offset_top = 555.0
+offset_right = 395.0
+offset_bottom = 610.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Continue Day"
