@@ -1,6 +1,16 @@
-[gd_resource type="Theme" format=3 uid="uid://cjoh1pmvhw5l0"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cjoh1pmvhw5l0"]
+
+[ext_resource type="StyleBox" uid="uid://m0neyuhloha4" path="res://DownloadAssets/Sprout Lands - UI Pack - Premium pack/UI Sprites/buttons/square/small_square_unpressed.tres" id="1_f6cfr"]
+[ext_resource type="StyleBox" uid="uid://0ulegkovjj5y" path="res://DownloadAssets/Sprout Lands - UI Pack - Premium pack/UI Sprites/buttons/square/small_square_pressed.tres" id="2_cbela"]
 
 [resource]
+Button/colors/font_color = Color(0.854902, 0.513726, 0.34902, 1)
+Button/colors/font_focus_color = Color(0.611484, 0.329649, 0.188983, 1)
+Button/colors/font_hover_color = Color(0.611765, 0.329412, 0.188235, 1)
+Button/styles/focus = ExtResource("1_f6cfr")
+Button/styles/hover = ExtResource("1_f6cfr")
+Button/styles/normal = ExtResource("1_f6cfr")
+Button/styles/pressed = ExtResource("2_cbela")
 Label/colors/font_color = Color(0.92549, 0.87451, 0.8, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0.141176, 0.141176, 0.141176, 0.4)

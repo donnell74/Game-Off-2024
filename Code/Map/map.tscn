@@ -64,6 +64,9 @@ x_map_pos = -1
 y_map_pos = -1
 visitState = 0
 
+[node name="Background" parent="Boss" index="1"]
+modulate = Color(0.854902, 0.513726, 0.34902, 1)
+
 [node name="MapMovementSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("10_0h7bd")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvdkaj1eb6nme"]
+[gd_scene load_steps=3 format=3 uid="uid://bvdkaj1eb6nme"]
 
 [ext_resource type="Script" path="res://Recipes/recipe_book_ui.gd" id="1_uey0f"]
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="2_u1ckc"]
 
 [node name="RecipeBookUI" type="Node2D"]
 visible = false
@@ -8,7 +9,6 @@ script = ExtResource("1_uey0f")
 
 [node name="RecipeBookCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="Background" type="ColorRect" parent="RecipeBookCanvas"]
 offset_right = 1100.0
@@ -38,6 +38,7 @@ offset_top = 10.0
 offset_right = 1116.0
 offset_bottom = 41.0
 focus_neighbor_left = NodePath("../ShowAllButton")
+theme = ExtResource("2_u1ckc")
 text = "Close"
 
 [node name="ShowUnlockedButton" type="Button" parent="RecipeBookCanvas"]
@@ -46,6 +47,7 @@ offset_top = 10.0
 offset_right = 220.0
 offset_bottom = 41.0
 focus_neighbor_right = NodePath("../ShowAllButton")
+theme = ExtResource("2_u1ckc")
 text = "Show Unlocked Recipes"
 
 [node name="ShowAllButton" type="Button" parent="RecipeBookCanvas"]
@@ -55,6 +57,7 @@ offset_right = 425.0
 offset_bottom = 41.0
 focus_neighbor_left = NodePath("../ShowUnlockedButton")
 focus_neighbor_right = NodePath("../CloseButton")
+theme = ExtResource("2_u1ckc")
 text = "Show All Recipes"
 
 [connection signal="pressed" from="RecipeBookCanvas/CloseButton" to="." method="_on_close_button_pressed"]
