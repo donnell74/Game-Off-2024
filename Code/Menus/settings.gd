@@ -54,6 +54,7 @@ func set_skip_cutscenes(new: bool) -> void:
 
 func set_vegan(new: bool) -> void:
 	vegan = new
+	setting_vegan_changed.emit(new)
 
 func random() -> RandomNumberGenerator:
 	return _random

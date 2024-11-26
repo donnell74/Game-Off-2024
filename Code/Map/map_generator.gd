@@ -3,6 +3,7 @@ extends Control
 @export var mapNodeScene : Control
 @export var pathLineTemplateScene : Node
 @export var possibleLocations : Array[Location] = []
+@export var disabledLocations : Array[Location] = []
 @export var possibleBosses : Array[Location] = []
 @export var pathCount : int = 5
 @export var pathLength : int = 10
@@ -33,6 +34,7 @@ func _ready() -> void:
 	# Start centered on the middle path
 	%MapCamera.global_position = bottomLeftMapPosition + Vector2i((pathCount / 2) * pathHorizontalPadding, pathVerticalPadding * 2)
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+	Settings.setting_vegan_changed.connect(_on_setting_vegan_changed)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
@@ -65,7 +67,17 @@ func _on_focus_changed(control: Control) -> void:
 		currentlyFocusedMapNode.find_child("SelectedIndicator").visible = true
 
 func _on_setting_vegan_changed(new: bool) -> void:
-	pass
+	if new:
+		var possibleCopy = possibleLocations.duplicate()
+		for index in possibleCopy.size():
+			if possibleCopy[index].type == Location.Type.HUNTING:
+				var each_location = possibleLocations.pop_at(index)
+				disabledLocations.append(each_location)
+	else:
+		possibleLocations.append_array(disabledLocations)
+		disabledLocations = []
+	
+	generate_map()
 
 func filter_by_visitable(node: MapNode) -> bool:
 	return node.visitState == MapNode.VisitState.VISITABLE
