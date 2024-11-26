@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://n8u75cgs5a88"]
+
+[ext_resource type="Texture2D" uid="uid://bc1m7esk6xqmk" path="res://DownloadAssets/Sprout Lands - UI Pack - Premium pack/emojis/rabbit.png" id="1_nvtxy"]
+[ext_resource type="Script" path="res://MiniGames/Hunting/mob.gd" id="2_n3dri"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fx3ys"]
+radius = 5.11034
+
+[node name="Mob" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_n3dri")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nvtxy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+scale = Vector2(2.5, 2.5)
+shape = SubResource("CircleShape2D_fx3ys")

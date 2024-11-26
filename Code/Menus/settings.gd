@@ -1,10 +1,13 @@
 extends Node
 
+signal setting_vegan_changed(new: bool)
+
 @export var master_volume : float = 0.5
 @export var music_volume : float = 0.5
 @export var sfx_volume : float = 0.5
 @export var _seed : int = 123456
 @export var skip_cutscenes : bool = false
+@export var vegan : bool = false
 @export var cheat_codes : Array[CHEAT_CODES] = []
 
 var _random : RandomNumberGenerator
@@ -48,6 +51,9 @@ func set_seed(new_seed: int, save_new_seed: bool = true) -> void:
 
 func set_skip_cutscenes(new: bool) -> void:
 	skip_cutscenes = new
+
+func set_vegan(new: bool) -> void:
+	vegan = new
 
 func random() -> RandomNumberGenerator:
 	return _random
