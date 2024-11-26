@@ -113,7 +113,7 @@ text = "Skip Cutscenes"
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../SeedTextEdit")
-focus_neighbor_bottom = NodePath("../../Buttons/CloseButton")
+focus_neighbor_bottom = NodePath("../VeganCheckBox")
 
 [node name="VeganLabel" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
 layout_mode = 2
@@ -122,7 +122,7 @@ text = "Vegan"
 
 [node name="VeganCheckBox" type="CheckBox" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../SeedTextEdit")
+focus_neighbor_top = NodePath("../SkipCutscenesCheckBox")
 focus_neighbor_bottom = NodePath("../../Buttons/CloseButton")
 
 [node name="Buttons" type="GridContainer" parent="CanvasLayer/SettingsControl"]
@@ -138,7 +138,7 @@ columns = 3
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../CheatCodeButton")
-focus_neighbor_top = NodePath("../../SettingsGridContainer/SkipCutscenesCheckBox")
+focus_neighbor_top = NodePath("../../SettingsGridContainer/VeganCheckBox")
 focus_neighbor_right = NodePath("../QuitToMainMenuButton")
 text = "Close"
 
@@ -146,7 +146,7 @@ text = "Close"
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../CloseButton")
-focus_neighbor_top = NodePath("../../SettingsGridContainer/SkipCutscenesCheckBox")
+focus_neighbor_top = NodePath("../../SettingsGridContainer/VeganCheckBox")
 focus_neighbor_right = NodePath("../CheatCodeButton")
 text = "Quit to Main Menu"
 
@@ -154,7 +154,7 @@ text = "Quit to Main Menu"
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_left = NodePath("../QuitToMainMenuButton")
-focus_neighbor_top = NodePath("../../SettingsGridContainer/SkipCutscenesCheckBox")
+focus_neighbor_top = NodePath("../../SettingsGridContainer/VeganCheckBox")
 focus_neighbor_right = NodePath("../CloseButton")
 text = "Cheat Codes"
 

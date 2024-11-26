@@ -39,6 +39,7 @@ func _ready() -> void:
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.MAP:
+			enabled = true
 			show_map()
 		UiEvents.UiScene.SETTINGS_CLOSED, UiEvents.UiScene.INVENTORY_CLOSED, UiEvents.UiScene.RECIPE_BOOK_CLOSED:
 			if visible:
