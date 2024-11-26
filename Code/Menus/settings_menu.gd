@@ -100,3 +100,6 @@ func _on_cheat_code_text_edit_focus_entered() -> void:
 
 func _on_cheat_code_text_edit_focus_exited() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.ENABLE_HOTKEYS)
+
+func _on_vegan_check_box_toggled(toggled_on: bool) -> void:
+	Settings.set_vegan(toggled_on)

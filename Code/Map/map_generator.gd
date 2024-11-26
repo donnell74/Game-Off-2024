@@ -14,6 +14,7 @@ extends Control
 @export var cameraMovementSpeed = 1000.0
 @export var locationScene = preload("res://Locations/location.tscn")
 @export var shopScene = preload("res://Locations/shop.tscn")
+@export var huntingScene = preload("res://MiniGames/Hunting/Hunting.tscn")
 @export var currentlyLoadedMapNode : MapNode = null
 @export var currentlyFocusedMapNode : Control
 @export var selectedBoss : Location
@@ -62,6 +63,9 @@ func _on_focus_changed(control: Control) -> void:
 		%MapMovementSound.play()
 		currentlyFocusedMapNode = control
 		currentlyFocusedMapNode.find_child("SelectedIndicator").visible = true
+
+func _on_setting_vegan_changed(new: bool) -> void:
+	pass
 
 func filter_by_visitable(node: MapNode) -> bool:
 	return node.visitState == MapNode.VisitState.VISITABLE
@@ -343,14 +347,19 @@ func _on_map_node_clicked(mapNode: MapNode) -> void:
 	match mapNode.location.type:
 		Location.Type.TOWN:
 			scene_to_load = shopScene.instantiate()
+		Location.Type.HUNTING:
+			scene_to_load = huntingScene.instantiate()
 		_:
 			scene_to_load = locationScene.instantiate()
 
 	scene_to_load.location = mapNode.location
 	scene_to_load.location_simulation_done.connect(_on_location_simulation_done)
 	get_tree().root.add_child(scene_to_load)
-	if mapNode.location.type == Location.Type.TOWN:
-		UiEvents.active_ui_changed.emit(UiEvents.UiScene.SHOP)
+	match mapNode.location.type:
+		Location.Type.TOWN:
+			UiEvents.active_ui_changed.emit(UiEvents.UiScene.SHOP)
+		Location.Type.HUNTING:
+			UiEvents.active_ui_changed.emit(UiEvents.UiScene.HUNTING)
 
 func _get_map_node_name(x_map_pos: int, y_map_pos: int) -> String:
 	return "MapNode%dx%d" % [x_map_pos, y_map_pos]
