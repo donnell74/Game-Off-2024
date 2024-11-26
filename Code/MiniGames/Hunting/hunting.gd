@@ -32,7 +32,7 @@ func show_ui() -> void:
 	%SpawnTimer.start()
 	%GameTimer.start()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	%GameTimeLabel.text = "%d" % %GameTimer.time_left
 
 func _physics_process(_delta: float) -> void:

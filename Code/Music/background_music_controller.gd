@@ -22,7 +22,6 @@ func _switch_track(index: int) -> void:
 func _update_music_info() -> void:
 	var song = soundtrack[currently_playing_index]
 	%AlbumTexture.texture = song.album.art
-	%AlbumTexture.texture
 	%SongTitleLabel.text = song.title
 	%AlbumTitleLabel.text = song.album.title
 	%ArtistLabel.text = song.album.artist
