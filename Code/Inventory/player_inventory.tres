@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=15 format=3 uid="uid://cg8dfx000up56"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=16 format=3 uid="uid://cg8dfx000up56"]
 
+[ext_resource type="Resource" uid="uid://bob22ywvwvnvi" path="res://Inventory/Items/Stations/knife.tres" id="1_fwewe"]
 [ext_resource type="Script" path="res://Inventory/inventory.gd" id="2_gwfnm"]
 [ext_resource type="Resource" uid="uid://bmvaedpd7h8r1" path="res://Inventory/Items/potato.tres" id="2_hab74"]
 [ext_resource type="Resource" uid="uid://dxj8seqeeuxp7" path="res://Inventory/Items/butter.tres" id="3_odc2n"]
@@ -23,7 +24,7 @@ items = {
 Vector2(0, 0): ExtResource("6_goylx"),
 Vector2(0, 2): ExtResource("7_1jeqw"),
 Vector2(1, 2): ExtResource("3_odc2n"),
-Vector2(2, 0): ExtResource("11_65cke"),
+Vector2(2, 0): ExtResource("1_fwewe"),
 Vector2(2, 3): ExtResource("2_hab74"),
 Vector2(3, 0): ExtResource("7_rvfjl"),
 Vector2(3, 2): ExtResource("11_65cke"),
@@ -32,9 +33,6 @@ Vector2(4, 2): ExtResource("4_a0d0i"),
 Vector2(5, 2): ExtResource("7_38jcb"),
 Vector2(6, 0): ExtResource("9_blmsd"),
 Vector2(7, 0): ExtResource("10_atvxi"),
-Vector2(7, 2): ExtResource("7_38jcb"),
-Vector2(9, 0): ExtResource("11_65cke"),
-Vector2(9, 1): ExtResource("11_65cke"),
 Vector2(9, 2): ExtResource("13_tbwkl"),
 Vector2(9, 3): ExtResource("14_hbc3n")
 }
