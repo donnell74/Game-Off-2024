@@ -25,9 +25,10 @@ func fill_refs() -> void:
 				if pos_x == 0 and pos_y == 0:
 					continue
 
-				var ref_location = Vector2(pos_x, pos_y) + key				
+				var ref_location = Vector2(pos_x, pos_y) + key
 				var ref = InventoryItemSlotRef.new()
 				ref.root_node = item_slot
+				ref.root_node_index = key
 				ref.root_node_type = item_slot.type
 				if inventory.items.has(ref_location):
 					print("fill_refs - Overwriting item at %s with other item" % ref_location)
@@ -64,6 +65,7 @@ func add_item_at_index(item: InventoryItem, item_position: Vector2) -> void:
 			
 			var item_ref = InventoryItemSlotRef.new()
 			item_ref.root_node = item
+			item_ref.root_node_index = item_position
 			item_ref.root_node_type = item.type
 			inventory.items[item_position + Vector2(pos_x, pos_y)] = item_ref
 
@@ -110,26 +112,30 @@ func take_entire_item(starting_index: Vector2) -> InventoryItem:
 	var result : InventoryItem = null
 	var neighbors = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 	var neighbors_already_visited : Array[Vector2] = []
-	var nodes_left_to_vist : Array[Vector2] = [starting_index]
-	var starting_name : String
+	var nodes_left_to_vist : Array[Vector2] = []
+	var current_item = get_item(starting_index)
+	if current_item is InventoryItemSlotRef:
+		starting_index = current_item.root_node_index
+
+	current_item = take_item_index(starting_index)
+	result = current_item
+	var starting_name = current_item.name
+	for neighbor in neighbors:
+		nodes_left_to_vist.append(starting_index + neighbor)
+	
 	while nodes_left_to_vist.size() != 0:
 		var current_index = nodes_left_to_vist.pop_front()
 		if neighbors_already_visited.has(current_index):
 			continue
 		
-		var current_item = get_item(current_index)
+		current_item = get_item(current_index)
 		neighbors_already_visited.append(current_index)
-		if not current_item:
+		# Ignore empty slots and inventory items because we already know the root node
+		if not current_item or current_item is InventoryItem:
 			continue
 		
-		if current_item is InventoryItemSlotRef:
-			current_item = current_item.root_node
-		
-		if not starting_name:
-			starting_name = current_item.name
-
-		if starting_name == current_item.name:
-			take_item_index(current_index)			
+		if starting_index == current_item.root_node_index:
+			take_item_index(current_index)
 			for neighbor in neighbors:
 				nodes_left_to_vist.append(current_index + neighbor)
 	

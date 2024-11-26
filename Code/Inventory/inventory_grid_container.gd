@@ -167,7 +167,7 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 		shop_mode_item_clicked.emit(index)
 
 func _on_slot_right_clicked(index: Vector2, node_position: Vector2) -> void:
-	if shop_mode:
+	if shop_mode or %InventoryItemDraggable.visible:
 		return
 
 	var item = get_item(index)
