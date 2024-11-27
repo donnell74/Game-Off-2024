@@ -1,9 +1,10 @@
 extends Node2D
 
 @export var recipes_per_row : int = 5
-@export var scroll_step : float = 0.01
+@export var scroll_step : float = 1
 
 var recipe_tier_containers : Dictionary = {}
+var pan_direction : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
@@ -23,9 +24,17 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Toggle Recipe Book"):
 		_toggle_recipe_book()
 	if event.is_action_pressed("Pan Down"):
-		%ScrollContainer.get_v_scroll_bar().ratio += scroll_step
+		pan_direction = Vector2.DOWN
 	if event.is_action_pressed("Pan Up"):
-		%ScrollContainer.get_v_scroll_bar().ratio -= scroll_step
+		pan_direction = Vector2.UP
+	if event.is_action_released("Pan Down"):
+		pan_direction = Vector2.ZERO
+	if event.is_action_released("Pan Up"):
+		pan_direction = Vector2.ZERO
+
+func _physics_process(delta: float) -> void:
+	if not pan_direction.is_equal_approx(Vector2.ZERO):
+		%ScrollContainer.get_v_scroll_bar().ratio += pan_direction.y * scroll_step * delta
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:

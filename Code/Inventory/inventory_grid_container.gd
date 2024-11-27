@@ -231,7 +231,7 @@ func build_recipe_context_menu(
 
 	for each_recipe in recipes:
 		if each_recipe.times_cooked == 0:
-			context_menu_item_list.add_item("?")
+			context_menu_item_list.add_item("Unknown Recipe")
 		else:
 			context_menu_item_list.add_item(each_recipe.output[0].name)
 

@@ -25,6 +25,8 @@ extends Control
 @export var mergeChance: float = 0.05
 @export var zoom_change : Vector2 = Vector2(0.2, 0.2)
 @export var enabled : bool = true
+@export var topLeftBoundary : Vector2
+@export var bottomRightBoundary : Vector2
 
 const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
@@ -125,19 +127,25 @@ func _process(delta: float) -> void:
 	
 	var movement = Vector2.ZERO
 	if Input.is_action_pressed("Pan Up"):
-		movement.y = -1
+		if %MapCamera.position.y > topLeftBoundary.y:
+			movement.y = -1
 	if Input.is_action_pressed("Pan Down"):
-		movement.y = 1
+		if %MapCamera.position.y < bottomRightBoundary.y:
+			movement.y = 1
 	if Input.is_action_pressed("Pan Left"):
-		movement.x = -1
+		if %MapCamera.position.x > topLeftBoundary.x:
+			movement.x = -1
 	if Input.is_action_pressed("Pan Right"):
-		movement.x = 1
+		if %MapCamera.position.x < bottomRightBoundary.x:
+			movement.x = 1
 	
 	%MapCamera.position += movement.normalized() * cameraMovementSpeed * delta
 
 func generate_map(map_node_data: Dictionary = {}) -> void:
 	currentlyFocusedMapNode = null
 	currentlyLoadedMapNode = null
+	topLeftBoundary = Vector2(-100, -1 * (pathLength * pathVerticalPadding))
+	bottomRightBoundary = Vector2(pathLength * pathHorizontalPadding, bottomLeftMapPosition.y)
 	selectedBoss = possibleBosses[Settings.random().randi_range(0, possibleBosses.size() - 1)]
 	%Boss.location = selectedBoss
 	%Boss.find_child("Icon").texture = preload("res://Map/Assets/monster.png")
