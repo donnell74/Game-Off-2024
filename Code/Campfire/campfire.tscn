@@ -134,6 +134,15 @@ grow_vertical = 2
 theme = ExtResource("3_5t286")
 text = "Continue Day"
 
+[node name="PartyStatsHighlight" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 671.0
+offset_top = 27.0
+offset_right = 1133.0
+offset_bottom = 213.0
+color = Color(0.376471, 0.341176, 0.113725, 1)
+
 [node name="PartyStatsGrid" type="GridContainer" parent="."]
 unique_name_in_owner = true
 offset_left = 686.0
@@ -145,6 +154,15 @@ offset_bottom = 80.0
 layout_mode = 2
 theme = ExtResource("3_5t286")
 text = "TeamPartyInfo"
+
+[node name="LocationStatsHighlight" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 62.0
+offset_top = 27.0
+offset_right = 361.0
+offset_bottom = 188.0
+color = Color(0.375767, 0.340558, 0.11233, 1)
 
 [node name="LocationGrid" type="GridContainer" parent="."]
 offset_left = 86.0
@@ -182,5 +200,10 @@ parameters/looping = false
 [node name="ButtonClickedSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_b6pl7")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+patch_margin_left = 3
 
 [connection signal="pressed" from="ContinueDayButton" to="." method="_on_continue_day_button_pressed"]

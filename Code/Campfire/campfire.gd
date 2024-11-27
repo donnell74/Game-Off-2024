@@ -5,6 +5,7 @@ func _ready() -> void:
 	PartyController.party_stats_changed.connect(populatePartyStats)
 	Dialogic.timeline_started.connect(_on_dialogic_timeline_started)
 	Dialogic.timeline_ended.connect(_on_dialogic_timeline_stopped)
+	Dialogic.signal_event.connect(_on_dialogic_signal_event)
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	%CampfireAnimationSprite.play("campfire_animation")
 	
@@ -20,7 +21,8 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.CAMPFIRE:
 			visible = true
-			$ContinueDayButton.grab_focus()
+			%ContinueDayButton.grab_focus()
+			%ContinueDayButton.text = _get_continue_day_text()
 			%AmbienceSound.play()
 			if has_node("/root/Location"):
 				var locationNode = $"/root/Location"
@@ -43,6 +45,30 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		_:
 			%AmbienceSound.stop()
 			visible = false
+
+func _get_continue_day_text() -> String:
+	if not has_node("/root/Location"):
+		return "Start My Day"
+	
+	var location_node = get_node("/root/Location")
+	if location_node.location.currentTimeOfDay == Location.TimeOfDay.END_OF_DAY:
+		return "End My Day"
+	
+	return "Continue Day"
+
+func _on_dialogic_signal_event(event: String) -> void:
+	print("_on_dialogic_signal_event Event: ", event)
+	match event:
+		"introduction_done":
+			Dialogic.start("campfire_tutorial")
+		"tutorial_location_details_open":
+			%LocationStatsHighlight.visible = true
+		"tutorial_location_details_done":
+			%LocationStatsHighlight.visible = false
+			%PartyStatsHighlight.visible = true
+		"tutorial_party_details_close":
+			%PartyStatsHighlight.visible = false
+
 
 func _on_dialogic_timeline_started() -> void:
 	%ContinueDayButton.disabled = true
