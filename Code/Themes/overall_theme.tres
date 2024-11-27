@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://0ulegkovjj5y" path="res://DownloadAssets/Sprout Lands - UI Pack - Premium pack/UI Sprites/buttons/square/small_square_pressed.tres" id="2_cbela"]
 
 [resource]
-Button/colors/font_color = Color(0.854902, 0.513726, 0.34902, 1)
+Button/colors/font_color = Color(0.346117, 0.173367, 0.0865039, 1)
 Button/colors/font_focus_color = Color(0.611484, 0.329649, 0.188983, 1)
 Button/colors/font_hover_color = Color(0.611765, 0.329412, 0.188235, 1)
 Button/styles/focus = ExtResource("1_f6cfr")
