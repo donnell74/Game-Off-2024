@@ -43,6 +43,7 @@ directories/dtl_directory={
 "game_won": "res://Timelines/game_won.dtl",
 "introduction": "res://Timelines/introduction.dtl",
 "inventory_full": "res://Timelines/inventory_full.dtl",
+"map_tutorial": "res://Timelines/map_tutorial.dtl",
 "party_stat_depleted": "res://Timelines/party_stat_depleted.dtl"
 }
 

@@ -57,7 +57,6 @@ func _get_continue_day_text() -> String:
 	return "Continue Day"
 
 func _on_dialogic_signal_event(event: String) -> void:
-	print("_on_dialogic_signal_event Event: ", event)
 	match event:
 		"introduction_done":
 			Dialogic.start("campfire_tutorial")

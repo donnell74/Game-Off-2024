@@ -27,6 +27,7 @@ extends Control
 @export var enabled : bool = true
 @export var topLeftBoundary : Vector2
 @export var bottomRightBoundary : Vector2
+@export var first_scene_visit : bool = true
 
 const MAP_NODE_PATH = "/root/Main/Map/MapContainer/"
 
@@ -37,12 +38,17 @@ func _ready() -> void:
 	%MapCamera.global_position = bottomLeftMapPosition + Vector2i((pathCount / 2) * pathHorizontalPadding, pathVerticalPadding * 2)
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	Settings.setting_vegan_changed.connect(_on_setting_vegan_changed)
+	Dialogic.signal_event.connect(_on_dialogic_signal_event)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.MAP:
 			enabled = true
 			show_map()
+			if first_scene_visit:
+				enabled = false
+				first_scene_visit = false
+				Dialogic.start("map_tutorial")
 		UiEvents.UiScene.SETTINGS_CLOSED, UiEvents.UiScene.INVENTORY_CLOSED, UiEvents.UiScene.RECIPE_BOOK_CLOSED:
 			if visible:
 				enabled = true
@@ -81,6 +87,48 @@ func _on_setting_vegan_changed(new: bool) -> void:
 		disabledLocations = []
 	
 	generate_map()
+
+func _on_dialogic_signal_event(event: String) -> void:
+	match event:
+		"map_tutorial_dungeon":
+			var focus_node = _find_first_map_node_with_type(Location.Type.DUNGEON)
+			if focus_node:
+				focus_node.grab_focus()
+				%MapCamera.global_position = _get_map_node_positiion(focus_node.x_map_pos, focus_node.y_map_pos)
+		"map_tutorial_fishing":
+			var focus_node = _find_first_map_node_with_type(Location.Type.FISHING)
+			if focus_node:
+				focus_node.grab_focus()
+				%MapCamera.global_position = _get_map_node_positiion(focus_node.x_map_pos, focus_node.y_map_pos)
+		"map_tutorial_foraging":
+			var focus_node = _find_first_map_node_with_type(Location.Type.FORAGING)
+			if focus_node:
+				focus_node.grab_focus()
+				%MapCamera.global_position = _get_map_node_positiion(focus_node.x_map_pos, focus_node.y_map_pos)
+		"map_tutorial_hunting":
+			var focus_node = _find_first_map_node_with_type(Location.Type.HUNTING)
+			if focus_node:
+				focus_node.grab_focus()
+				%MapCamera.global_position = _get_map_node_positiion(focus_node.x_map_pos, focus_node.y_map_pos)
+		"map_tutorial_town":
+			var focus_node = _find_first_map_node_with_type(Location.Type.TOWN)
+			if focus_node:
+				focus_node.grab_focus()
+				%MapCamera.global_position = _get_map_node_positiion(focus_node.x_map_pos, focus_node.y_map_pos)			
+		"map_tutorial_finished":
+			enabled = true
+			# Start centered on the middle path
+			%MapCamera.global_position = bottomLeftMapPosition + Vector2i((pathCount / 2) * pathHorizontalPadding, pathVerticalPadding * 2)
+
+func _find_first_map_node_with_type(type: Location.Type) -> MapNode:
+	var nodes_to_visit = rootNodes.duplicate()
+	while nodes_to_visit.size() > 0:
+		var each_node = nodes_to_visit.pop_front()
+		nodes_to_visit.append_array(each_node.next_neighbors)
+		if each_node.location.type == type:
+			return each_node
+	
+	return null
 
 func filter_by_visitable(node: MapNode) -> bool:
 	return node.visitState == MapNode.VisitState.VISITABLE
