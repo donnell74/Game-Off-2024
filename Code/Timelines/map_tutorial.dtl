@@ -1,0 +1,14 @@
+chef: Here is my map of the area, I can move around the map with WASD (or right joystick)
+[signal arg="map_tutorial_dungeon"]
+chef: I see a few type of locations to visit!  This is a dungeon, I know there are monsters here that can hurt us but monsters have the best ingredients!
+[signal arg="map_tutorial_fishing"]
+chef: This is a lake, I bet I can catch the best fish here!
+[signal arg="map_tutorial_foraging"]
+chef: This is a field I can forage, I can picture the delicious vegetables and fruits now!
+[signal arg="map_tutorial_hunting"]
+chef: Here I can hunt rabbits, I make an amazing rabbit stew!
+[signal arg="map_tutorial_town"]
+chef: This town looks nice, I bet it has a shop where I can buy supplies.
+chef: Time to pick a path to start my adventure...
+[wait time="1.0"]
+[signal arg="map_tutorial_finished"]
