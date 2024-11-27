@@ -17,12 +17,12 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
 		UiEvents.UiScene.MAIN_MENU:
 			%CanvasLayer.visible = true
-			%ContinueButton.grab_focus()
+			%StartNewRunButton.grab_focus()
 		UiEvents.UiScene.SETTINGS_CLOSED:
 			var control_with_focus = get_viewport().gui_get_focus_owner()
 			print("Inventory._on_active_ui_changed - control_with_focus: ", control_with_focus)
 			if not control_with_focus and visible:
-				%ContinueButton.grab_focus()
+				%StartNewRunButton.grab_focus()
 			else:
 				release_focus()
 			# don't hide if settings are opened on main menu

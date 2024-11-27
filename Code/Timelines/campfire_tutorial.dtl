@@ -1,0 +1,7 @@
+[signal arg="tutorial_location_details_open"]
+chef: Here is the information I need about my current location
+[signal arg="tutorial_location_details_done"]
+Here is the information I need about my party, we each have three stats\: health, stamina, and strength
+Health and Strength are used when we fight monsters.\
+Stamina is used when we collect resources like Fishing, Hunting, and Foraging
+[signal arg="tutorial_party_details_close"]

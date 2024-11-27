@@ -60,6 +60,7 @@ theme_override_constants/v_separation = 19
 
 [node name="ContinueButton" type="Button" parent="CanvasLayer/GridContainer"]
 unique_name_in_owner = true
+visible = false
 z_index = 1
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
@@ -71,6 +72,7 @@ theme_override_styles/normal = ExtResource("4_d72a1")
 text = "Continue Run"
 
 [node name="StartNewRunButton" type="Button" parent="CanvasLayer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme = ExtResource("4_jung2")
