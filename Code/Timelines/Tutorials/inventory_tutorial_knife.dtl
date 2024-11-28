@@ -1,0 +1,3 @@
+chef: Now that my fish is next to my knife, I can slice it into Sashimi!
+Action a tool in your inventory by Right Clicking it or pressing Y/Triangle when it is selected
+[signal arg="inventory_tutorial_focus_knife"]

@@ -5,9 +5,13 @@ signal recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Stati
 @export var station : Station
 @export var neighbors : Array[Vector2] = []
 @export var recipes : Array[Recipe] = []
-@export var mouseOver = false
+@export var mouseOver : bool = false
+@export var enabled : bool = false
 
 func _input(event: InputEvent) -> void:
+	if not enabled:
+		return
+
 	if event is InputEventMouseButton and !mouseOver:
 		queue_free()
 	
