@@ -440,6 +440,8 @@ func _on_location_simulation_done() -> void:
 		$"/root/Location".queue_free()
 	if has_node("/root/Shop"):
 		$"/root/Shop".queue_free()
+	if has_node("/root/Hunting"):
+		$"/root/Hunting".queue_free()
 	
 	if currentlyLoadedMapNode.x_map_pos == -1 and currentlyFocusedMapNode.y_map_pos == -1:
 		# Level complete

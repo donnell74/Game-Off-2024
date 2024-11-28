@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://caix2o0cux7qv"]
+[gd_scene load_steps=7 format=3 uid="uid://caix2o0cux7qv"]
 
 [ext_resource type="Script" path="res://MiniGames/Hunting/hunting.gd" id="1_oufsn"]
+[ext_resource type="Resource" uid="uid://dwsb0xekdkfa2" path="res://Inventory/Items/rabbit_meat.tres" id="2_8kq2l"]
 [ext_resource type="Texture2D" uid="uid://d0vc02gg6e2mb" path="res://Map/Assets/hunting.png" id="2_f60lh"]
 [ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="3_vp0qp"]
 
@@ -17,6 +18,7 @@ point_count = 5
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_oufsn")
+rabbit_item = ExtResource("2_8kq2l")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
