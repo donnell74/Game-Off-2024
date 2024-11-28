@@ -12,16 +12,49 @@ signal inventory_slot_selected(index: Vector2)
 @export var last_right_clicked_slot : Control
 @export var last_feed_time_of_of_day : Location.TimeOfDay = Location.TimeOfDay.BREAKFAST
 @export var current_time_of_day : Location.TimeOfDay = -1
+@export var enabled : bool = false
 
 const SLOT_PATH = "InventoryCanvas/InventoryGridContainer/"
 var generate_semaphor : bool = false
 var inventory_dictionary : Dictionary = {}
+
+# Tutorial states
+var awaiting_fish_place : bool = false
+var awaiting_open_recipe_context : bool = false
+var awaiting_recipe_clicked : bool = false
 
 func _ready() -> void:
 	LocationEvents.advance_day.connect(_on_advance_day)
 	LocationEvents.end_of_day.connect(_on_end_of_day)
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	_do_generate_inventory_grid()
+	Dialogic.signal_event.connect(_on_dialogic_signal_event)
+
+func _on_dialogic_signal_event(event: String) -> void:
+	match event:
+		"inventory_tutorial_focus_fish":
+			var fish_index = find_item("Fish")
+			var slot = find_child(_get_slot_name(fish_index.x, fish_index.y), true, false)
+			slot.grab_focus()
+		"inventory_tutorial_awaiting_fish_place":
+			awaiting_fish_place = true
+			enabled = true
+		"inventory_tutorial_focus_knife":
+			var knife_index = find_item("Knife")
+			var slot = find_child(_get_slot_name(knife_index.x, knife_index.y), true, false)
+			slot.grab_focus()
+			enabled = true
+			awaiting_open_recipe_context = true
+		"inventory_tutorial_focus_recipe_context":
+			var recipe_context_menu = get_node("../RecipeContextMenu")
+			recipe_context_menu.grab_focus()
+			recipe_context_menu.enabled = true
+			awaiting_recipe_clicked = true
+		"inventory_tutorial_focus_sashimi":
+			var sashimi_index = find_item("Sashimi")
+			var slot = find_child(_get_slot_name(sashimi_index.x, sashimi_index.y), true, false)
+			slot.grab_focus()
+			enabled = true
 
 func _on_focus_changed(control: Control) -> void:
 	print("InventoryGridContainer - Focus changed to: ", control.name)
@@ -40,6 +73,9 @@ func _on_focus_changed(control: Control) -> void:
 		inventory_slot_selected.emit(selected_slot)
 
 func _input(event: InputEvent) -> void:
+	if not enabled:
+		return
+	
 	if event.is_action_pressed("ui_cancel"):
 		if not selected_slot.is_equal_approx(Vector2(-1, -1)):
 			selected_slot = Vector2(-1, -1)
@@ -52,7 +88,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Action Selected"):
 		if not selected_slot.is_equal_approx(Vector2(-1, -1)):
 			_on_slot_right_clicked(selected_slot, selected_slot_position)
-
 
 func set_inventory(newInventory: Inventory) -> void:
 	if inventory and inventory.inventory_updated.is_connected(generate_inventory_grid):
@@ -144,6 +179,10 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 				take_entire_item(%InventoryItemDraggable.original_index)
 				add_item_at_index(drag_item, index)
 				%InventoryItemDraggable.visible = false
+				if awaiting_fish_place:
+					awaiting_fish_place = false
+					enabled = false
+					Dialogic.start("inventory_tutorial_knife")
 				return
 			else:
 				# TODO: Add animation to indicate failure
@@ -193,7 +232,11 @@ func _handle_station_right_clicked(selected_station_item: Resource, index: Vecto
 		surrounding_inv_items.append(inventory.items[each_ingred_pos])
 	
 	var matching_recipes = StationController.get_all_matching_recipes(station_name, surrounding_inv_items)
-	build_recipe_context_menu(matching_recipes, surrounding_ingredients, StationController.get_station(station_name), node_position)
+	var context_menu = build_recipe_context_menu(matching_recipes, surrounding_ingredients, StationController.get_station(station_name), node_position)
+	if awaiting_open_recipe_context:
+		Dialogic.start("inventory_tutorial_recipe_context")
+		enabled = false
+		context_menu.enabled = false
 
 func build_item_context_menu(new_position: Vector2) -> void:
 	if has_node("../ItemContextMenu"):
@@ -215,7 +258,7 @@ func build_recipe_context_menu(
 	ingredients: Array[Vector2], 
 	station: Station, 
 	new_position: Vector2
-) -> void:
+) -> Node:
 	if has_node("../RecipeContextMenu"):
 		$"../RecipeContextMenu".queue_free()
 	
@@ -240,8 +283,9 @@ func build_recipe_context_menu(
 	get_parent().add_child(context_menu)
 	context_menu_item_list.grab_focus()
 	context_menu_item_list.select(0)
+	return context_menu
 
-func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Station):
+func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Station):	
 	if last_right_clicked_slot:
 		# call deferred so it is after we regenerate ui
 		last_right_clicked_slot.grab_focus()
@@ -281,6 +325,10 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 	RecipeBookController.recipe_cooked.emit(recipe)
 	if has_node("../RecipeContextMenu"):
 		$"../RecipeContextMenu".queue_free()
+	
+	if awaiting_recipe_clicked:
+		enabled = false
+		Dialogic.start("inventory_tutorial_feed")
 
 func _on_item_context_menu_closed() -> void:
 	if last_right_clicked_slot:

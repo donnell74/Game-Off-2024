@@ -1,0 +1,6 @@
+chef: Here are all my tools and ingredients, looks like I still have a little bit of fish, lets make some Sashimi!
+[signal arg="inventory_tutorial_focus_fish"]
+chef: Here is the fish I caught yesterday, to slice it up for Sashimi I need to move it next to my knife
+Pick up the item with A/X or left click, placing the item with the same action.\
+Press B or ESC to drop the item, returning it back to where you picked it up from.
+[signal arg="inventory_tutorial_awaiting_fish_place"]

@@ -96,6 +96,20 @@ func get_item(index: Vector2) -> Resource:
 
 	return inventory.items[index]
 
+func find_item(item_name: String) -> Vector2:
+	for pos_x in inventory.width:
+		for pos_y in inventory.height:
+			var index = Vector2(pos_x, pos_y)
+			var each_item = inventory.items.get(index, null)
+			if each_item:
+				if each_item is InventoryItemSlotRef:
+					continue
+				
+				if item_name == each_item.name:
+					return index
+	
+	return Vector2(-1, -1)
+
 func take_item(search_name: String) -> Resource:
 	for item_index in range(inventory.capacity):
 		if inventory.items.has(item_index) and inventory.items[item_index].name == search_name:

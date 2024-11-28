@@ -201,9 +201,4 @@ parameters/looping = false
 unique_name_in_owner = true
 stream = ExtResource("4_b6pl7")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-patch_margin_left = 3
-
 [connection signal="pressed" from="ContinueDayButton" to="." method="_on_continue_day_button_pressed"]

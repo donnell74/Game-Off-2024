@@ -38,12 +38,16 @@ directories/dch_directory={
 "chef": "res://Timelines/chef.dch"
 }
 directories/dtl_directory={
-"campfire_tutorial": "res://Timelines/campfire_tutorial.dtl",
+"campfire_tutorial": "res://Timelines/Tutorials/campfire_tutorial.dtl",
 "full_bellies": "res://Timelines/full_bellies.dtl",
 "game_won": "res://Timelines/game_won.dtl",
-"introduction": "res://Timelines/introduction.dtl",
+"introduction": "res://Timelines/Tutorials/introduction.dtl",
 "inventory_full": "res://Timelines/inventory_full.dtl",
-"map_tutorial": "res://Timelines/map_tutorial.dtl",
+"inventory_tutorial": "res://Timelines/Tutorials/inventory_tutorial.dtl",
+"inventory_tutorial_feed": "res://Timelines/Tutorials/inventory_tutorial_feed.dtl",
+"inventory_tutorial_knife": "res://Timelines/Tutorials/inventory_tutorial_knife.dtl",
+"inventory_tutorial_recipe_context": "res://Timelines/Tutorials/inventory_tutorial_recipe_context.dtl",
+"map_tutorial": "res://Timelines/Tutorials/map_tutorial.dtl",
 "party_stat_depleted": "res://Timelines/party_stat_depleted.dtl"
 }
 

@@ -8,12 +8,14 @@
 [ext_resource type="AudioStream" uid="uid://dvdv1th2af6s7" path="res://DownloadAssets/Inventory SFX Bundle/BagClose3.mp3" id="5_7ih2f"]
 
 [node name="InventoryUi" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_f8nx2")
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="Background" type="ColorRect" parent="InventoryCanvas"]
 anchors_preset = 8

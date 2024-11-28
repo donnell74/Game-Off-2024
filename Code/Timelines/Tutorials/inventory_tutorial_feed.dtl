@@ -1,0 +1,3 @@
+chef: The party loves Sashimi, lets feed it to them!
+You can feed an item to your party by Right Clicking it or pressing Y/Triangle when it is selected, then clicking Feed to Party
+[signal arg="inventory_tutorial_focus_sashimi"]
