@@ -5,6 +5,8 @@ signal location_simulation_done
 @export var location : Location
 @export var mobScene : PackedScene = preload("res://MiniGames/Hunting/mob.tscn")
 @export var animals_killed : int = 0
+@export var conversion_to_inventory_rate : int = 5
+@export var rabbit_item : InventoryItem 
 
 var is_mouse_pressed : bool = false
 var cursor_enabled : bool = true
@@ -12,7 +14,7 @@ var cursor_enabled : bool = true
 func _ready() -> void:
 	# For run single scene support
 	if not get_tree().root.has_node("Main"):
-		location = preload("res://Locations/Town/town_no_station.tres")
+		location = preload("res://Locations/Resources/hunting.tres")
 		show_ui()
 	
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
@@ -74,6 +76,8 @@ func _on_game_timer_timeout() -> void:
 	%RabbitsCollectedValueLabel.text = "%d" % animals_killed
 	%Cursor.visible = false
 	cursor_enabled = false
+	for items_to_add in floor(animals_killed % conversion_to_inventory_rate):
+		PlayerInventoryController.add_item(rabbit_item)
 
 func _on_continue_day_button_pressed() -> void:
 	location.currentTimeOfDay = Location.TimeOfDay.END_OF_DAY

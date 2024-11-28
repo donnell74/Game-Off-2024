@@ -20,3 +20,10 @@ light_mask = 0
 visibility_layer = 0
 scale = Vector2(2.5, 2.5)
 shape = SubResource("CircleShape2D_fx3ys")
+
+[node name="DirectionChangeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="DirectionChangeTimer" to="." method="_on_direction_change_timer_timeout"]
