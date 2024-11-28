@@ -40,7 +40,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 			%CanvasLayer.visible = false
 		UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.RECIPE_BOOK_OPEN:
 			# Overlays
-			can_show_settings = !can_show_settings
+			can_show_settings = false
 		UiEvents.UiScene.INVENTORY_CLOSED, UiEvents.UiScene.RECIPE_BOOK_CLOSED, UiEvents.UiScene.SETTINGS_CLOSED:
 			can_show_settings = true
 		UiEvents.UiScene.DISABLE_HOTKEYS, UiEvents.UiScene.ENABLE_HOTKEYS:
@@ -63,6 +63,9 @@ func _on_seed_text_edit_text_changed() -> void:
 
 func _on_skip_cutscenes_check_box_toggled(toggled_on: bool) -> void:
 	Settings.set_skip_cutscenes(toggled_on)
+
+func _on_skip_tutorial_checkbox_toggled(toggled_on: bool) -> void:
+	Settings.set_skip_tutorial(toggled_on)
 
 func _on_close_button_pressed() -> void:
 	_toggle_settings_menu()
