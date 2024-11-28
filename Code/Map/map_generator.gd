@@ -162,9 +162,12 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("ui_accept"):
 		_on_map_node_clicked(currentlyFocusedMapNode)
 	if event.is_action_pressed("Zoom In"):
+		if (%MapCamera.zoom + zoom_change).is_equal_approx(Vector2(1,1)):
+			return
+
 		%MapCamera.zoom += zoom_change
 	if event.is_action_pressed("Zoom Out"):
-		if %MapCamera.zoom.is_equal_approx(Vector2(0,0)):
+		if (%MapCamera.zoom - zoom_change).is_equal_approx(Vector2(0,0)):
 			return
 
 		%MapCamera.zoom -= zoom_change
