@@ -209,6 +209,12 @@ func death_drop(_stat: PartyController.Stats) -> void:
 func get_surrounding_ingredients(starting_index: Vector2, neighbors_already_visited: Array[Vector2] = []) -> Array[Vector2]:
 	var result : Array[Vector2] = []
 	var neighbors = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
+	var starting_index_item = get_item(starting_index)
+	if not starting_index_item:
+		return []
+	
+	if starting_index_item is InventoryItemSlotRef:
+		starting_index_item = starting_index_item.root_node
 	
 	for each_neighbor in neighbors:
 		var each_neighbor_pos = starting_index + each_neighbor
@@ -221,17 +227,25 @@ func get_surrounding_ingredients(starting_index: Vector2, neighbors_already_visi
 			continue
 		
 		if inventory_slot is InventoryItemSlotRef and inventory_slot.root_node_type == InventoryItem.ItemType.STATION:
-			var starting_index_item = get_item(starting_index)
+			# If this neighbor is an slot ref and station with same name, add surrounding items
 			if starting_index_item is InventoryItemSlotRef and starting_index_item.root_node.name != inventory_slot.root_node.name:
 				continue
 			
 			if starting_index_item is InventoryItem and starting_index_item.name != inventory_slot.root_node.name:
 				continue
 			
-			result.append_array(get_surrounding_ingredients(each_neighbor_pos, neighbors_already_visited))
+			for each_surrounding in get_surrounding_ingredients(each_neighbor_pos, neighbors_already_visited):
+				if not result.has(each_surrounding):
+					result.append(each_surrounding)
 		
-		if inventory_slot is InventoryItem and inventory_slot.type == InventoryItem.ItemType.ITEM:
-			result.append(starting_index + each_neighbor)
+		if inventory_slot is InventoryItem:
+			if inventory_slot.type == InventoryItem.ItemType.STATION and starting_index_item.name == inventory_slot.name:
+				for each_surrounding in get_surrounding_ingredients(each_neighbor_pos, neighbors_already_visited):
+					if not result.has(each_surrounding):
+						result.append(each_surrounding)
+		
+			if inventory_slot.type == InventoryItem.ItemType.ITEM:
+				result.append(starting_index + each_neighbor)
 	
 	print("get_surrounding_ingredients for ", starting_index, " is: ", result)
 	return result

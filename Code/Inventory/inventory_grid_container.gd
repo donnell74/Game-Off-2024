@@ -63,8 +63,13 @@ func _on_focus_changed(control: Control) -> void:
 		find_child(_get_slot_name(0, 0), true, false).grab_focus()
 	else:
 		if control.has_method("updated_selected"):
+			_update_station_neighbors(selected_slot, false) # unset old
+			_update_item_refs_to_selected(selected_slot, false)
+
 			selected_slot = control.index
 			selected_slot_position = control.global_position
+			_update_item_refs_to_selected(selected_slot, true)
+			_update_station_neighbors(selected_slot, true)
 		else:
 			# make sure we unselect when leaving the inventory grid
 			selected_slot = Vector2(-1, -1)
@@ -72,12 +77,54 @@ func _on_focus_changed(control: Control) -> void:
 		
 		inventory_slot_selected.emit(selected_slot)
 
+func _update_item_refs_to_selected(selected_slot: Vector2, newSelected: bool) -> void:
+	var selected_item : Resource = null
+	var root_node_index = selected_slot
+	if inventory.items.has(selected_slot):
+		selected_item = get_item(selected_slot)
+		if selected_item is InventoryItemSlotRef:
+			root_node_index = selected_item.root_node_index
+			selected_item = selected_item.root_node
+
+		if selected_item.inventory_height == 1 and selected_item.inventory_width == 1:
+			return
+
+		for pos_x in selected_item.inventory_width:
+			for pos_y in selected_item.inventory_height:
+				var large_item_index = root_node_index + Vector2(pos_x, pos_y)
+				var large_item_refs = find_child(_get_slot_name(large_item_index.x, large_item_index.y), true, false)
+				large_item_refs.root_selected = newSelected
+
+func _update_station_neighbors(index: Vector2, newHover: bool) -> void:
+	var item_at_index = get_item(index)
+	if not item_at_index:
+		return
+	
+	if item_at_index is InventoryItemSlotRef:
+		item_at_index = item_at_index.root_node
+	
+	if item_at_index.type != InventoryItem.ItemType.STATION:
+		return
+
+	var surrounding_ingredients = get_surrounding_ingredients(index)
+	for each_neighbor in surrounding_ingredients:
+		var neighbor_node = find_child(_get_slot_name(each_neighbor.x, each_neighbor.y), true, false)
+		neighbor_node.updated_neighbor_tool_hover(newHover)
+		var neighbor_item = get_item(each_neighbor)
+		if neighbor_item.inventory_height > 1 or neighbor_item.inventory_width > 1:
+			for pos_x in neighbor_item.inventory_width:
+				for pos_y in neighbor_item.inventory_height:
+					var large_item_index = each_neighbor + Vector2(pos_x, pos_y)
+					var large_item_refs = find_child(_get_slot_name(large_item_index.x, large_item_index.y), true, false)
+					large_item_refs.updated_neighbor_tool_hover(newHover)
+
 func _input(event: InputEvent) -> void:
 	if not enabled:
 		return
 	
 	if event.is_action_pressed("ui_cancel"):
 		if not selected_slot.is_equal_approx(Vector2(-1, -1)):
+			add_item_at_index(%InventoryItemDraggable.item, %InventoryItemDraggable.original_index)
 			selected_slot = Vector2(-1, -1)
 			%InventoryItemDraggable.visible = false
 			generate_inventory_grid()
@@ -179,7 +226,7 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 				drag_item = drag_item.root_node
 			
 			if can_place_item(index, drag_item):
-				add_item_at_index(drag_item, index)
+				add_item_at_index(drag_item, index)				
 				%InventoryItemDraggable.visible = false
 				if awaiting_fish_place:
 					awaiting_fish_place = false
@@ -187,8 +234,11 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 					Dialogic.start("inventory_tutorial_knife")
 				return
 			elif can_replace_item(index, drag_item):
-				var item_at_index = take_entire_item(index)
 				%InventoryItemDraggable.original_index = index
+				if get_item(index) is InventoryItemSlotRef:
+					%InventoryItemDraggable.original_index = get_item(index).root_node_index
+
+				var item_at_index = take_entire_item(index)
 				%InventoryItemDraggable.item = item_at_index
 				%InventoryItemDraggable.update()
 				add_item_at_index(drag_item, index)
@@ -198,7 +248,13 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 				print("Unable to place at index: ", index, " Item: ", drag_item)
 				return
 		
-		var item_at_index = take_entire_item(index)
+		%InventoryItemDraggable.original_index = index
+		var item_at_index = get_item(index)
+		if item_at_index is InventoryItemSlotRef:
+			%InventoryItemDraggable.original_index = item_at_index.root_node_index
+
+		_update_item_refs_to_selected(%InventoryItemDraggable.original_index, false)		
+		item_at_index = take_entire_item(index)
 		if not item_at_index:
 			return
 
@@ -207,9 +263,7 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 			item_at_index = item_at_index.root_node
 		
 		%InventoryItemDraggable.visible = true
-		%InventoryItemDraggable.original_index = index
 		%InventoryItemDraggable.item = item_at_index
-		
 		%InventoryItemDraggable.update()
 	else:
 		shop_mode_item_clicked.emit(index)
