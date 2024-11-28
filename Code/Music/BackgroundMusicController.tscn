@@ -35,6 +35,8 @@ soundtrack = Array[ExtResource("2_d0bbk")]([ExtResource("3_wl36h"), ExtResource(
 [node name="BgMusicPlayer" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 volume_db = -5.0
+max_distance = 1e+18
+attenuation = 0.01
 bus = &"Music"
 
 [node name="SongCanvasLayer" type="CanvasLayer" parent="."]

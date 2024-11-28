@@ -34,12 +34,13 @@ custom_minimum_size = Vector2(1280, 800)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -640.0
-offset_top = -400.0
-offset_right = 640.0
-offset_bottom = 400.0
+offset_left = -3200.0
+offset_top = -2000.0
+offset_right = -1920.0
+offset_bottom = -1200.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(5, 5)
 color = Color(0.647059, 0.713726, 0.552941, 1)
 
 [node name="MapNodeTemplate" parent="." instance=ExtResource("4_aegn2")]
