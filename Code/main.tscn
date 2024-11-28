@@ -18,7 +18,6 @@ startingScene = 5
 visible = false
 
 [node name="InventoryUi" parent="." instance=ExtResource("2_xny2q")]
-visible = false
 
 [node name="RecipeBookUI" parent="." instance=ExtResource("8_lg1d1")]
 

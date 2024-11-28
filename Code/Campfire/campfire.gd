@@ -59,7 +59,8 @@ func _get_continue_day_text() -> String:
 func _on_dialogic_signal_event(event: String) -> void:
 	match event:
 		"introduction_done":
-			Dialogic.start("campfire_tutorial")
+			if not Settings.skip_cutscenes:
+				Dialogic.start("campfire_tutorial")
 		"tutorial_location_details_open":
 			%LocationStatsHighlight.visible = true
 		"tutorial_location_details_done":

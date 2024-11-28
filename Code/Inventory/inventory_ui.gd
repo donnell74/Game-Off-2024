@@ -16,7 +16,7 @@ func _toggle_inventory() -> void:
 		%InventoryOpenSound.play()
 		%CloseButton.grab_focus()
 		%InventoryGridContainer.enabled = true
-		if first_scene_visit:
+		if first_scene_visit and not Settings.skip_cutscenes:
 			enabled = false
 			%InventoryGridContainer.enabled = false
 			first_scene_visit = false

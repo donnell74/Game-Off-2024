@@ -45,7 +45,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		UiEvents.UiScene.MAP:
 			enabled = true
 			show_map()
-			if first_scene_visit:
+			if first_scene_visit and not Settings.skip_cutscenes:
 				enabled = false
 				first_scene_visit = false
 				Dialogic.start("map_tutorial")
@@ -164,7 +164,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Zoom In"):
 		%MapCamera.zoom += zoom_change
 	if event.is_action_pressed("Zoom Out"):
-		if %MapCamera.zoom == 0:
+		if %MapCamera.zoom.is_equal_approx(Vector2(0,0)):
 			return
 
 		%MapCamera.zoom -= zoom_change

@@ -237,6 +237,7 @@ func _handle_station_right_clicked(selected_station_item: Resource, index: Vecto
 		Dialogic.start("inventory_tutorial_recipe_context")
 		enabled = false
 		context_menu.enabled = false
+		awaiting_open_recipe_context = false
 
 func build_item_context_menu(new_position: Vector2) -> void:
 	if has_node("../ItemContextMenu"):

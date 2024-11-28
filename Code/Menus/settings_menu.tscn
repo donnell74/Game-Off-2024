@@ -115,6 +115,16 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../SeedTextEdit")
 focus_neighbor_bottom = NodePath("../VeganCheckBox")
 
+[node name="SkipTutorial" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
+layout_mode = 2
+theme = ExtResource("2_3npvl")
+text = "Skip Tutorial"
+
+[node name="SkipTutorialCheckbox" type="CheckBox" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../SeedTextEdit")
+focus_neighbor_bottom = NodePath("../VeganCheckBox")
+
 [node name="VeganLabel" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
 layout_mode = 2
 theme = ExtResource("2_3npvl")
@@ -225,6 +235,7 @@ one_shot = true
 [connection signal="value_changed" from="CanvasLayer/SettingsControl/SettingsGridContainer/SfxHSlider" to="." method="_on_sfx_h_slider_value_changed"]
 [connection signal="text_changed" from="CanvasLayer/SettingsControl/SettingsGridContainer/SeedTextEdit" to="." method="_on_seed_text_edit_text_changed"]
 [connection signal="toggled" from="CanvasLayer/SettingsControl/SettingsGridContainer/SkipCutscenesCheckBox" to="." method="_on_skip_cutscenes_check_box_toggled"]
+[connection signal="toggled" from="CanvasLayer/SettingsControl/SettingsGridContainer/SkipTutorialCheckbox" to="." method="_on_skip_tutorial_checkbox_toggled"]
 [connection signal="toggled" from="CanvasLayer/SettingsControl/SettingsGridContainer/VeganCheckBox" to="." method="_on_vegan_check_box_toggled"]
 [connection signal="pressed" from="CanvasLayer/SettingsControl/Buttons/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SettingsControl/Buttons/QuitToMainMenuButton" to="." method="_on_quit_to_main_menu_button_pressed"]
