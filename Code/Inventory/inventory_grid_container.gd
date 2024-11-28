@@ -96,13 +96,10 @@ func _update_item_refs_to_selected(selected_slot: Vector2, newSelected: bool) ->
 				large_item_refs.root_selected = newSelected
 
 func _update_station_neighbors(index: Vector2, newHover: bool) -> void:
-	var item_at_index = get_item(index)
+	var item_at_index = get_item_deref(index)
 	if not item_at_index:
 		return
-	
-	if item_at_index is InventoryItemSlotRef:
-		item_at_index = item_at_index.root_node
-	
+		
 	if item_at_index.type != InventoryItem.ItemType.STATION:
 		return
 
@@ -221,9 +218,7 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 
 	if not shop_mode:
 		if %InventoryItemDraggable.visible:
-			var drag_item = %InventoryItemDraggable.item
-			if drag_item is InventoryItemSlotRef:
-				drag_item = drag_item.root_node
+			var drag_item = %InventoryItemDraggable.item.deref()
 			
 			if can_place_item(index, drag_item):
 				add_item_at_index(drag_item, index)				
@@ -259,9 +254,6 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 			return
 
 		selected_slot = index
-		if item_at_index is InventoryItemSlotRef:
-			item_at_index = item_at_index.root_node
-		
 		%InventoryItemDraggable.visible = true
 		%InventoryItemDraggable.item = item_at_index
 		%InventoryItemDraggable.update()

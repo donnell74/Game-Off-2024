@@ -16,6 +16,9 @@ enum ItemType {
 @export var inventory_width : int = 1
 @export var inventory_height : int = 1
 
+func deref() -> InventoryItem:
+	return self
+
 func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
 	if not other:
 		return false
