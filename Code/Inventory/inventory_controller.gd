@@ -90,6 +90,18 @@ func can_place_item(index: Vector2, item: InventoryItem) -> bool:
 	
 	return true
 
+func can_replace_item(index: Vector2, item: InventoryItem) -> bool:
+	if not item:
+		return false
+	
+	if item.inventory_height > 1 or item.inventory_width > 1:
+		return false
+	
+	if not inventory.items.has(index):
+		return false
+	
+	return true
+
 func get_item(index: Vector2) -> Resource:
 	if not inventory.items.has(index):
 		return null

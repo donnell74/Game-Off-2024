@@ -169,14 +169,16 @@ func set_focus_neighbors() -> void:
 					rootSlot.set_focus_neighbor(SIDE_BOTTOM, %CloseButton.get_path())
 
 func _on_inventory_item_slot_clicked(index: Vector2) -> void:
+	if has_node("../ItemContextMenu") or has_node("../RecipeContextMenu"):
+		return
+
 	if not shop_mode:
 		if %InventoryItemDraggable.visible:
-			var drag_item = get_item(%InventoryItemDraggable.original_index)
+			var drag_item = %InventoryItemDraggable.item
 			if drag_item is InventoryItemSlotRef:
 				drag_item = drag_item.root_node
 			
 			if can_place_item(index, drag_item):
-				take_entire_item(%InventoryItemDraggable.original_index)
 				add_item_at_index(drag_item, index)
 				%InventoryItemDraggable.visible = false
 				if awaiting_fish_place:
@@ -184,12 +186,19 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 					enabled = false
 					Dialogic.start("inventory_tutorial_knife")
 				return
+			elif can_replace_item(index, drag_item):
+				var item_at_index = take_entire_item(index)
+				%InventoryItemDraggable.original_index = index
+				%InventoryItemDraggable.item = item_at_index
+				%InventoryItemDraggable.update()
+				add_item_at_index(drag_item, index)
+				return
 			else:
 				# TODO: Add animation to indicate failure
 				print("Unable to place at index: ", index, " Item: ", drag_item)
 				return
 		
-		var item_at_index = get_item(index)
+		var item_at_index = take_entire_item(index)
 		if not item_at_index:
 			return
 
@@ -268,6 +277,7 @@ func build_recipe_context_menu(
 	context_menu.recipes = recipes
 	context_menu.neighbors = ingredients
 	context_menu.station = station
+	context_menu.enabled = true
 	context_menu.recipe_selected.connect(_on_recipe_selected)
 
 	if recipes.size() == 0:
