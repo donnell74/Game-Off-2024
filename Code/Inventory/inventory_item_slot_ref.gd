@@ -5,6 +5,9 @@ class_name InventoryItemSlotRef
 @export var root_node_index : Vector2
 @export var root_node_type : InventoryItem.ItemType
 
+func deref() -> InventoryItem:
+	return root_node
+
 func save() -> Dictionary:
 	var save_map = {
 		"root_node": root_node.save(),

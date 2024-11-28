@@ -102,6 +102,13 @@ func can_replace_item(index: Vector2, item: InventoryItem) -> bool:
 	
 	return true
 
+func get_item_deref(index: Vector2) -> InventoryItem:
+	var item = get_item(index)
+	if item:
+		return item.deref()
+	
+	return null
+
 func get_item(index: Vector2) -> Resource:
 	if not inventory.items.has(index):
 		return null
@@ -209,12 +216,9 @@ func death_drop(_stat: PartyController.Stats) -> void:
 func get_surrounding_ingredients(starting_index: Vector2, neighbors_already_visited: Array[Vector2] = []) -> Array[Vector2]:
 	var result : Array[Vector2] = []
 	var neighbors = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
-	var starting_index_item = get_item(starting_index)
+	var starting_index_item = get_item_deref(starting_index)
 	if not starting_index_item:
 		return []
-	
-	if starting_index_item is InventoryItemSlotRef:
-		starting_index_item = starting_index_item.root_node
 	
 	for each_neighbor in neighbors:
 		var each_neighbor_pos = starting_index + each_neighbor
