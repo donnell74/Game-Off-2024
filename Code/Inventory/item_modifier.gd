@@ -13,7 +13,7 @@ static func from_values(_health: float, _stamina: float, _strength: float) -> It
 	return result
 
 func _to_string() -> String:
-	return "Health: %f, Stamina: %f, Strength: %f" % [health, stamina, strength]
+	return "Health: %f\nStamina: %f\nStrength: %f" % [health, stamina, strength]
 
 func add(other: ItemModifier) -> ItemModifier:
 	if !other:

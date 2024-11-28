@@ -19,6 +19,9 @@ enum ItemType {
 func deref() -> InventoryItem:
 	return self
 
+func _to_string() -> String:
+	return "Name: %s\nModifiers:\n%s" % [name, modifiers.to_string()]
+
 func equals(other: InventoryItem, ignoreModifier: bool) -> bool:
 	if not other:
 		return false

@@ -29,6 +29,8 @@ func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	_do_generate_inventory_grid()
 	Dialogic.signal_event.connect(_on_dialogic_signal_event)
+	%ItemDetailsOverlay.set_inventory(inventory)
+	%ItemDetailsOverlay.set_inventory_slot_clicked_signal(self.inventory_slot_selected)
 
 func _on_dialogic_signal_event(event: String) -> void:
 	match event:
