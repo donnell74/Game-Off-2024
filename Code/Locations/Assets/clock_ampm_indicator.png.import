@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x8afrg73tq5q"
-path="res://.godot/imported/foraging.jpeg-7c8660d1a1edcb360d30d02449a81686.ctex"
+uid="uid://cpmxv3re8vyyy"
+path="res://.godot/imported/clock_ampm_indicator.png-1c10fd335cd29c3da5fbd006348e9dde.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://DownloadAssets/Need to replace/foraging.jpeg"
-dest_files=["res://.godot/imported/foraging.jpeg-7c8660d1a1edcb360d30d02449a81686.ctex"]
+source_file="res://Locations/Assets/clock_ampm_indicator.png"
+dest_files=["res://.godot/imported/clock_ampm_indicator.png-1c10fd335cd29c3da5fbd006348e9dde.ctex"]
 
 [params]
 

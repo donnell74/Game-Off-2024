@@ -1,0 +1,94 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxxqfjkmn5hsp"]
+
+[ext_resource type="Texture2D" uid="uid://mejl6545gcok" path="res://Locations/Assets/clock.png" id="1_j7cnq"]
+[ext_resource type="Script" path="res://Locations/clock.gd" id="1_wjg6v"]
+[ext_resource type="FontFile" uid="uid://f0qkbfc5ff2c" path="res://DownloadAssets/Sprout Lands - UI Pack - Premium pack/fonts/pixelFont-7-8x14-sproutLands.ttf" id="2_7yxmg"]
+[ext_resource type="Texture2D" uid="uid://cpmxv3re8vyyy" path="res://Locations/Assets/clock_ampm_indicator.png" id="3_41b3r"]
+
+[node name="Clock" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_wjg6v")
+indicator_on_color = Color(0.835294, 0, 0.0705882, 1)
+indicator_off_color = Color(0.247059, 0.121569, 0.113725, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="ClockTexture" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -298.0
+offset_top = -150.0
+offset_right = 302.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_j7cnq")
+
+[node name="TimeForegroundLabel" type="Label" parent="CanvasLayer/ClockTexture"]
+unique_name_in_owner = true
+offset_left = 177.0
+offset_top = 93.0
+offset_right = 510.0
+offset_bottom = 219.0
+theme_override_colors/font_color = Color(0.834541, 0, 0.0713438, 1)
+theme_override_fonts/font = ExtResource("2_7yxmg")
+theme_override_font_sizes/font_size = 140
+text = "12:34"
+
+[node name="TimeBackgroundLabel" type="Label" parent="CanvasLayer/ClockTexture"]
+offset_left = 177.0
+offset_top = 93.0
+offset_right = 510.0
+offset_bottom = 219.0
+theme_override_colors/font_color = Color(1, 0.498039, 0.454902, 0.247059)
+theme_override_fonts/font = ExtResource("2_7yxmg")
+theme_override_font_sizes/font_size = 140
+text = "88:88"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ClockTexture"]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 94.0
+offset_right = 168.0
+offset_bottom = 209.0
+columns = 2
+
+[node name="AmLabel" type="Label" parent="CanvasLayer/ClockTexture/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.834541, 0, 0.0713438, 1)
+theme_override_fonts/font = ExtResource("2_7yxmg")
+theme_override_font_sizes/font_size = 30
+text = "AM"
+
+[node name="AmIndicator" type="TextureRect" parent="CanvasLayer/ClockTexture/GridContainer"]
+unique_name_in_owner = true
+modulate = Color(0.835294, 0, 0.0705882, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_41b3r")
+
+[node name="PmLabel" type="Label" parent="CanvasLayer/ClockTexture/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.834541, 0, 0.0713438, 1)
+theme_override_fonts/font = ExtResource("2_7yxmg")
+theme_override_font_sizes/font_size = 30
+text = "PM"
+
+[node name="PmIndicator" type="TextureRect" parent="CanvasLayer/ClockTexture/GridContainer"]
+unique_name_in_owner = true
+modulate = Color(0.247059, 0.121569, 0.113725, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_41b3r")
+
+[node name="ClockTickTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="ClockTickTimer" to="." method="_on_clock_tick_timer_timeout"]
