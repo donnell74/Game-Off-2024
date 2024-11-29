@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pevr20se2l50"
-path="res://.godot/imported/hunting_activity_background.jpeg-570380f86e2fb4cecd94963c1a49f550.ctex"
+uid="uid://mejl6545gcok"
+path="res://.godot/imported/clock.png-141336d2cd001201f80c66b887256354.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://DownloadAssets/Need to replace/hunting_activity_background.jpeg"
-dest_files=["res://.godot/imported/hunting_activity_background.jpeg-570380f86e2fb4cecd94963c1a49f550.ctex"]
+source_file="res://Locations/Assets/clock.png"
+dest_files=["res://.godot/imported/clock.png-141336d2cd001201f80c66b887256354.ctex"]
 
 [params]
 

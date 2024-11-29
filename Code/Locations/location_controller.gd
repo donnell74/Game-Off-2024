@@ -35,6 +35,8 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 func hide_ui() -> void:
 	visible = false
 	%CanvasLayer.visible = false
+	%Clock.visible = false
+	%Clock.update_ui()
 
 func show_ui() -> void:
 	visible = true
@@ -51,6 +53,9 @@ func _on_advance_day() -> void:
 		_on_timer_timeout()
 	else:
 		$Timer.start(2)
+		%Clock.visible = true
+		%Clock.set_new_goal_hour()
+		%Clock.update_ui()
 
 func _on_timer_timeout() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)

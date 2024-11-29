@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Locations/location_controller.gd" id="1_osbva"]
 [ext_resource type="Resource" uid="uid://sde5dvd0tsdi" path="res://Locations/Dungeon/slime_king_dungeon.tres" id="2_7llln"]
-[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="3_51vow"]
+[ext_resource type="PackedScene" uid="uid://dxxqfjkmn5hsp" path="res://Locations/clock.tscn" id="4_b4x3k"]
 
 [sub_resource type="Animation" id="Animation_xyfy4"]
 length = 0.001
@@ -72,23 +72,6 @@ grow_vertical = 2
 expand_mode = 2
 stretch_mode = 1
 
-[node name="SimulationRunningLabel" type="Label" parent="CanvasLayer"]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -396.0
-offset_top = -51.5
-offset_right = 396.0
-offset_bottom = 51.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_51vow")
-theme_override_font_sizes/font_size = 75
-text = "Simulation Running ..."
-
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
@@ -98,5 +81,9 @@ libraries = {
 }
 autoplay = "background"
 speed_scale = 0.2
+
+[node name="Clock" parent="." instance=ExtResource("4_b4x3k")]
+unique_name_in_owner = true
+visible = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
