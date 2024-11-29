@@ -112,6 +112,7 @@ unique_name_in_owner = true
 visible = false
 z_index = 1
 custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 66.0

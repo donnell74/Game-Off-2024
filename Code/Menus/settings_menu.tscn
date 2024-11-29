@@ -60,7 +60,7 @@ focus_neighbor_top = NodePath("../../Buttons/CloseButton")
 focus_neighbor_bottom = NodePath("../MusicHSlider")
 theme = ExtResource("2_3npvl")
 max_value = 1.0
-step = 0.001
+step = 0.1
 
 [node name="MusicLabel" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
 layout_mode = 2
@@ -74,7 +74,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../MasterHSlider")
 focus_neighbor_bottom = NodePath("../SfxHSlider")
 max_value = 1.0
-step = 0.001
+step = 0.1
 
 [node name="MusicLabel2" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
 layout_mode = 2
@@ -88,7 +88,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../MusicHSlider")
 focus_neighbor_bottom = NodePath("../SeedTextEdit")
 max_value = 1.0
-step = 0.001
+step = 0.1
 
 [node name="SeedLabel" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
 layout_mode = 2
@@ -113,7 +113,7 @@ text = "Skip Cutscenes"
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../SeedTextEdit")
-focus_neighbor_bottom = NodePath("../VeganCheckBox")
+focus_neighbor_bottom = NodePath("../SkipTutorialCheckbox")
 
 [node name="SkipTutorial" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
 layout_mode = 2
@@ -121,8 +121,9 @@ theme = ExtResource("2_3npvl")
 text = "Skip Tutorial"
 
 [node name="SkipTutorialCheckbox" type="CheckBox" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../SeedTextEdit")
+focus_neighbor_top = NodePath("../SkipCutscenesCheckBox")
 focus_neighbor_bottom = NodePath("../VeganCheckBox")
 
 [node name="VeganLabel" type="Label" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
@@ -131,8 +132,9 @@ theme = ExtResource("2_3npvl")
 text = "Vegan"
 
 [node name="VeganCheckBox" type="CheckBox" parent="CanvasLayer/SettingsControl/SettingsGridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../SkipCutscenesCheckBox")
+focus_neighbor_top = NodePath("../SkipTutorialCheckbox")
 focus_neighbor_bottom = NodePath("../../Buttons/CloseButton")
 
 [node name="Buttons" type="GridContainer" parent="CanvasLayer/SettingsControl"]

@@ -29,7 +29,7 @@ func _ready() -> void:
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	_do_generate_inventory_grid()
 	Dialogic.signal_event.connect(_on_dialogic_signal_event)
-	%ItemDetailsOverlay.set_inventory(inventory)
+	%ItemDetailsOverlay.set_inventory(inventory)	
 	%ItemDetailsOverlay.set_inventory_slot_clicked_signal(self.inventory_slot_selected)
 
 func _on_dialogic_signal_event(event: String) -> void:
@@ -121,17 +121,17 @@ func _input(event: InputEvent) -> void:
 	if not enabled:
 		return
 	
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_released("ui_cancel"):
 		if not selected_slot.is_equal_approx(Vector2(-1, -1)):
 			add_item_at_index(%InventoryItemDraggable.item, %InventoryItemDraggable.original_index)
 			selected_slot = Vector2(-1, -1)
 			%InventoryItemDraggable.visible = false
 			generate_inventory_grid()
 	
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_released("ui_accept"):
 		_on_inventory_item_slot_clicked(selected_slot)
 	
-	if event.is_action_pressed("Action Selected"):
+	if event.is_action_released("Action Selected"):
 		if not selected_slot.is_equal_approx(Vector2(-1, -1)):
 			_on_slot_right_clicked(selected_slot, selected_slot_position)
 
@@ -196,6 +196,10 @@ func set_focus_neighbors() -> void:
 			#                     V
 			#              (pos_x, pos_y + 1)
 			var rootSlot = find_child(_get_slot_name(pos_x, pos_y), true, false)
+			if pos_y == 0:
+				if shop_mode:
+					rootSlot.set_focus_neighbor(SIDE_TOP, get_node(focus_neighbor_top).get_path())
+
 			if pos_x != 0:
 				var neighbor = find_child(_get_slot_name(pos_x - 1, pos_y), true, false)
 				rootSlot.set_focus_neighbor(SIDE_LEFT, neighbor.get_path())
@@ -387,6 +391,7 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 	
 	if awaiting_recipe_clicked:
 		enabled = false
+		awaiting_recipe_clicked = false
 		Dialogic.start("inventory_tutorial_feed")
 
 func _on_item_context_menu_closed() -> void:

@@ -151,6 +151,9 @@ func take_entire_item(starting_index: Vector2) -> InventoryItem:
 		starting_index = current_item.root_node_index
 
 	current_item = take_item_index(starting_index)
+	if not current_item:
+		return null
+
 	result = current_item
 	var starting_name = current_item.name
 	for neighbor in neighbors:
