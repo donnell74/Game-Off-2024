@@ -1,0 +1,132 @@
+[gd_scene load_steps=5 format=3 uid="uid://c60gm3umevuqk"]
+
+[ext_resource type="Script" path="res://Map/map_details_overlay.gd" id="1_gkwrx"]
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="2_h58a0"]
+[ext_resource type="Texture2D" uid="uid://cui56gkpy2e5v" path="res://DownloadAssets/Sprout Lands - UI Pack - Premium pack/UI Sprites/Icons/special icons/stars.png" id="3_lbo7d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71sc1"]
+atlas = ExtResource("3_lbo7d")
+region = Rect2(32, 16, 16, 16)
+
+[node name="MapDetailsOverlay" type="Control"]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 300.0
+script = ExtResource("1_gkwrx")
+metadata/_edit_vertical_guides_ = [18.0]
+metadata/_edit_horizontal_guides_ = [170.0]
+
+[node name="Shadow" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0927129, 0.112281, 0.0636045, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.843137, 0.505882, 0.345098, 1)
+
+[node name="DetailsContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 150.0
+
+[node name="LocationNameLabel" type="Label" parent="DetailsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("2_h58a0")
+text = "Hello"
+
+[node name="HealthContainer" type="GridContainer" parent="DetailsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 7
+
+[node name="HealthLabel" type="Label" parent="DetailsContainer/HealthContainer"]
+layout_mode = 2
+theme = ExtResource("2_h58a0")
+text = "Health"
+
+[node name="StarTextureRect" type="TextureRect" parent="DetailsContainer/HealthContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_71sc1")
+
+[node name="StaminaContainer" type="GridContainer" parent="DetailsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 7
+
+[node name="StaminaLabel" type="Label" parent="DetailsContainer/StaminaContainer"]
+layout_mode = 2
+theme = ExtResource("2_h58a0")
+text = "Stamina"
+
+[node name="TextureRect" type="TextureRect" parent="DetailsContainer/StaminaContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_71sc1")
+
+[node name="StrengthContainer" type="GridContainer" parent="DetailsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 7
+
+[node name="StaminaLabel" type="Label" parent="DetailsContainer/StrengthContainer"]
+layout_mode = 2
+theme = ExtResource("2_h58a0")
+text = "Strength"
+
+[node name="TextureRect" type="TextureRect" parent="DetailsContainer/StrengthContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_71sc1")
+
+[node name="RewardItemsContainer" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = 20.0
+offset_top = 150.0
+offset_right = 280.0
+offset_bottom = 380.0
+columns = 4
+
+[node name="RewardTextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(64, 64)
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 66.0
+offset_bottom = 66.0
+texture = SubResource("AtlasTexture_71sc1")
+
+[node name="Background" type="ColorRect" parent="RewardTextureRect"]
+z_index = -1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StarTextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+texture = SubResource("AtlasTexture_71sc1")

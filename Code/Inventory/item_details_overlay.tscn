@@ -113,4 +113,5 @@ texture = SubResource("AtlasTexture_71sc1")
 [node name="StarTextureRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 texture = SubResource("AtlasTexture_71sc1")

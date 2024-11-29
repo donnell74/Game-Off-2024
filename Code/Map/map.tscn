@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://di34kvc0uchpb"]
+[gd_scene load_steps=12 format=3 uid="uid://di34kvc0uchpb"]
 
 [ext_resource type="Script" path="res://Map/map_generator.gd" id="1_ht3iq"]
 [ext_resource type="Script" path="res://Locations/location.gd" id="2_co2yx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://6yu2tnvetura" path="res://Locations/Resources/foraging.tres" id="6_26ymd"]
 [ext_resource type="Resource" uid="uid://t8w2wc3ir3bf" path="res://Locations/Town/town_no_station.tres" id="7_0mwv8"]
 [ext_resource type="Resource" uid="uid://bu26e8x4vhnut" path="res://Locations/Bosses/goblin_king.tres" id="7_qphax"]
+[ext_resource type="PackedScene" uid="uid://c60gm3umevuqk" path="res://Map/map_details_overlay.tscn" id="9_vriqf"]
 [ext_resource type="AudioStream" uid="uid://h0sje632f2nd" path="res://DownloadAssets/Inventory SFX Bundle/TurnPage4.mp3" id="10_0h7bd"]
 
 [node name="Map" type="Control" node_paths=PackedStringArray("mapNodeScene", "pathLineTemplateScene") groups=["persist"]]
@@ -42,6 +43,21 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(5, 5)
 color = Color(0.647059, 0.713726, 0.552941, 1)
+
+[node name="MapDetailsOverlay" parent="MapCamera" instance=ExtResource("9_vriqf")]
+unique_name_in_owner = true
+z_index = 3
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 311.0
+offset_top = -129.0
+offset_right = 536.0
+offset_bottom = 171.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="MapNodeTemplate" parent="." instance=ExtResource("4_aegn2")]
 visible = false
