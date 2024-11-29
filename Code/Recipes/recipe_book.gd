@@ -38,7 +38,7 @@ func array_count_item(left: Array[InventoryItem], item: InventoryItem, ignoreMod
 	
 	return count
 
-func array_contains_item(left: Array[InventoryItem], item: InventoryItem, ignoreModifiers: bool) -> bool:
+static func array_contains_item(left: Array[InventoryItem], item: InventoryItem, ignoreModifiers: bool) -> bool:
 	for each_left in left:
 		if each_left.equals(item, ignoreModifiers):
 			return true

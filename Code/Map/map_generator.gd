@@ -39,6 +39,9 @@ func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
 	Settings.setting_vegan_changed.connect(_on_setting_vegan_changed)
 	Dialogic.signal_event.connect(_on_dialogic_signal_event)
+	if not has_node("/root/Main"):
+		generate_map()
+		_on_active_ui_changed(UiEvents.UiScene.MAP)
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
@@ -74,6 +77,7 @@ func _on_focus_changed(control: Control) -> void:
 		%MapMovementSound.play()
 		currentlyFocusedMapNode = control
 		currentlyFocusedMapNode.find_child("SelectedIndicator").visible = true
+		%MapDetailsOverlay.updated_selected(control.location)
 
 func _on_setting_vegan_changed(new: bool) -> void:
 	if new:
