@@ -11,7 +11,7 @@ func _ready() -> void:
 	# For run single scene support
 	if not get_tree().root.has_node("Main"):
 		location = preload("res://Locations/Town/town_no_station.tres")
-		update_ui()
+		show_ui()
 
 	if !location:
 		print("No location data found, showing blank screen...")
@@ -43,7 +43,10 @@ func hide_ui() -> void:
 func show_ui() -> void:
 	visible = true
 	%CanvasLayer.visible = true
+	%ContinueButton.grab_focus()
 	update_ui()
+	%ItemDetailsOverlay.set_inventory(%ShopInventoryGridContainer.inventory)
+	%ShopInventoryGridContainer.enabled = true
 
 func update_ui() -> void:
 	_on_party_currency_changed()
@@ -64,12 +67,20 @@ func _on_buy_menu_button_pressed() -> void:
 	%SaleMenuButton.disabled = false
 	%PlayerInventoryGridContainer.visible = false
 	%ShopInventoryGridContainer.visible = true
+	%PlayerInventoryGridContainer.enabled = false
+	%ShopInventoryGridContainer.enabled = true
+	%ContinueButton.focus_neighbor_top = %ShopInventoryGridContainer.get_path()
+	%ItemDetailsOverlay.set_inventory(%ShopInventoryGridContainer.inventory)
 
 func _on_sale_menu_button_pressed() -> void:
 	%BuyMenuButton.disabled = false
 	%SaleMenuButton.disabled = true
 	%PlayerInventoryGridContainer.visible = true
 	%ShopInventoryGridContainer.visible = false
+	%PlayerInventoryGridContainer.enabled = true
+	%ShopInventoryGridContainer.enabled = false
+	%ContinueButton.focus_neighbor_top = %PlayerInventoryGridContainer.get_path()
+	%ItemDetailsOverlay.set_inventory(%PlayerInventoryGridContainer.inventory)
 
 func _on_shop_inventory_item_list_item_selected(index: int) -> void:
 	print("_on_shop_inventory_item_list_item_selected: ", index)
@@ -87,26 +98,42 @@ func _on_player_inventory_grid_container_shop_mode_item_clicked(index: Vector2) 
 	selected_item_index = index
 	selected_item = %PlayerInventoryGridContainer.get_item(index)
 	if selected_item:
+		%PlayerInventoryGridContainer.enabled = false
+		%ItemDetailsOverlay.visible = false
 		%BuySaleContextMenu.visible = true
+		%BuySaleContextMenu.find_child("YesButton").grab_focus()
 		%BuySaleContextMenu.get_node("Label").text = "Do you want to sell %s for %d gold?" % [selected_item.name, selected_item.value]
 
 func _on_shop_inventory_grid_container_shop_mode_item_clicked(index: Vector2) -> void:
 	selected_item_index = index
 	selected_item = %ShopInventoryGridContainer.get_item(index)
 	if selected_item:
+		%ShopInventoryGridContainer.enabled = false
+		%ItemDetailsOverlay.visible = false
 		%BuySaleContextMenu.visible = true
+		%BuySaleContextMenu.find_child("YesButton").grab_focus()
 		%BuySaleContextMenu.get_node("Label").text = "Do you want to buy %s for %d gold?" % [selected_item.name, selected_item.value]
 
 func _on_no_button_pressed() -> void:
 	%BuySaleContextMenu.visible = false
+	%ItemDetailsOverlay.visible = true
+	if %PlayerInventoryGridContainer.visible:
+		%PlayerInventoryGridContainer.grab_focus()
+	else:
+		%ShopInventoryGridContainer.grab_focus()
 
 func _on_yes_button_pressed() -> void:
 	%BuySaleContextMenu.visible = false
+	%ItemDetailsOverlay.visible = true
 	if %PlayerInventoryGridContainer.visible:
-		var item_to_sell = %PlayerInventoryGridContainer.take_item_index(selected_item_index)
+		var item_to_sell = %PlayerInventoryGridContainer.take_entire_item(selected_item_index)
+		%PlayerInventoryGridContainer.enabled = true
 		%ShopInventoryGridContainer.add_item(item_to_sell)
+		%PlayerInventoryGridContainer.grab_focus()
 		PartyController.increment_currency(item_to_sell.value)
 	else:
-		var item_to_buy = %ShopInventoryGridContainer.take_item_index(selected_item_index)
+		var item_to_buy = %ShopInventoryGridContainer.take_entire_item(selected_item_index)
+		%ShopInventoryGridContainer.enabled = true
 		%PlayerInventoryGridContainer.add_item(item_to_buy)
+		%ShopInventoryGridContainer.grab_focus()
 		PartyController.decrement_currency(item_to_buy.value)

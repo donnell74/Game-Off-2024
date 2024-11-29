@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmo63pfwqd4sd"]
+[gd_scene load_steps=6 format=3 uid="uid://dmo63pfwqd4sd"]
 
 [ext_resource type="Script" path="res://Locations/shop.gd" id="1_6ddx6"]
 [ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_n0al8"]
 [ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="2_ouimn"]
 [ext_resource type="PackedScene" uid="uid://3eackcsg606g" path="res://Locations/buy_sale_context_menu.tscn" id="2_y8uoq"]
+[ext_resource type="PackedScene" uid="uid://dco2guxliehnh" path="res://Inventory/item_details_overlay.tscn" id="5_wol57"]
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -49,6 +50,7 @@ offset_left = 915.0
 offset_top = 566.0
 offset_right = 1085.0
 offset_bottom = 597.0
+focus_neighbor_top = NodePath("../InventoriesContainer/ShopInventoryGridContainer")
 text = "Continue to next day"
 
 [node name="InventoriesContainer" type="Control" parent="CanvasLayer"]
@@ -60,6 +62,7 @@ offset_right = 1071.0
 offset_bottom = 506.0
 
 [node name="MenuButtonsGrid" type="GridContainer" parent="CanvasLayer/InventoriesContainer"]
+custom_minimum_size = Vector2(192, 48)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -67,32 +70,42 @@ columns = 2
 
 [node name="BuyMenuButton" type="Button" parent="CanvasLayer/InventoriesContainer/MenuButtonsGrid"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../ShopInventoryGridContainer")
 disabled = true
 text = "Buy"
 
 [node name="SaleMenuButton" type="Button" parent="CanvasLayer/InventoriesContainer/MenuButtonsGrid"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../PlayerInventoryGridContainer")
 text = "Sale"
 
 [node name="PlayerInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-offset_left = 5.0
-offset_top = 30.0
-offset_right = 5.0
-offset_bottom = 30.0
+offset_left = 0.0
+offset_top = 50.0
+offset_right = 0.0
+offset_bottom = 50.0
+focus_neighbor_top = NodePath("../MenuButtonsGrid/BuyMenuButton")
+focus_neighbor_bottom = NodePath("../../ContinueButton")
+focus_mode = 2
 shop_mode = true
 
 [node name="ShopInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 5.0
-offset_top = 30.0
-offset_right = 5.0
-offset_bottom = 30.0
+offset_left = 0.0
+offset_top = 50.0
+offset_right = 0.0
+offset_bottom = 50.0
+focus_neighbor_top = NodePath("../MenuButtonsGrid/SaleMenuButton")
+focus_neighbor_bottom = NodePath("../../ContinueButton")
+focus_mode = 2
 shop_mode = true
 
 [node name="BuySaleContextMenu" parent="CanvasLayer" instance=ExtResource("2_y8uoq")]
@@ -113,6 +126,17 @@ theme = ExtResource("2_ouimn")
 [node name="NoButton" parent="CanvasLayer/BuySaleContextMenu" index="3"]
 offset_left = 264.0
 offset_right = 307.0
+
+[node name="ItemDetailsOverlay" parent="CanvasLayer" instance=ExtResource("5_wol57")]
+unique_name_in_owner = true
+visible = false
+z_index = 4
+offset_left = 720.0
+offset_top = 140.0
+offset_right = 920.0
+offset_bottom = 440.0
+left_position = Vector2(230, 140)
+right_position = Vector2(720, 140)
 
 [connection signal="pressed" from="CanvasLayer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InventoriesContainer/MenuButtonsGrid/BuyMenuButton" to="." method="_on_buy_menu_button_pressed"]

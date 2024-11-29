@@ -11,6 +11,8 @@ func _ready() -> void:
 	%SfxHSlider.value = Settings.sfx_volume
 	%SeedTextEdit.text = "%d" % Settings._seed
 	%SkipCutscenesCheckBox.button_pressed = Settings.skip_cutscenes
+	%SkipTutorialCheckbox.button_pressed = Settings.skip_tutorial
+	%VeganCheckBox.button_pressed = Settings.vegan
 	%SettingsControl.visible = true
 	%CheatCodesControl.visible = false
 

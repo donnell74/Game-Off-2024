@@ -48,7 +48,7 @@ func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 		UiEvents.UiScene.MAP:
 			enabled = true
 			show_map()
-			if first_scene_visit and not Settings.skip_cutscenes:
+			if first_scene_visit and not Settings.skip_tutorial:
 				enabled = false
 				first_scene_visit = false
 				Dialogic.start("map_tutorial")
