@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnurxmck8x2nv"]
+[gd_scene load_steps=9 format=3 uid="uid://cnurxmck8x2nv"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_ui.gd" id="1_f8nx2"]
 [ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_6we01"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cm6x5rm6ron4s" path="res://DownloadAssets/Inventory SFX Bundle/BagOpen4.mp3" id="4_ps8wt"]
 [ext_resource type="AudioStream" uid="uid://dvdv1th2af6s7" path="res://DownloadAssets/Inventory SFX Bundle/BagClose3.mp3" id="5_7ih2f"]
 [ext_resource type="PackedScene" uid="uid://dco2guxliehnh" path="res://Inventory/item_details_overlay.tscn" id="5_ndc22"]
+[ext_resource type="PackedScene" uid="uid://dleq0707bjlnv" path="res://Locations/activity_summary_overlay.tscn" id="6_el3a6"]
 
 [node name="InventoryUi" type="Control"]
 visible = false
@@ -74,6 +75,10 @@ offset_right = 920.0
 offset_bottom = 440.0
 left_position = Vector2(230, 140)
 right_position = Vector2(720, 140)
+
+[node name="ActivitySummaryOverlay" parent="InventoryCanvas" instance=ExtResource("6_el3a6")]
+unique_name_in_owner = true
+visible = false
 
 [node name="InventoryOpenSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
