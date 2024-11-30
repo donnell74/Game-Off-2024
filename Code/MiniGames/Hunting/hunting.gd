@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	
 	if mouse_position_has_changed(mouse_pos):
 		input_type_button = false
-		last_mouse_pos.global_position = mouse_pos
+		#last_mouse_pos.global_position = mouse_pos
 	
 	var movement = Vector2.ZERO
 	if Input.is_action_pressed("Pan Up"):
@@ -82,7 +82,7 @@ func mouse_position_has_changed(new_mouse_pos: Vector2) -> bool:
 	return not new_mouse_pos.is_equal_approx(last_mouse_pos.global_position) and not new_mouse_pos.is_equal_approx(starting_mouse_pos)
 
 func _input(event: InputEvent) -> void:
-	if cursor_enabled and not is_mouse_pressed and event.is_action_pressed("Left Click"):
+	if cursor_enabled and not is_mouse_pressed and (event.is_action_pressed("Left Click") or event.is_action_pressed("ui_accept")):
 		is_mouse_pressed = true
 		print("Mouse click at position: ", %Cursor.global_position)
 		var objects_under_cursor = %Cursor.get_overlapping_bodies()
@@ -93,7 +93,7 @@ func _input(event: InputEvent) -> void:
 				each_object.queue_free()
 	
 	# So players can drag while holding the shoot button down
-	if event.is_action_released("Left Click"):
+	if (event.is_action_released("Left Click") or event.is_action_released("ui_accept")):
 		is_mouse_pressed = false
 
 func _update_score_label(increment: int) -> void:
