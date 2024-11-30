@@ -11,7 +11,7 @@ extends Control
 
 func _ready() -> void:
 	if not has_node("/root/Main"): # for debugging
-		item = preload("res://Inventory/Items/sushi_with_monster_masago.tres")
+		item = preload("res://Inventory/Items/maki_with_monster_masago.tres")
 		item.modifiers = ItemModifier.from_values(2.5, 2.25, 1.75)
 		update()
 

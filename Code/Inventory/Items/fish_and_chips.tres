@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://dsh28r0cugmpj"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dsh28r0cugmpj"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_j471a"]
+[ext_resource type="Texture2D" uid="uid://c87bhwr7kxdw6" path="res://Inventory/Assets/fish_and_chips.png" id="2_ikxw8"]
 
 [resource]
 script = ExtResource("1_j471a")
 name = "Fish and Chips"
+texture = ExtResource("2_ikxw8")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1

@@ -9,17 +9,17 @@
 [ext_resource type="Resource" uid="uid://bqmiqdj07s7v6" path="res://Recipes/Resources/berry_jam.tres" id="6_xqoqp"]
 [ext_resource type="Resource" uid="uid://c6mn4q24jcpds" path="res://Recipes/Resources/cheese.tres" id="7_w6ekv"]
 [ext_resource type="Resource" uid="uid://byerqmgk25n6b" path="res://Recipes/Resources/fish_and_chips.tres" id="8_yo6sv"]
+[ext_resource type="Resource" uid="uid://dh8rywjb1jcee" path="res://Recipes/Resources/maki_with_moster_masago.tres" id="9_dlogt"]
 [ext_resource type="Resource" uid="uid://daqoe64nq76yf" path="res://Recipes/Resources/maki.tres" id="9_xpg1k"]
 [ext_resource type="Resource" uid="uid://bt7ykrs2e8qe0" path="res://Recipes/Resources/poke_bowl.tres" id="10_mc0ap"]
 [ext_resource type="Resource" uid="uid://oqmlfs6sy0vt" path="res://Recipes/Resources/rabbit_stew.tres" id="11_p8r2b"]
 [ext_resource type="Resource" uid="uid://cr1mbw6x5e00m" path="res://Recipes/Resources/roasted_salmon.tres" id="12_r5pdi"]
+[ext_resource type="Resource" uid="uid://b6nbvyfprst8u" path="res://Recipes/Resources/nigiri.tres" id="13_iofya"]
 [ext_resource type="Resource" uid="uid://ppvs6y16gwf3" path="res://Recipes/Resources/sashimi.tres" id="13_yawuo"]
 [ext_resource type="Resource" uid="uid://bo1x5px66u0eo" path="res://Recipes/Resources/seafood_chowder.tres" id="14_ju870"]
-[ext_resource type="Resource" uid="uid://ds710po5srr0g" path="res://Recipes/Resources/sushi.tres" id="15_c5ete"]
 [ext_resource type="Resource" uid="uid://jfl70kab7tjl" path="res://Recipes/Resources/monster_masago.tres" id="16_hj5qu"]
-[ext_resource type="Resource" uid="uid://dh8rywjb1jcee" path="res://Recipes/Resources/sushi_with_moster_masago.tres" id="17_myh1b"]
 [ext_resource type="Resource" uid="uid://c8wbkcmuieh27" path="res://Recipes/Resources/boiled_rice.tres" id="18_7ive2"]
 
 [resource]
 script = ExtResource("2_q0vo7")
-recipes = Array[ExtResource("1_ur3ht")]([ExtResource("2_jxltx"), ExtResource("3_2wfum"), ExtResource("4_gcc0x"), ExtResource("5_8f33i"), ExtResource("6_xqoqp"), ExtResource("7_w6ekv"), ExtResource("8_yo6sv"), ExtResource("9_xpg1k"), ExtResource("10_mc0ap"), ExtResource("11_p8r2b"), ExtResource("12_r5pdi"), ExtResource("13_yawuo"), ExtResource("14_ju870"), ExtResource("15_c5ete"), ExtResource("16_hj5qu"), ExtResource("17_myh1b"), ExtResource("18_7ive2")])
+recipes = Array[ExtResource("1_ur3ht")]([ExtResource("6_xqoqp"), ExtResource("4_gcc0x"), ExtResource("18_7ive2"), ExtResource("7_w6ekv"), ExtResource("2_jxltx"), ExtResource("8_yo6sv"), ExtResource("9_xpg1k"), ExtResource("9_dlogt"), ExtResource("5_8f33i"), ExtResource("3_2wfum"), ExtResource("16_hj5qu"), ExtResource("13_iofya"), ExtResource("10_mc0ap"), ExtResource("11_p8r2b"), ExtResource("12_r5pdi"), ExtResource("13_yawuo"), ExtResource("14_ju870")])

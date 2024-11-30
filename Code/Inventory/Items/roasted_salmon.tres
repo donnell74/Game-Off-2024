@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://c7vl3h6kimc23"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://c7vl3h6kimc23"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_1tx4x"]
+[ext_resource type="Texture2D" uid="uid://dy8dojyd8863r" path="res://Inventory/Assets/roasted_salmon.png" id="2_uifa1"]
 
 [resource]
 script = ExtResource("1_1tx4x")
 name = "Roasted Salmon"
+texture = ExtResource("2_uifa1")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1
