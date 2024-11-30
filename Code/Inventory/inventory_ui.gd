@@ -65,3 +65,7 @@ func _on_close_button_pressed() -> void:
 func _on_recipe_book_button_pressed() -> void:
 	print("Recipe button, clicked, showing recipe book")
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.RECIPE_BOOK_OPEN)
+
+func _on_recipe_created_animation_animation_finished(anim_name: StringName) -> void:
+	if %InventoryGridContainer.awaiting_feed_cliced and not Settings.skip_tutorial:
+		Dialogic.start("inventory_tutorial_feed")

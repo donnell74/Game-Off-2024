@@ -1,4 +1,4 @@
-chef: Oh I have never made Sashimi before so this menu is showing it is an "Unknown Recipe", next time I make this it will show the Recipe Name
-Create Sashimi by selecting "Unknown Recipe" with A/X or Left Clicking
+chef: Oh I have never made Sashimi before so this menu is showing it is an "New Recipe", next time I make this it will show the Recipe Name
+Create Sashimi by selecting "New Recipe" with A/X or Left Clicking
 [wait time="0.5"]
 [signal arg="inventory_tutorial_focus_recipe_context"]

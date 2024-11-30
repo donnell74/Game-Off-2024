@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnurxmck8x2nv"]
+[gd_scene load_steps=14 format=3 uid="uid://cnurxmck8x2nv"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_ui.gd" id="1_f8nx2"]
 [ext_resource type="PackedScene" uid="uid://c7t4h4vmmoc1q" path="res://Inventory/inventory_grid_container.tscn" id="2_6we01"]
@@ -8,6 +8,133 @@
 [ext_resource type="AudioStream" uid="uid://dvdv1th2af6s7" path="res://DownloadAssets/Inventory SFX Bundle/BagClose3.mp3" id="5_7ih2f"]
 [ext_resource type="PackedScene" uid="uid://dco2guxliehnh" path="res://Inventory/item_details_overlay.tscn" id="5_ndc22"]
 [ext_resource type="PackedScene" uid="uid://dleq0707bjlnv" path="res://Locations/activity_summary_overlay.tscn" id="6_el3a6"]
+[ext_resource type="AudioStream" uid="uid://dnpfptdcb2vmn" path="res://DownloadAssets/Inventory SFX Bundle/Select6.mp3" id="9_78jgt"]
+
+[sub_resource type="Animation" id="Animation_f7k10"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InventoryCanvas/ItemDetailsOverlay:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InventoryCanvas/ItemDetailsOverlay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(720, 140)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InventoryCanvas/NewRecipeCreatedLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4empq"]
+resource_name = "recipe_created_left"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InventoryCanvas/ItemDetailsOverlay:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.96667, 4.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InventoryCanvas/ItemDetailsOverlay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.96667, 4.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(400, 140), Vector2(230, 140)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InventoryCanvas/NewRecipeCreatedLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_fkic8"]
+resource_name = "recipe_created_right"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InventoryCanvas/ItemDetailsOverlay:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.96667, 4.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InventoryCanvas/ItemDetailsOverlay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.96667, 4.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(400, 140), Vector2(720, 140)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InventoryCanvas/NewRecipeCreatedLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 1.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_km13u"]
+_data = {
+"RESET": SubResource("Animation_f7k10"),
+"recipe_created_left": SubResource("Animation_4empq"),
+"recipe_created_right": SubResource("Animation_fkic8")
+}
 
 [node name="InventoryUi" type="Control"]
 visible = false
@@ -71,7 +198,7 @@ unique_name_in_owner = true
 z_index = 4
 offset_left = 720.0
 offset_top = 140.0
-offset_right = 920.0
+offset_right = 945.0
 offset_bottom = 440.0
 left_position = Vector2(230, 140)
 right_position = Vector2(720, 140)
@@ -80,19 +207,53 @@ right_position = Vector2(720, 140)
 unique_name_in_owner = true
 visible = false
 
+[node name="NewRecipeCreatedLabel" type="Label" parent="InventoryCanvas"]
+visible = false
+z_index = 6
+offset_left = 96.0
+offset_top = 214.0
+offset_right = 1093.0
+offset_bottom = 351.0
+theme = ExtResource("2_pejsm")
+theme_override_font_sizes/font_size = 100
+text = "New Recipe Created!"
+
+[node name="ColorRect" type="ColorRect" parent="InventoryCanvas/NewRecipeCreatedLabel"]
+z_index = -1
+layout_mode = 0
+offset_left = -7.0
+offset_top = 58.0
+offset_right = 1024.0
+offset_bottom = 98.0
+color = Color(0.647059, 0.713726, 0.552941, 1)
+
 [node name="InventoryOpenSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_ps8wt")
-volume_db = -15.0
+volume_db = -5.0
 pitch_scale = 1.5
 bus = &"SFX"
 
 [node name="InventoryClosedSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_7ih2f")
-volume_db = -15.0
+volume_db = -5.0
 pitch_scale = 1.5
+bus = &"SFX"
+
+[node name="RecipeCreatedAnimation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_km13u")
+}
+
+[node name="RecipeCreatedSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("9_78jgt")
+volume_db = 2.0
+pitch_scale = 0.8
 bus = &"SFX"
 
 [connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/RecipeBookButton" to="." method="_on_recipe_book_button_pressed"]
 [connection signal="pressed" from="InventoryCanvas/ButtonGridContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="animation_finished" from="RecipeCreatedAnimation" to="." method="_on_recipe_created_animation_animation_finished"]

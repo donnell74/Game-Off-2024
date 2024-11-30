@@ -22,6 +22,7 @@ var inventory_dictionary : Dictionary = {}
 var awaiting_fish_place : bool = false
 var awaiting_open_recipe_context : bool = false
 var awaiting_recipe_clicked : bool = false
+var awaiting_feed_cliced : bool = false
 
 func _ready() -> void:
 	LocationEvents.advance_day.connect(_on_advance_day)
@@ -337,7 +338,7 @@ func build_recipe_context_menu(
 
 	for each_recipe in recipes:
 		if each_recipe.times_cooked == 0:
-			context_menu_item_list.add_item("Unknown Recipe")
+			context_menu_item_list.add_item("New Recipe")
 		else:
 			context_menu_item_list.add_item(each_recipe.output[0].name)
 
@@ -376,6 +377,7 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 			items_removed.append(found_item)
 			take_item_index(each_neighbor)
 	
+	var last_item_made
 	for each_output in recipe.output:
 		var each_item = each_output.duplicate()
 		if not each_item.modifiers:
@@ -383,16 +385,31 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		
 		var combined = StationController.combine_multipliers(items_removed)
 		each_item.modifiers.multiply(combined).multiply(station.modifier)
+		last_item_made = each_item
 		add_item(each_item)
 		
-	RecipeBookController.recipe_cooked.emit(recipe)
 	if has_node("../RecipeContextMenu"):
 		$"../RecipeContextMenu".queue_free()
 	
 	if awaiting_recipe_clicked:
 		enabled = false
 		awaiting_recipe_clicked = false
-		Dialogic.start("inventory_tutorial_feed")
+		awaiting_feed_cliced = true
+	
+	if recipe.times_cooked == 0:
+		var last_item_made_location = find_item(last_item_made.name)
+		var last_item_made_control_name = _get_slot_name(last_item_made_location.x, last_item_made_location.y)
+		var last_item_made_control = find_child(last_item_made_control_name, true, false)
+		last_item_made_control.grab_focus()
+		enabled = false
+		%RecipeCreatedSound.play()
+		if %ItemDetailsOverlay.on_right_side:
+			%RecipeCreatedAnimation.play("recipe_created_left")
+		else:
+			%RecipeCreatedAnimation.play("recipe_created_right")
+	
+	RecipeBookController.recipe_cooked.emit(recipe)
+
 
 func _on_item_context_menu_closed() -> void:
 	if last_right_clicked_slot:
@@ -400,6 +417,7 @@ func _on_item_context_menu_closed() -> void:
 
 func _on_feed_selected() -> void:
 	print("_on_feed_selected")
+	awaiting_feed_cliced = false
 	if last_feed_time_of_of_day == current_time_of_day:
 		Dialogic.start("full_bellies")
 		Dialogic.timeline_ended.connect(_on_full_bellies_timeline_ended)

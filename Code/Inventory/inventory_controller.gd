@@ -155,7 +155,6 @@ func take_entire_item(starting_index: Vector2) -> InventoryItem:
 		return null
 
 	result = current_item
-	var starting_name = current_item.name
 	for neighbor in neighbors:
 		nodes_left_to_vist.append(starting_index + neighbor)
 	
