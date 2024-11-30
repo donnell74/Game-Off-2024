@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://b2bj7ndefvn3r"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://b2bj7ndefvn3r"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_uesxb"]
+[ext_resource type="Texture2D" uid="uid://0vkxomub04ne" path="res://Inventory/Assets/seafood_chowder.png" id="2_maoiu"]
 
 [resource]
 script = ExtResource("1_uesxb")
 name = "Seafood Chowder"
+texture = ExtResource("2_maoiu")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1

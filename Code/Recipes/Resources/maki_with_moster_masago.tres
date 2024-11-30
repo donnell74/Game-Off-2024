@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=6 format=3 uid="uid://dh8rywjb1jcee"]
+
+[ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_v1t3i"]
+[ext_resource type="Resource" uid="uid://c3p470gv1t2yx" path="res://Inventory/Items/monster_masago.tres" id="2_tallg"]
+[ext_resource type="Resource" uid="uid://s8uef015bmv3" path="res://Inventory/Items/maki.tres" id="3_1w84g"]
+[ext_resource type="Resource" uid="uid://c6m7hx8lgdio" path="res://Inventory/Items/maki_with_monster_masago.tres" id="4_yek6e"]
+[ext_resource type="Script" path="res://Recipes/recipe.gd" id="5_e5oe4"]
+
+[resource]
+script = ExtResource("5_e5oe4")
+input = Array[ExtResource("1_v1t3i")]([ExtResource("2_tallg"), ExtResource("3_1w84g")])
+output = Array[ExtResource("1_v1t3i")]([ExtResource("4_yek6e")])
+action = 5
+times_cooked = 0
+tier = 6

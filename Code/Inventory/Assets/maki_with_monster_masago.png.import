@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cicqbrrqyahr8"
-path="res://.godot/imported/sushi_with_monster_masago.png-2488cabff45877d0669b19b216bb7056.ctex"
+path="res://.godot/imported/maki_with_monster_masago.png-f7b487c44f7cfe8da488e9fccf1aece0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Inventory/Assets/sushi_with_monster_masago.png"
-dest_files=["res://.godot/imported/sushi_with_monster_masago.png-2488cabff45877d0669b19b216bb7056.ctex"]
+source_file="res://Inventory/Assets/maki_with_monster_masago.png"
+dest_files=["res://.godot/imported/maki_with_monster_masago.png-f7b487c44f7cfe8da488e9fccf1aece0.ctex"]
 
 [params]
 

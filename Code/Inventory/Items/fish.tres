@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_1eidt"]
 [ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_toytj"]
-[ext_resource type="Texture2D" uid="uid://bmkskrlnkef18" path="res://Map/Assets/fishing.png" id="3_57q8c"]
+[ext_resource type="Texture2D" uid="uid://d2f8x1cedy5ch" path="res://Inventory/Assets/fish.png" id="3_cpmdn"]
 
 [sub_resource type="Resource" id="Resource_or4qs"]
 script = ExtResource("1_toytj")
@@ -13,7 +13,7 @@ strength = 0.1
 [resource]
 script = ExtResource("1_1eidt")
 name = "Fish"
-texture = ExtResource("3_57q8c")
+texture = ExtResource("3_cpmdn")
 modifiers = SubResource("Resource_or4qs")
 rarity = 1.0
 value = 10

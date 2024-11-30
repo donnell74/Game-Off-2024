@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://bp1e1i0skx0tq"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bp1e1i0skx0tq"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_unnfl"]
+[ext_resource type="Texture2D" uid="uid://cb1r3ukkjvfe7" path="res://Inventory/Assets/cooked_rabbit.png" id="2_3ynld"]
 
 [resource]
 script = ExtResource("1_unnfl")
 name = "Rabbit Stew"
+texture = ExtResource("2_3ynld")
+rarity = 1.0
+value = 10
+type = 0
+inventory_width = 1
+inventory_height = 1
