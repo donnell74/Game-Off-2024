@@ -2,6 +2,7 @@ extends InventoryController
 
 signal shop_mode_item_clicked(index: Vector2)
 signal inventory_slot_selected(index: Vector2)
+signal inventory_slot_hovered(index: Vector2)
 
 @export var slot_scene : Resource = preload("res://Inventory/inventory_item_slot.tscn")
 @export var recipe_context_menu = preload("res://Inventory/recipe_context_menu.tscn")
@@ -32,6 +33,7 @@ func _ready() -> void:
 	Dialogic.signal_event.connect(_on_dialogic_signal_event)
 	%ItemDetailsOverlay.set_inventory(inventory)	
 	%ItemDetailsOverlay.set_inventory_slot_clicked_signal(self.inventory_slot_selected)
+	%ItemDetailsOverlay.set_inventory_slot_hovered_signal(self.inventory_slot_hovered)
 
 func _on_dialogic_signal_event(event: String) -> void:
 	match event:
@@ -178,12 +180,16 @@ func _do_generate_inventory_grid() -> void:
 			slot.index = index
 			slot.set_focus_mode(FocusMode.FOCUS_ALL)
 			slot.set_inventory_slot_clicked_signal(self.inventory_slot_selected)
+			slot.inventory_item_slot_hovered.connect(_on_inventory_item_slot_hovered)
 			slot.inventory_item_slot_clicked.connect(_on_inventory_item_slot_clicked)
 			slot.slot_right_clicked.connect(_on_slot_right_clicked)
 			add_child(slot)
 			inventory_dictionary[index] = slot
 			
 	set_focus_neighbors()
+
+func _on_inventory_item_slot_hovered(index: Vector2) -> void:
+	inventory_slot_hovered.emit(index)
 
 func _get_slot_name(pos_x: int, pos_y: int) -> String:
 	return "InventorySlot%dx%d" % [pos_x, pos_y]
