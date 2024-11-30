@@ -57,3 +57,6 @@ func set_inventory(new: Inventory) -> void:
 
 func set_inventory_slot_clicked_signal(clicked_signal: Signal) -> void:
 	clicked_signal.connect(updated_selected)
+
+func set_inventory_slot_hovered_signal(hovered_signal: Signal) -> void:
+	hovered_signal.connect(updated_selected)
