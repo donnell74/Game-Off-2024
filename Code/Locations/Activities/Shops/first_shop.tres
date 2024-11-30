@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Activity" load_steps=9 format=3 uid="uid://cee08f73t404"]
+[gd_resource type="Resource" script_class="Activity" load_steps=10 format=3 uid="uid://cee08f73t404"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_unkqp"]
 [ext_resource type="Script" path="res://Locations/activity.gd" id="2_0nxta"]
@@ -8,11 +8,12 @@
 [ext_resource type="Resource" uid="uid://bdgy2r6xf7cjh" path="res://Inventory/Items/milk.tres" id="5_kc5i8"]
 [ext_resource type="Resource" uid="uid://dxj8seqeeuxp7" path="res://Inventory/Items/butter.tres" id="6_v1yg8"]
 [ext_resource type="Resource" uid="uid://bd3dc2n271ge4" path="res://Inventory/Items/Stations/masher.tres" id="7_jb0k2"]
+[ext_resource type="Resource" uid="uid://ceui3p0ucojg2" path="res://Inventory/Items/Stations/mixing_bowl.tres" id="8_pp4y7"]
 
 [resource]
 script = ExtResource("2_0nxta")
 description = "The only shop in this small twon"
-rewardItems = Array[ExtResource("1_unkqp")]([ExtResource("2_4y8hu"), ExtResource("3_qhh65"), ExtResource("4_d2n8k"), ExtResource("5_kc5i8"), ExtResource("6_v1yg8"), ExtResource("7_jb0k2")])
+rewardItems = Array[ExtResource("1_unkqp")]([ExtResource("2_4y8hu"), ExtResource("3_qhh65"), ExtResource("4_d2n8k"), ExtResource("5_kc5i8"), ExtResource("6_v1yg8"), ExtResource("7_jb0k2"), ExtResource("8_pp4y7")])
 minRewardItems = 1
 maxRewardItems = 3
 rewardCurrency = 0

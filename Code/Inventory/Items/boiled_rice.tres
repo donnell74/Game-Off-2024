@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_ts3ms")
-name = "Rice"
+name = "Boiled Rice"
 texture = ExtResource("2_npiuw")
 rarity = 1.0
 value = 12

@@ -4,12 +4,12 @@
 [ext_resource type="Script" path="res://Locations/activity.gd" id="1_rn0mm"]
 [ext_resource type="Resource" uid="uid://bi47dt7ky5lr5" path="res://Inventory/Items/onions.tres" id="2_yf3e4"]
 [ext_resource type="Resource" uid="uid://bp1e1i0skx0tq" path="res://Inventory/Items/rabbit_stew.tres" id="3_ts62u"]
-[ext_resource type="Resource" uid="uid://dnxki7cqb1jk5" path="res://Inventory/Items/fish.tres" id="4_qbk34"]
+[ext_resource type="Resource" uid="uid://bt07xvaixi73m" path="res://Inventory/Items/monster_fish.tres" id="4_q8tyf"]
 
 [resource]
 script = ExtResource("1_rn0mm")
 description = "Goblin King"
-rewardItems = Array[ExtResource("1_1bcl3")]([ExtResource("2_yf3e4"), ExtResource("3_ts62u"), ExtResource("4_qbk34")])
+rewardItems = Array[ExtResource("1_1bcl3")]([ExtResource("2_yf3e4"), ExtResource("3_ts62u"), ExtResource("4_q8tyf")])
 minRewardItems = 3
 maxRewardItems = 7
 rewardCurrency = 0

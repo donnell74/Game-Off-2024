@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=14 format=3 uid="uid://cg8dfx000up56"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=12 format=3 uid="uid://cg8dfx000up56"]
 
 [ext_resource type="Resource" uid="uid://bob22ywvwvnvi" path="res://Inventory/Items/Stations/knife.tres" id="1_fwewe"]
 [ext_resource type="Script" path="res://Inventory/inventory.gd" id="2_gwfnm"]
@@ -7,8 +7,6 @@
 [ext_resource type="Resource" uid="uid://bdgy2r6xf7cjh" path="res://Inventory/Items/milk.tres" id="4_a0d0i"]
 [ext_resource type="Resource" uid="uid://blivvph2lqcof" path="res://Inventory/Items/Stations/boiling_pot.tres" id="6_goylx"]
 [ext_resource type="Resource" uid="uid://b1ac4yj1nddo2" path="res://Inventory/Items/berries.tres" id="7_1jeqw"]
-[ext_resource type="Resource" uid="uid://bt07xvaixi73m" path="res://Inventory/Items/monster_fish.tres" id="7_38jcb"]
-[ext_resource type="Resource" uid="uid://ceui3p0ucojg2" path="res://Inventory/Items/Stations/mixing_bowl.tres" id="8_tac5v"]
 [ext_resource type="Resource" uid="uid://du826wdoaxnhe" path="res://Inventory/Items/Stations/sauce_pan.tres" id="10_atvxi"]
 [ext_resource type="Resource" uid="uid://dnxki7cqb1jk5" path="res://Inventory/Items/fish.tres" id="11_65cke"]
 [ext_resource type="Resource" uid="uid://cmtnkp4vee3uy" path="res://Inventory/Items/rice.tres" id="13_tbwkl"]
@@ -23,9 +21,7 @@ Vector2(0, 0): ExtResource("6_goylx"),
 Vector2(0, 2): ExtResource("7_1jeqw"),
 Vector2(1, 2): ExtResource("3_odc2n"),
 Vector2(2, 0): ExtResource("1_fwewe"),
-Vector2(4, 0): ExtResource("8_tac5v"),
 Vector2(4, 2): ExtResource("4_a0d0i"),
-Vector2(5, 2): ExtResource("7_38jcb"),
 Vector2(6, 0): ExtResource("11_65cke"),
 Vector2(7, 0): ExtResource("10_atvxi"),
 Vector2(7, 3): ExtResource("2_hab74"),

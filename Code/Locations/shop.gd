@@ -55,7 +55,7 @@ func update_ui() -> void:
 	var index = 0
 	for each_item in location.afternoonActivities[0].rewardItems:
 		shopInventory.items[Vector2(index, 0)] = each_item # TODO: Handle more than 10 items
-		index += 1
+		index += each_item.inventory_width
 	
 	%ShopInventoryGridContainer.set_inventory(shopInventory)
 
