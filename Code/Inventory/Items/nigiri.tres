@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://ccmj2pl6ls8ot"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_oj01l"]
-[ext_resource type="Texture2D" uid="uid://caxflkm8ro8fj" path="res://Inventory/Assets/sashimi.png" id="2_mk0lm"]
+[ext_resource type="Texture2D" uid="uid://slh6qle2337l" path="res://Inventory/Assets/nigiri.png" id="2_5mdsp"]
 
 [resource]
 script = ExtResource("1_oj01l")
 name = "Nigiri"
-texture = ExtResource("2_mk0lm")
+texture = ExtResource("2_5mdsp")
 rarity = 1.0
 value = 15
 type = 0
