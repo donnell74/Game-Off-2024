@@ -60,6 +60,7 @@ func _on_advance_day() -> void:
 func _on_timer_timeout() -> void:
 	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
 	print("Location TimeOfDay: %s" % Location.TimeOfDay.keys()[location.currentTimeOfDay])
+	LocationEvents.advance_day_done.emit()
 	if location.currentTimeOfDay == Location.TimeOfDay.END_OF_DAY:
 		location_simulation_done.emit()
 		LocationEvents.end_of_day.emit()

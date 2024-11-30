@@ -51,6 +51,7 @@ func simulate_activity(activity: Activity) -> void:
 	if activity.rewardItems.size() > 0:
 		print("Activity potential rewards: ", activity.rewardItems)
 		for reward in select_random_items(activity.rewardItems, activity.minRewardItems, activity.maxRewardItems):
+			LocationEvents.reward_item_added.emit(reward)
 			PlayerInventoryController.add_item(reward)
 		
 		# handle decrementing 

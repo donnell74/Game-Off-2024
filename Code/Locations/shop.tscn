@@ -81,7 +81,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../../PlayerInventoryGridContainer")
-text = "Sale"
+text = "Sell"
 
 [node name="PlayerInventoryGridContainer" parent="CanvasLayer/InventoriesContainer" instance=ExtResource("2_n0al8")]
 unique_name_in_owner = true

@@ -89,6 +89,7 @@ func apply_to_each_member(stat: Stats, amount: float) -> void:
 
 func apply_party_damage(stat: Stats, amount: float) -> void:
 	if Settings.has_cheat_code(Settings.CHEAT_CODES.SUPERMAN):
+		party_stats_changed.emit()
 		return
 	
 	var damagePerIteration = get_max_party_level() # so we spread out the damage but don't iterate 1 by 1
@@ -132,4 +133,10 @@ func party_stats() -> String:
 	var result = "Team: Level: %d, Health: %d, Strength: %d, Stamina: %d\n" % \
 		[get_max_party_level(), get_total_party_health(), get_total_party_strength(), get_total_party_stamina()]
 	return result
+
+func duplicate_party() -> Party:
+	var new_party = Party.new()
+	for each_member in party.members:
+		new_party.members.append(each_member.duplicate(true))
 	
+	return new_party

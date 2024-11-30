@@ -2,6 +2,7 @@ extends Node2D
 
 func _ready() -> void:
 	UiEvents.active_ui_changed.connect(_on_active_ui_changed)
+	LocationEvents.advance_day_done.connect(_on_advance_day_done)
 	PartyController.party_stats_changed.connect(populatePartyStats)
 	Dialogic.timeline_started.connect(_on_dialogic_timeline_started)
 	Dialogic.timeline_ended.connect(_on_dialogic_timeline_stopped)
@@ -81,10 +82,10 @@ func _on_continue_day_button_pressed() -> void:
 	%ButtonClickedSound.play()
 	
 	if has_node("/root/Location"):
+		%ActivitySummaryOverlay.reset()
 		LocationEvents.advance_day.emit()
 	else:
 		UiEvents.active_ui_changed.emit(UiEvents.UiScene.MAP)
-
 
 func populatePartyStats():
 	# Clean up the grid
@@ -102,3 +103,8 @@ func populatePartyStats():
 		teamMemberLabel.theme = preload("res://Themes/overall_theme.tres")
 		teamMemberLabel.text = member.to_string()
 		%PartyStatsGrid.add_child(teamMemberLabel)
+
+func _on_advance_day_done() -> void:
+	if has_node("/root/Location"):
+		var location_node = get_node("/root/Location")
+		%ActivitySummaryOverlay.update_ui()

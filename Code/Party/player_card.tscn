@@ -1,0 +1,152 @@
+[gd_scene load_steps=3 format=3 uid="uid://64he387fibvb"]
+
+[ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="1_ph7ku"]
+[ext_resource type="Script" path="res://Party/player_card.gd" id="1_va7nd"]
+
+[node name="PlayerCard" type="Control"]
+custom_minimum_size = Vector2(300, 130)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 130.0
+script = ExtResource("1_va7nd")
+
+[node name="Shadow" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.203922, 0.203922, 0.203922, 0.67451)
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.643137, 0.709804, 0.54902, 1)
+
+[node name="PlayerName" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_right = 49.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("1_ph7ku")
+text = "Player Name"
+
+[node name="PartyGridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 26.0
+offset_right = 291.0
+offset_bottom = 118.0
+
+[node name="HealthContainer" type="Control" parent="PartyGridContainer"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="StatLabel" type="Label" parent="PartyGridContainer/HealthContainer"]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "Health"
+
+[node name="HealthValueLabel" type="Label" parent="PartyGridContainer/HealthContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 134.0
+offset_right = 174.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "600"
+
+[node name="HealthChangeLabel" type="Label" parent="PartyGridContainer/HealthContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 229.0
+offset_right = 269.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "-300"
+
+[node name="StaminaContainer" type="Control" parent="PartyGridContainer"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="StatLabel" type="Label" parent="PartyGridContainer/StaminaContainer"]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "Stamina"
+
+[node name="StaminaValueLabel" type="Label" parent="PartyGridContainer/StaminaContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 134.0
+offset_right = 174.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "600"
+
+[node name="StaminaChangeLabel" type="Label" parent="PartyGridContainer/StaminaContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 229.0
+offset_right = 269.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "-300"
+
+[node name="StrengthContainer" type="Control" parent="PartyGridContainer"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="StatLabel" type="Label" parent="PartyGridContainer/StrengthContainer"]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "Strength"
+
+[node name="StrengthValueLabel" type="Label" parent="PartyGridContainer/StrengthContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 134.0
+offset_right = 174.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "600"
+
+[node name="StrengthChangeLabel" type="Label" parent="PartyGridContainer/StrengthContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 229.0
+offset_right = 269.0
+offset_bottom = 23.0
+theme = ExtResource("1_ph7ku")
+text = "-300"
+
+[node name="ChangeApplyTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[node name="StartChangeAnimTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="ChangeApplyTimer" to="." method="_on_change_apply_timer_timeout"]
+[connection signal="timeout" from="StartChangeAnimTimer" to="." method="_on_start_change_anim_timer_timeout"]
