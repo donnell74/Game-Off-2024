@@ -409,8 +409,9 @@ func _on_feed_selected() -> void:
 	if last_right_clicked_slot:
 		var item = PlayerInventoryController.take_item_index(last_right_clicked_slot.index)
 		print("Feeding selected item to party: %s" % item.name)
+		%ActivitySummaryOverlay.reset()
 		PartyController.feed_party_item(item)
-		last_right_clicked_slot.grab_focus()
+		%ActivitySummaryOverlay.update_ui(UiEvents.UiScene.INVENTORY_OPEN)
 	else:
 		print("Skipping feeding since no selected item")
 

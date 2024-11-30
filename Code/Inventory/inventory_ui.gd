@@ -52,8 +52,8 @@ func _on_item_dropped_inventory_full(_item: InventoryItem) -> void:
 
 func _on_active_ui_changed(newActive: UiEvents.UiScene) -> void:
 	match newActive:
-		UiEvents.UiScene.INVENTORY_OPEN,UiEvents.UiScene.INVENTORY_CLOSED:
-			pass # _toggle_inventory is doing all the work
+		UiEvents.UiScene.INVENTORY_OPEN, UiEvents.UiScene.INVENTORY_CLOSED:
+			%CloseButton.grab_focus()
 		_:
 			%InventoryCanvas.visible = false
 

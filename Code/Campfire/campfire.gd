@@ -107,4 +107,4 @@ func populatePartyStats():
 func _on_advance_day_done() -> void:
 	if has_node("/root/Location"):
 		var location_node = get_node("/root/Location")
-		%ActivitySummaryOverlay.update_ui()
+		%ActivitySummaryOverlay.update_ui(UiEvents.UiScene.CAMPFIRE)

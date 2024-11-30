@@ -85,7 +85,5 @@ speed_scale = 0.2
 [node name="Clock" parent="." instance=ExtResource("4_b4x3k")]
 unique_name_in_owner = true
 visible = false
-indicator_on_color = Color(0.835294, 0, 0.0705882, 1)
-indicator_off_color = Color(0.247059, 0.121569, 0.113725, 1)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

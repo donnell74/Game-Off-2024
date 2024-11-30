@@ -2,6 +2,7 @@ extends Control
 
 var starting_party_stats : Party
 var reward_items : Array[InventoryItem] = []
+var scene_on_continue : UiEvents.UiScene = UiEvents.UiScene.CAMPFIRE
 
 func _ready() -> void:
 	%CanvasLayer.visible = visible
@@ -14,7 +15,8 @@ func reset() -> void:
 func _on_reward_item_added(item: InventoryItem) -> void:
 	reward_items.append(item)
 
-func update_ui() -> void:
+func update_ui(scene: UiEvents.UiScene) -> void:
+	scene_on_continue = scene
 	visible = true
 	%CanvasLayer.visible = true
 	%ContinueButton.grab_focus()
@@ -37,4 +39,4 @@ func update_reward_items() -> void:
 func _on_continue_button_pressed() -> void:
 	visible = false
 	%CanvasLayer.visible = false
-	UiEvents.active_ui_changed.emit(UiEvents.UiScene.CAMPFIRE)
+	UiEvents.active_ui_changed.emit(scene_on_continue)
