@@ -108,3 +108,9 @@ func _on_advance_day_done() -> void:
 	if has_node("/root/Location"):
 		var location_node = get_node("/root/Location")
 		%ActivitySummaryOverlay.update_ui(UiEvents.UiScene.CAMPFIRE)
+
+func _on_inventory_button_pressed() -> void:
+	var inv_input = InputEventAction.new()
+	inv_input.action = "Toggle Inventory"
+	inv_input.pressed = true
+	Input.parse_input_event(inv_input)
