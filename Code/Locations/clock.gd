@@ -42,7 +42,6 @@ func update_ui() -> void:
 			%PmIndicator.modulate = indicator_on_color
 
 func _on_clock_tick_timer_timeout() -> void:
-	print("_on_clock_tick_timer_timeout", current_hour, " => ", goal_hour)
 	if current_hour < goal_hour:
 		current_hour += hour_increment
 		update_ui()

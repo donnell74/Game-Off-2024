@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bh2lobbodbpsk"]
+[gd_scene load_steps=16 format=3 uid="uid://bh2lobbodbpsk"]
 
 [ext_resource type="Script" path="res://Campfire/campfire.gd" id="1_ip6u0"]
 [ext_resource type="Texture2D" uid="uid://sgjx4ugxdga7" path="res://Campfire/Assets/stary sky.png" id="2_bog7q"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://cjoh1pmvhw5l0" path="res://Themes/overall_theme.tres" id="3_5t286"]
 [ext_resource type="AudioStream" uid="uid://bffxnblycg4s3" path="res://DownloadAssets/Inventory SFX Bundle/CampAmbience.mp3" id="3_qb6jm"]
 [ext_resource type="AudioStream" uid="uid://3ibrir2bi533" path="res://DownloadAssets/Inventory SFX Bundle/Button7.mp3" id="4_b6pl7"]
+[ext_resource type="PackedScene" uid="uid://dleq0707bjlnv" path="res://Locations/activity_summary_overlay.tscn" id="8_1yste"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_miy7q"]
 atlas = ExtResource("2_scvih")
@@ -200,5 +201,9 @@ parameters/looping = false
 [node name="ButtonClickedSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_b6pl7")
+
+[node name="ActivitySummaryOverlay" parent="." instance=ExtResource("8_1yste")]
+unique_name_in_owner = true
+visible = false
 
 [connection signal="pressed" from="ContinueDayButton" to="." method="_on_continue_day_button_pressed"]
