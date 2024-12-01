@@ -82,10 +82,12 @@ func _on_focus_changed(control: Control) -> void:
 		
 		inventory_slot_selected.emit(selected_slot)
 
-func _reset_item_refs() -> void:
+func _reset_board_highlights() -> void:
 	for each_child in get_children():
-		if "root_selected" in each_child:
+		if each_child.has_method("updated_neighbor_tool_hover"):
+			each_child.updated_neighbor_tool_hover(false)
 			each_child.root_selected = false
+			each_child.updated_selected(Vector2(-1, -1))
 
 func _update_item_refs_to_selected(selected_slot: Vector2, newSelected: bool) -> void:
 	var selected_item : Resource = null
@@ -266,7 +268,7 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 		if item_at_index is InventoryItemSlotRef:
 			%InventoryItemDraggable.original_index = item_at_index.root_node_index
 
-		_reset_item_refs()
+		_reset_board_highlights()
 		item_at_index = take_entire_item(index)
 		if not item_at_index:
 			return
@@ -386,7 +388,7 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		if found != -1:
 			var found_item = recipe_items_to_find.pop_at(found)
 			items_removed.append(found_item)
-			take_item_index(each_neighbor)
+			take_entire_item(each_neighbor)
 	
 	var last_item_made
 	for each_output in recipe.output:
@@ -419,6 +421,7 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 		else:
 			%RecipeCreatedAnimation.play("recipe_created_right")
 	
+	_reset_board_highlights()
 	RecipeBookController.recipe_cooked.emit(recipe)
 
 
