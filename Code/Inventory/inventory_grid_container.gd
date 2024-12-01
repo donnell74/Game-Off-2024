@@ -424,7 +424,6 @@ func _on_recipe_selected(recipe: Recipe, neighbors: Array[Vector2], station: Sta
 	_reset_board_highlights()
 	RecipeBookController.recipe_cooked.emit(recipe)
 
-
 func _on_item_context_menu_closed() -> void:
 	if last_right_clicked_slot:
 		last_right_clicked_slot.grab_focus()
