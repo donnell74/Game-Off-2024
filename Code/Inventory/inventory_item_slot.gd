@@ -50,8 +50,10 @@ func set_inventory_slot_clicked_signal(clicked_signal: Signal) -> void:
 
 func _on_mouse_entered() -> void:
 	mouseOver = true
-	inventory_item_slot_hovered.emit(index)
+	if get_parent().enabled:
+		inventory_item_slot_hovered.emit(index)
 
 func _on_mouse_exited() -> void:
 	mouseOver = false
-	inventory_item_slot_hovered.emit(Vector2(-1, -1))
+	if get_parent().enabled:
+		inventory_item_slot_hovered.emit(Vector2(-1, -1))

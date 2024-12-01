@@ -141,6 +141,7 @@ visible = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_f8nx2")
+enabled = false
 
 [node name="InventoryCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
