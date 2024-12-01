@@ -82,6 +82,11 @@ func _on_focus_changed(control: Control) -> void:
 		
 		inventory_slot_selected.emit(selected_slot)
 
+func _reset_item_refs() -> void:
+	for each_child in get_children():
+		if "root_selected" in each_child:
+			each_child.root_selected = false
+
 func _update_item_refs_to_selected(selected_slot: Vector2, newSelected: bool) -> void:
 	var selected_item : Resource = null
 	var root_node_index = selected_slot
@@ -261,7 +266,7 @@ func _on_inventory_item_slot_clicked(index: Vector2) -> void:
 		if item_at_index is InventoryItemSlotRef:
 			%InventoryItemDraggable.original_index = item_at_index.root_node_index
 
-		_update_item_refs_to_selected(%InventoryItemDraggable.original_index, false)		
+		_reset_item_refs()
 		item_at_index = take_entire_item(index)
 		if not item_at_index:
 			return
