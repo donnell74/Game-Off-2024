@@ -5,8 +5,8 @@ extends Control
 @export var left_position : Vector2
 @export var right_position : Vector2
 @export var on_right_side : bool = true
-@export var full_star_threshold : float = 0.5
-@export var half_star_threshold : float = 0.25
+@export var full_star_threshold : float = 2
+@export var half_star_threshold : float = 1
 @export var stars_per_stat : int = 6
 
 func _ready() -> void:
@@ -18,11 +18,13 @@ func _ready() -> void:
 func update() -> void:
 	%ItemTexture.texture = item.texture
 	%ItemNameLabel.text = item.name
+	print(item.modifiers)
 	set_stars(%HealthContainer, item.modifiers.health)
 	set_stars(%StaminaContainer, item.modifiers.stamina)
 	set_stars(%StrengthContainer, item.modifiers.strength)
 
 func set_stars(container: Control, amount: float) -> void:
+	amount = max(half_star_threshold, amount)
 	for each_child in container.get_children():
 		if each_child is TextureRect:
 			each_child.queue_free()
@@ -33,8 +35,10 @@ func set_stars(container: Control, amount: float) -> void:
 		new_star.visible = true
 		if amount > (each_star * full_star_threshold):
 			new_star.texture.region.position.x = 0
-		elif amount - (each_star * full_star_threshold) >= half_star_threshold:
-			new_star.texture.region.position.x = 16
+		else:
+			amount -= each_star * full_star_threshold
+			if amount >= half_star_threshold || each_star == 1:
+				new_star.texture.region.position.x = 16
 
 		container.add_child(new_star)
 

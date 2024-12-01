@@ -6,9 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_wyxrd"]
 script = ExtResource("1_lpqcl")
-health = 0.1
-stamina = 0.1
-strength = 0.1
+health = 1.1
+stamina = 1.1
+strength = 1.1
 
 [resource]
 script = ExtResource("1_two3n")

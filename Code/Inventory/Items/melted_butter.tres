@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://ddmh2dgmpdakk"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://ddmh2dgmpdakk"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_kml20"]
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_veb14"]
 [ext_resource type="Texture2D" uid="uid://5d5t37sfr4k3" path="res://Inventory/Assets/melted_butter.png" id="2_8qbrj"]
+
+[sub_resource type="Resource" id="Resource_macok"]
+script = ExtResource("1_veb14")
+health = 1.2
+stamina = 1.2
+strength = 1.2
 
 [resource]
 script = ExtResource("1_kml20")
 name = "Melted Butter"
 texture = ExtResource("2_8qbrj")
+modifiers = SubResource("Resource_macok")
 rarity = 1.0
 value = 12
 type = 0

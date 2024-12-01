@@ -112,8 +112,15 @@ func _on_shop_inventory_grid_container_shop_mode_item_clicked(index: Vector2) ->
 		%ShopInventoryGridContainer.enabled = false
 		%ItemDetailsOverlay.visible = false
 		%BuySaleContextMenu.visible = true
-		%BuySaleContextMenu.find_child("YesButton").grab_focus()
-		%BuySaleContextMenu.get_node("Label").text = "Do you want to buy %s for %d gold?" % [selected_item.name, selected_item.value]
+		if selected_item.value >  PartyController.get_party_currency():
+			%BuySaleContextMenu.get_node("Label").text = "You don't have enough money to buy. Have %s, Need %d gold?" % [PartyController.get_party_currency(), selected_item.value]
+			%BuySaleContextMenu.find_child("YesButton").visible = false
+			%BuySaleContextMenu.find_child("NoButton").text = "Okay"
+		else:
+			%BuySaleContextMenu.find_child("YesButton").visible = true
+			%BuySaleContextMenu.find_child("NoButton").text = "No"
+			%BuySaleContextMenu.find_child("YesButton").grab_focus()
+			%BuySaleContextMenu.get_node("Label").text = "Do you want to buy %s for %d gold?" % [selected_item.name, selected_item.value]
 
 func _on_no_button_pressed() -> void:
 	%BuySaleContextMenu.visible = false

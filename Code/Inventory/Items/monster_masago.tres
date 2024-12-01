@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://c3p470gv1t2yx"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://c3p470gv1t2yx"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_6rxit"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_igwt1"]
 [ext_resource type="Texture2D" uid="uid://7rgdn5c3nrbu" path="res://Inventory/Assets/masago.png" id="3_orort"]
+
+[sub_resource type="Resource" id="Resource_4kfx6"]
+script = ExtResource("1_6rxit")
+health = 1.4
+stamina = 1.4
+strength = 1.4
 
 [resource]
 script = ExtResource("1_igwt1")
 name = "Monster Masago"
 texture = ExtResource("3_orort")
+modifiers = SubResource("Resource_4kfx6")
 rarity = 4.0
 value = 100
 type = 0

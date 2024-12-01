@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://1ne47rfdydf4"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://1ne47rfdydf4"]
 
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_agc2q"]
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_do7gp"]
 [ext_resource type="Texture2D" uid="uid://d017swooxl1mb" path="res://Inventory/Assets/cheese.png" id="2_uv50n"]
+
+[sub_resource type="Resource" id="Resource_3dy5q"]
+script = ExtResource("1_do7gp")
+health = 1.4
+stamina = 1.4
+strength = 1.4
 
 [resource]
 script = ExtResource("1_agc2q")
 name = "Cheese"
 texture = ExtResource("2_uv50n")
+modifiers = SubResource("Resource_3dy5q")
 rarity = 1.0
 value = 12
 type = 0

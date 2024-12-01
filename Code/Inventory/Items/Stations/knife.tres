@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bob22ywvwvnvi"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://bob22ywvwvnvi"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_e5mda"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_s6c62"]
 [ext_resource type="Texture2D" uid="uid://cbxg3xuocjoh0" path="res://Cooking/Assets/knife.png" id="2_opuwa"]
+
+[sub_resource type="Resource" id="Resource_6ytvy"]
+script = ExtResource("1_e5mda")
+health = 1.0
+stamina = 1.0
+strength = 1.25
 
 [resource]
 script = ExtResource("1_s6c62")
 name = "Knife"
 texture = ExtResource("2_opuwa")
+modifiers = SubResource("Resource_6ytvy")
 rarity = 1.0
 value = 100
 type = 1

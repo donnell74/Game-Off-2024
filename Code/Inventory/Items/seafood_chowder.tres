@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://b2bj7ndefvn3r"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://b2bj7ndefvn3r"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_cnvkm"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_uesxb"]
 [ext_resource type="Texture2D" uid="uid://0vkxomub04ne" path="res://Inventory/Assets/seafood_chowder.png" id="2_maoiu"]
+
+[sub_resource type="Resource" id="Resource_yugy0"]
+script = ExtResource("1_cnvkm")
+health = 1.7
+stamina = 1.7
+strength = 1.7
 
 [resource]
 script = ExtResource("1_uesxb")
 name = "Seafood Chowder"
 texture = ExtResource("2_maoiu")
+modifiers = SubResource("Resource_yugy0")
 rarity = 1.0
 value = 35
 type = 0
