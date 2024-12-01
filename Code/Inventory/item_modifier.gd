@@ -23,6 +23,12 @@ func add(other: ItemModifier) -> ItemModifier:
 	stamina += other.stamina
 	strength += other.strength
 	return self
+	
+func divide(value: int) -> ItemModifier:
+	health /= value
+	stamina /= value
+	strength /= value
+	return self
 
 func multiply(other: ItemModifier) -> ItemModifier:
 	if !other:

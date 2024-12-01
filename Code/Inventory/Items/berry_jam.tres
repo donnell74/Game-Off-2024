@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://ds16lpuq64on"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://ds16lpuq64on"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_7dkiw"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_ktygx"]
 [ext_resource type="Texture2D" uid="uid://cmdc6o1y4jmtt" path="res://Inventory/Assets/berry_jam.png" id="2_rxt6o"]
+
+[sub_resource type="Resource" id="Resource_w2f4k"]
+script = ExtResource("1_7dkiw")
+health = 1.6
+stamina = 1.6
+strength = 1.6
 
 [resource]
 script = ExtResource("1_ktygx")
 name = "Berry Jam"
 texture = ExtResource("2_rxt6o")
+modifiers = SubResource("Resource_w2f4k")
 rarity = 1.0
 value = 25
 type = 0

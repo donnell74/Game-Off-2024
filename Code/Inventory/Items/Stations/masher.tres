@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bd3dc2n271ge4"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://bd3dc2n271ge4"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_10nvc"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_ujy0y"]
 [ext_resource type="Texture2D" uid="uid://hfq4fy7paf4h" path="res://Inventory/Assets/masher.png" id="3_ksgku"]
+
+[sub_resource type="Resource" id="Resource_su7a3"]
+script = ExtResource("1_10nvc")
+health = 1.3
+stamina = 1.0
+strength = 1.0
 
 [resource]
 script = ExtResource("1_ujy0y")
 name = "Masher"
 texture = ExtResource("3_ksgku")
+modifiers = SubResource("Resource_su7a3")
 rarity = 1.0
 value = 100
 type = 1

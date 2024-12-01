@@ -70,8 +70,10 @@ func get_permutations(input: Array[InventoryItem]) -> Array:
 
 func combine_multipliers(item_array: Array[InventoryItem]) -> ItemModifier:
 	var item_modifier = ItemModifier.from_values(0.0, 0.0, 0.0)
+	var count = 0
 	for each_item in item_array:
 		print("%s => %s" % [each_item.name, each_item.modifiers])
 		item_modifier.add(each_item.modifiers)
+		count += 1
 
-	return item_modifier
+	return item_modifier.divide(count)

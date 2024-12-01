@@ -9,6 +9,8 @@ class_name PartyMember
 @export var stamina : float = 100.0
 @export var strength : float = 100.0
 @export var level : int = 1
+@export var max_stat_modifier: float = 12.0
+@export var max_stat_multiplier: float = 0.25
 
 func decrement_health(amount: float) -> float:
 	health -= amount
@@ -38,13 +40,19 @@ func decrement_strength(amount: float) -> float:
 	return extra
 
 func apply_strength_modifier(amount: float) -> void:
-	strength += amount * base_strength
+	amount = min(max_stat_modifier, amount)
+	var normalized_amount = max_stat_multiplier * (amount / max_stat_modifier)
+	strength += (1 + normalized_amount) * base_strength
 
 func apply_stamina_modifier(amount: float) -> void:
-	stamina += amount * base_stamina
+	amount = min(max_stat_modifier, amount)
+	var normalized_amount = max_stat_multiplier * (amount / max_stat_modifier)
+	stamina += (1 + normalized_amount) * base_strength
 
 func apply_health_modifier(amount: float) -> void:
-	health += amount * base_health
+	amount = min(max_stat_modifier, amount)
+	var normalized_amount = max_stat_multiplier * (amount / max_stat_modifier)
+	health += (1 + normalized_amount) * base_strength
 
 func _to_string() -> String:
 	return "%s: Level: %d, Health: %d, Stamina: %d, Strength: %d" % \

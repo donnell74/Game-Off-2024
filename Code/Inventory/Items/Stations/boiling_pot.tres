@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://blivvph2lqcof"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://blivvph2lqcof"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_aeqsu"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_y7dgq"]
 [ext_resource type="Texture2D" uid="uid://cm866dk2kdg4c" path="res://Inventory/Assets/boiling_pot.png" id="3_7h1r3"]
+
+[sub_resource type="Resource" id="Resource_pubsl"]
+script = ExtResource("1_aeqsu")
+health = 1.25
+stamina = 1.0
+strength = 1.0
 
 [resource]
 script = ExtResource("1_y7dgq")
 name = "Boiling Pot"
 texture = ExtResource("3_7h1r3")
+modifiers = SubResource("Resource_pubsl")
 rarity = 1.0
 value = 100
 type = 1

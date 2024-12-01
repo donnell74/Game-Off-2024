@@ -1,12 +1,20 @@
-[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://bp1e1i0skx0tq"]
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=5 format=3 uid="uid://bp1e1i0skx0tq"]
 
+[ext_resource type="Script" path="res://Inventory/item_modifier.gd" id="1_rfl7b"]
 [ext_resource type="Script" path="res://Inventory/inventory_item.gd" id="1_unnfl"]
 [ext_resource type="Texture2D" uid="uid://cb1r3ukkjvfe7" path="res://Inventory/Assets/cooked_rabbit.png" id="2_3ynld"]
+
+[sub_resource type="Resource" id="Resource_kkamm"]
+script = ExtResource("1_rfl7b")
+health = 1.5
+stamina = 1.5
+strength = 1.5
 
 [resource]
 script = ExtResource("1_unnfl")
 name = "Rabbit Stew"
 texture = ExtResource("2_3ynld")
+modifiers = SubResource("Resource_kkamm")
 rarity = 1.0
 value = 25
 type = 0
