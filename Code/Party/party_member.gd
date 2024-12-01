@@ -42,17 +42,17 @@ func decrement_strength(amount: float) -> float:
 func apply_strength_modifier(amount: float) -> void:
 	amount = min(max_stat_modifier, amount)
 	var normalized_amount = max_stat_multiplier * (amount / max_stat_modifier)
-	strength += (1 + normalized_amount) * base_strength
+	strength += normalized_amount * base_strength
 
 func apply_stamina_modifier(amount: float) -> void:
 	amount = min(max_stat_modifier, amount)
 	var normalized_amount = max_stat_multiplier * (amount / max_stat_modifier)
-	stamina += (1 + normalized_amount) * base_strength
+	stamina += normalized_amount * base_strength
 
 func apply_health_modifier(amount: float) -> void:
 	amount = min(max_stat_modifier, amount)
 	var normalized_amount = max_stat_multiplier * (amount / max_stat_modifier)
-	health += (1 + normalized_amount) * base_strength
+	health += normalized_amount * base_strength
 
 func _to_string() -> String:
 	return "%s: Level: %d, Health: %d, Stamina: %d, Strength: %d" % \

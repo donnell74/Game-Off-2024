@@ -51,6 +51,10 @@ directories/dtl_directory={
 "party_stat_depleted": "res://Timelines/party_stat_depleted.dtl"
 }
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
