@@ -132,6 +132,7 @@ offset_right = 395.0
 offset_bottom = 610.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_right = NodePath("../InventoryButton")
 theme = ExtResource("3_5t286")
 text = "Continue Day"
 
@@ -219,6 +220,7 @@ offset_right = 918.0
 offset_bottom = 610.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_left = NodePath("../ContinueDayButton")
 theme = ExtResource("3_5t286")
 text = "Inventory"
 

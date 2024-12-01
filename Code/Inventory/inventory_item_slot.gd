@@ -41,7 +41,7 @@ func updated_selected(slot_index: Vector2) -> void:
 	if selected:
 		%Background.modulate = selected_color
 	elif root_selected:
-		%Background.modulate = root_selected_color		
+		%Background.modulate = root_selected_color
 	else:
 		%Background.modulate = unselected_color
 
